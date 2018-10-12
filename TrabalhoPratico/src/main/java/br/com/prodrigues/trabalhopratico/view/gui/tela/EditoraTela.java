@@ -471,7 +471,14 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
 
     @Override
     public boolean delete(Editora object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (confirmado){
+            showMessage("Quer deletar?"+ object.getNamepublisher());
+            return true;
+        }
+        else{
+            showMessage("NAO DELETADO,"+ object.getNamepublisher());
+            return false;
+        }
     }
 
     @Override
@@ -502,7 +509,41 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
 
     @Override
     public void preparaUpdate(Editora object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        labTitulo.setText("Cadastro de Editora");
+        edtName.setText(object.getNamepublisher());
+        edtName.setEditable(true);
+        edtName.setEnabled(true);
+        
+        edtEmail.setText(object.getEmail());
+        edtEmail.setEditable(true);
+        edtEmail.setEnabled(true);
+        
+        edtTelefone.setText(object.getTelefones().get(0).getNumero());
+        edtTelefone.setEditable(true);
+        edtTelefone.setEnabled(true);
+        
+        edtTelefoneFixo.setText(object.getTelefones().get(0).getNumero());
+        edtTelefoneFixo.setEditable(true);
+        edtTelefoneFixo.setEnabled(true);
+        //ENDEREÇO
+        edtLogradouroNome.setText(object.getEnderecos().get(0).getLogradouro());
+        edtLogradouroNome.setEditable(true);
+        edtLogradouroNome.setEnabled(true);
+        
+        edtBairroDistrito.setText(object.getEnderecos().get(0).getBairro());
+        edtBairroDistrito.setEditable(true);
+        edtBairroDistrito.setEnabled(true);
+        
+        edtLocalidadeUF.setText(object.getEnderecos().get(0).getLocalidade());
+        edtLocalidadeUF.setEditable(true);
+        edtLocalidadeUF.setEnabled(true);
+        
+        edtCEP.setText(object.getEnderecos().get(0).getCep());
+        edtCEP.setEditable(true);
+        edtCEP.setEnabled(true);
+        
+        btnCancel.setVisible(true);
+        this.setVisible(true);
     }
     
 }
