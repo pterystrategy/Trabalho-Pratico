@@ -28,7 +28,7 @@ public class AutorDao extends AbstractDao<Autor> {
 
     @Override
     public boolean delete(Autor entity) {
-         em.getTransaction().begin();
+        em.getTransaction().begin();
         Autor autor;
         autor = em.getReference(Autor.class, entity.getId());
 
