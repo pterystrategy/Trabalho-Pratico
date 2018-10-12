@@ -7,6 +7,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.LivroDao;
 import br.com.prodrigues.trabalhopratico.model.Autor;
+import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.LivroGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LivroTela;
@@ -21,10 +22,19 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     private final LivroGrid grid;
     private final LivroTela tela;
     private final AutorControle autorControle;
+    private EditoraControle editoraControle;
 
     public LivroControle(AutorControle autorControle) {
         this.dao = new LivroDao();
         this.autorControle = autorControle;
+        this.grid = LivroGrid.getInstance(null, true, this);
+        this.tela = LivroTela.getInstance(null, true);
+    }
+
+    LivroControle(AutorControle autorControle, EditoraControle editoraControle) {
+        this.dao = new LivroDao();
+        this.autorControle = autorControle;
+        this.editoraControle = editoraControle;
         this.grid = LivroGrid.getInstance(null, true, this);
         this.tela = LivroTela.getInstance(null, true);
     }
@@ -38,6 +48,10 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     public Livro create() {
         Livro livro;
         List<Autor> lista = this.autorControle.getAll();
+        
+        List<Editora> all = this.editoraControle.getAll();
+        
+        tela.setListaEditoras(all);
 
         tela.setListaAutores(lista);
         livro = tela.create(null);

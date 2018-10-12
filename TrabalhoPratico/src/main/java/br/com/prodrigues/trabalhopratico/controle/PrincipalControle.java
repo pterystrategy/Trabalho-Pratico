@@ -22,7 +22,7 @@ public class PrincipalControle {
         this.cliControle = new ClienteControle();
         this.usuarioControle = new UsuarioControle();
         this.editoraControle = new EditoraControle();
-        this.livroControle = new LivroControle(this.autorControle);
+        this.livroControle = new LivroControle(this.autorControle, this.editoraControle);
                 
     }
 

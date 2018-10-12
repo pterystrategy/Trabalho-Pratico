@@ -9,9 +9,12 @@ import br.com.prodrigues.trabalhopratico.modelcombo.ClassificacoesComboModel;
 import br.com.prodrigues.trabalhopratico.modelcombo.AutoresComboModel;
 import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Classificacao;
+import br.com.prodrigues.trabalhopratico.model.Editora;
+import br.com.prodrigues.trabalhopratico.model.Exemplar;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modelcombo.AutoresCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClassificacoesCellRenderer;
+import br.com.prodrigues.trabalhopratico.modelcombo.EditorasComboModel;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.util.List;
@@ -82,7 +85,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         btnCancel = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
         labTitulo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panPrincipal = new javax.swing.JPanel();
         labNome = new javax.swing.JLabel();
         edtTitulo = new javax.swing.JTextField();
         labAutor = new javax.swing.JLabel();
@@ -94,6 +97,13 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         btnSearchAutor = new javax.swing.JButton();
         btnSearchEditora = new javax.swing.JButton();
         btnSearchClassificacao = new javax.swing.JButton();
+        edtData = new org.jdesktop.swingx.JXDatePicker();
+        panSinopse = new javax.swing.JScrollPane();
+        edtSinopse = new javax.swing.JTextArea();
+        labDataDeLancamento = new javax.swing.JLabel();
+        labSinopse = new javax.swing.JLabel();
+        labExemplarQuantidade = new javax.swing.JLabel();
+        edtQtd = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Livro Tela");
@@ -121,7 +131,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panRodapeLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -139,7 +149,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         labTitulo.setText("Titulo");
         labTitulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labNome.setText("Titulo:");
 
@@ -149,7 +159,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
         labEditora.setText("Editoras:");
 
-        cmbEditoras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEditoras.setModel(this.modelEditoras);
 
         labClassificacoes.setText("Classificação:");
 
@@ -161,76 +171,117 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
         btnSearchClassificacao.setText("Procurar");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        edtSinopse.setColumns(20);
+        edtSinopse.setRows(5);
+        panSinopse.setViewportView(edtSinopse);
+
+        labDataDeLancamento.setText("Data De Lançamento:");
+
+        labSinopse.setText("Sinopse:");
+
+        labExemplarQuantidade.setText("Quantidade:");
+
+        javax.swing.GroupLayout panPrincipalLayout = new javax.swing.GroupLayout(panPrincipal);
+        panPrincipal.setLayout(panPrincipalLayout);
+        panPrincipalLayout.setHorizontalGroup(
+            panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panPrincipalLayout.createSequentialGroup()
+                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labAutor)
                             .addComponent(labNome))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panPrincipalLayout.createSequentialGroup()
+                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labClassificacoes)
-                            .addComponent(labEditora))
+                            .addComponent(labEditora)
+                            .addComponent(labDataDeLancamento)
+                            .addComponent(labExemplarQuantidade)
+                            .addComponent(labSinopse))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbEditoras, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbClassificacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSearchEditora, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSearchAutor, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSearchClassificacao, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(30, 30, 30))
+                        .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panSinopse)
+                            .addGroup(panPrincipalLayout.createSequentialGroup()
+                                .addComponent(cmbClassificacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSearchClassificacao))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panPrincipalLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cmbEditoras, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnSearchAutor, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnSearchEditora, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(panPrincipalLayout.createSequentialGroup()
+                                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panPrincipalLayout.setVerticalGroup(
+            panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labNome)
                     .addComponent(edtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbAutores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labAutor)
                     .addComponent(btnSearchAutor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labEditora)
-                    .addComponent(cmbEditoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchEditora))
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labEditora)
+                        .addComponent(btnSearchEditora))
+                    .addComponent(cmbEditoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbClassificacoes, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labClassificacoes)
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labClassificacoes)
+                    .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbClassificacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSearchClassificacao)))
-                .addGap(25, 25, 25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labDataDeLancamento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panPrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(labExemplarQuantidade))
+                    .addComponent(edtQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panPrincipalLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(panSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panPrincipalLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(labSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panRodape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panRodape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(labTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panRodape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -299,21 +350,28 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     private javax.swing.JButton btnSearchEditora;
     private javax.swing.JComboBox<Autor> cmbAutores;
     private javax.swing.JComboBox<Classificacao> cmbClassificacoes;
-    private javax.swing.JComboBox<String> cmbEditoras;
+    private javax.swing.JComboBox<Editora> cmbEditoras;
+    private org.jdesktop.swingx.JXDatePicker edtData;
+    private javax.swing.JSpinner edtQtd;
+    private javax.swing.JTextArea edtSinopse;
     private javax.swing.JTextField edtTitulo;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labAutor;
     private javax.swing.JLabel labClassificacoes;
+    private javax.swing.JLabel labDataDeLancamento;
     private javax.swing.JLabel labEditora;
+    private javax.swing.JLabel labExemplarQuantidade;
     private javax.swing.JLabel labNome;
+    private javax.swing.JLabel labSinopse;
     private javax.swing.JLabel labTitulo;
+    private javax.swing.JPanel panPrincipal;
     private javax.swing.JPanel panRodape;
+    private javax.swing.JScrollPane panSinopse;
     // End of variables declaration//GEN-END:variables
     private static LivroTela tela;
     private boolean confirmado = false;
 
     private final AutoresComboModel modelAutores = new AutoresComboModel();
-    
+    private final EditorasComboModel modelEditoras = new EditorasComboModel();
     private final ClassificacoesComboModel modelClassificacoes = new ClassificacoesComboModel();
     private List<Autor> listaAutores;
     
@@ -323,6 +381,11 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         return listaAutores;
     }
 
+    public void setListaEditoras(List<Editora> listaEditoras) {
+        modelEditoras.clear();
+        modelEditoras.addListEditora(listaEditoras);
+    }
+    
     public void setListaAutores(List<Autor> listaAutores) {
         modelAutores.clear();
         modelAutores.addListAutor(listaAutores);
@@ -353,9 +416,15 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     @Override
     public Livro update(Livro object) {
         if(confirmado){
-                object.setTitulo(edtTitulo.getText());
-                object.setAutor((Autor) cmbAutores.getSelectedItem());
-                object.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
+            object.setTitulo(edtTitulo.getText());
+            object.setAutor((Autor) cmbAutores.getSelectedItem());
+            object.setSinopse(edtSinopse.getText());
+            Exemplar get = object.getExemplares().get(0);
+            get.setQuantidade((int) edtQtd.getValue());
+            Exemplar set = object.getExemplares().set(0, get);
+            set.setLivro(object);
+            object.setEditora((Editora) cmbEditoras.getSelectedItem());
+            object.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
                 
         } else if(!confirmado){
             showMessage("CANCELADO PELO USUÁRIO!");
@@ -384,6 +453,14 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         nova.setTitulo(edtTitulo.getText());
         nova.setAutor((Autor) cmbAutores.getSelectedItem());
         nova.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
+        nova.setEditora((Editora) cmbEditoras.getSelectedItem());
+        nova.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
+        nova.setDataDeLancamento(edtData.getDate());
+        nova.setSinopse(edtSinopse.getText());
+        Exemplar exemplar = new Exemplar();
+        exemplar.setQuantidade((int) edtQtd.getValue());
+        nova.getExemplares().add(exemplar);
+        exemplar.setLivro(nova);
         return nova;
     }
 
@@ -394,16 +471,30 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
     @Override
     public void preparaUpdate(Livro object) {
-         labTitulo.setText("Dados do Cliente");
+        labTitulo.setText("Dados do Cliente");
         
         edtTitulo.setText(object.getTitulo());
         edtTitulo.setEditable(true);
         edtTitulo.setEnabled(true);
-        cmbAutores.setSelectedItem(object);
+        cmbAutores.setSelectedItem(object.getAutor());
         cmbAutores.setEditable(true);
         cmbAutores.setEnabled(true);
         
-        cmbClassificacoes.setSelectedItem(object.getClassificacao());
+        edtData.setDate(object.getDataDeLancamento());
+        edtData.setEditable(true);
+        edtData.setEnabled(true);
+        
+        edtQtd.setValue(object.getExemplares().get(0).getQuantidade());
+        
+        edtSinopse.setText(object.getSinopse());
+        edtSinopse.setEditable(true);
+        edtSinopse.setEnabled(true);
+        
+        cmbEditoras.setSelectedItem(object.getEditora());
+        cmbEditoras.setEditable(true);
+        cmbEditoras.setEnabled(true);
+        
+        cmbClassificacoes.setSelectedItem(object.getClassificacao().name());
         cmbClassificacoes.setEditable(true);
         cmbClassificacoes.setEnabled(true);
         

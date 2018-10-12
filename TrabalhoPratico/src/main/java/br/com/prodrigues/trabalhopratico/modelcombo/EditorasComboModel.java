@@ -5,7 +5,6 @@
  */
 package br.com.prodrigues.trabalhopratico.modelcombo;
 
-import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import java.util.ArrayList;
 import java.util.List;

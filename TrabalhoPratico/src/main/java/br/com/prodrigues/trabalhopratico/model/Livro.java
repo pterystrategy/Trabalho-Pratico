@@ -6,6 +6,7 @@
 package br.com.prodrigues.trabalhopratico.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -56,7 +57,7 @@ public class Livro implements Serializable {
             {CascadeType.PERSIST, CascadeType.REMOVE}, 
               fetch = FetchType.EAGER)
     @JoinColumn(name = "FKEXEMPLAR")
-    private List<Exemplar> exemplares;
+    private List<Exemplar> exemplares = new ArrayList<>();
     
     @OneToOne(mappedBy = "livro", cascade =
             {CascadeType.PERSIST, CascadeType.REMOVE}, 

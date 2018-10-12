@@ -70,7 +70,8 @@ public final class AutoresComboModel  extends AbstractListModel<Autor> implement
     }
      
     public void removeAutor() {
-        boolean remove = listAutores.remove(getSelectedItem());
+        boolean remove;
+        remove = listAutores.remove((Autor) getSelectedItem());
         fireIntervalRemoved(this, FIRSTINDEX, getSize() - 1);
         setSelectedItem(listAutores.get(FIRSTINDEX));
     }

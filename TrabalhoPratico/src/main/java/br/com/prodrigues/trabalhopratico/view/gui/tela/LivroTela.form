@@ -24,9 +24,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panRodape" max="32767" attributes="0"/>
           <Component id="labTitulo" max="32767" attributes="0"/>
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="panPrincipal" alignment="0" max="32767" attributes="0"/>
+          <Component id="panRodape" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -34,7 +34,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="labTitulo" min="-2" pref="44" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="panPrincipal" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panRodape" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -57,7 +57,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnOk" min="-2" pref="97" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnCancel" min="-2" pref="96" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -108,7 +108,7 @@
         </Property>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="panPrincipal">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -128,31 +128,48 @@
                               <Component id="labAutor" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labNome" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cmbAutores" min="-2" pref="238" max="-2" attributes="0"/>
-                              <Component id="edtTitulo" min="-2" pref="238" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labClassificacoes" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labEditora" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labDataDeLancamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labExemplarQuantidade" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labSinopse" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cmbEditoras" min="-2" pref="236" max="-2" attributes="0"/>
-                              <Component id="cmbClassificacoes" min="-2" pref="238" max="-2" attributes="0"/>
+                              <Component id="panSinopse" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cmbClassificacoes" min="-2" pref="238" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnSearchClassificacao" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="cmbEditoras" min="-2" pref="236" max="-2" attributes="0"/>
+                                      <Component id="edtTitulo" min="-2" pref="238" max="-2" attributes="0"/>
+                                      <Component id="cmbAutores" min="-2" pref="238" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btnSearchAutor" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnSearchEditora" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="edtData" min="-2" pref="238" max="-2" attributes="0"/>
+                                      <Component id="edtQtd" min="-2" pref="48" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnSearchEditora" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnSearchAutor" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnSearchClassificacao" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -171,20 +188,45 @@
                       <Component id="btnSearchAutor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labEditora" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbEditoras" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnSearchEditora" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labEditora" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSearchEditora" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="cmbEditoras" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cmbClassificacoes" alignment="1" max="32767" attributes="0"/>
+                      <Component id="labClassificacoes" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labClassificacoes" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbClassificacoes" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="btnSearchClassificacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="edtData" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="labDataDeLancamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="labExemplarQuantidade" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="edtQtd" pref="34" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Component id="panSinopse" min="-2" pref="71" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="labSinopse" min="-2" pref="46" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -219,17 +261,12 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbEditoras">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="this.modelEditoras" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Editora&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="labClassificacoes">
@@ -261,6 +298,37 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Procurar"/>
           </Properties>
+        </Component>
+        <Component class="org.jdesktop.swingx.JXDatePicker" name="edtData">
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="panSinopse">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="edtSinopse">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="labDataDeLancamento">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Data De Lan&#xe7;amento:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labSinopse">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sinopse:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labExemplarQuantidade">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quantidade:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="edtQtd">
         </Component>
       </SubComponents>
     </Container>

@@ -9,6 +9,7 @@ import br.com.prodrigues.trabalhopratico.dao.EditoraDao;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.EditoraGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.EditoraTela;
+import java.util.List;
 /**
  *
  * @author prorodrigues
@@ -61,17 +62,32 @@ public class EditoraControle extends AbstractControleSimples<Editora>{
 
     @Override
     public void read(Editora objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Editora> findAll = this.dao.findAll();
+        String lista = "";
+        lista = findAll.stream().map((editora) -> editora.getId() +"\n"+ editora.getNamepublisher() +"\n_________-").reduce(lista, String::concat);
+        this.tela.showMessage(lista);
     }
 
     @Override
     public Editora update(Editora objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.read(null);
+        long id = tela.askForLong("Digite o código do cliente a editar");
+        Editora findById = this.dao.findById(id);
+        tela.preparaUpdate(findById);
+        Editora update = this.tela.update(findById);
+        return dao.update(update);
     }
 
     @Override
     public boolean delete(Editora objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.read(null);
+        long askForLong = this.tela.askForLong("Informe o ID: ");
+        Editora findById = this.dao.findById(askForLong);
+        boolean delete = this.tela.delete(findById);
+        if (delete) {
+            return this.dao.delete(findById);
+        }
+        return  false;
     }
 
     @Override

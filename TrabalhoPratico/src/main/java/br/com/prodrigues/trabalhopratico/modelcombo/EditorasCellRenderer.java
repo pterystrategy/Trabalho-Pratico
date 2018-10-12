@@ -23,7 +23,7 @@ public class EditorasCellRenderer extends DefaultListCellRenderer {
          
         if (value instanceof Editora) {
             Editora editora = (Editora) value;
-            setText(editora.getNamepublisher());
+            setText(editora.getEmail());
         }
         return this;
     }

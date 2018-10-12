@@ -6,6 +6,7 @@
 package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
+import br.com.prodrigues.trabalhopratico.modeltable.EditoraTableModel;
 import java.awt.Frame;
 
 /**
@@ -57,8 +58,9 @@ public class EditoraGrid extends javax.swing.JDialog {
     private EditoraGrid(Frame parent, boolean modal, IControleSimples controle) {
         super(parent, modal);
         this.controle = controle;
-        initComponents();
         
+        this.model = new EditoraTableModel(controle.getAll());
+        initComponents();
     }
 
     /**
@@ -195,17 +197,7 @@ public class EditoraGrid extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(this.model);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -252,11 +244,11 @@ public class EditoraGrid extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        //controle.update(null);
+        controle.update(null);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        //controle.delete(null);
+        controle.delete(null);
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -337,7 +329,7 @@ public class EditoraGrid extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private final IControleSimples controle;
     private static EditoraGrid grid;
-    //private final  EditoraTableModel model;
+    private final  EditoraTableModel model;
 
     public IControleSimples getControle() {
         return controle;

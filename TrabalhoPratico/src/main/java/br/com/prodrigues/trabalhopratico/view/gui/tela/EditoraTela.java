@@ -466,7 +466,37 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
 
     @Override
     public Editora update(Editora object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         if(confirmado){
+            object.setNamepublisher(edtName.getText());
+            object.setEmail(edtEmail.getText());
+            Endereco get = object.getEnderecos().get(0);
+            get.setLogradouro(edtLogradouroNome.getText());
+            get.setLocalidade(edtLocalidadeUF.getText());
+            get.setBairro(edtBairroDistrito.getText());
+            get.setCep(edtCEP.getText());
+            Endereco set = object.getEnderecos().set(0, get);
+            set.setEditora(object);
+             
+            Telefone get1 = object.getTelefones().get(0);
+            Telefone get2 = object.getTelefones().get(1);
+            
+            get1.setNumero(edtTelefone.getText());
+            get2.setNumero(edtTelefoneFixo.getText());
+            
+            Telefone set1 = object.getTelefones().set(0, get1);
+            Telefone set2 = object.getTelefones().set(1, get2);
+            
+            set1.setEditora(object);
+            set2.setEditora(object);
+             
+                
+        } else if(!confirmado){
+            showMessage("CANCELADO PELO USUÁRIO!");
+        }else if (object == null) {
+                showMessage("NÃO ENCONTRADO!");
+        }else{
+                showMessage("ALTERADO COM SUCESSO!");
+        }return object;
     }
 
     @Override
