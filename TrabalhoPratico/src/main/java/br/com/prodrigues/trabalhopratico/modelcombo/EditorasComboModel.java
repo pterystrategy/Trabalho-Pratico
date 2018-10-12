@@ -55,8 +55,7 @@ public final class EditorasComboModel  extends AbstractListModel<Editora> implem
         return selectedEditora;    
     }
     
-    
-     public void addAutor(Editora editora) {
+    public void addEditoras(Editora editora) {
         listEditoras.add(editora);
         fireIntervalAdded(this, getSize() - 1, getSize() - 1);
         setSelectedItem(listEditoras.get(getSize() - 1));

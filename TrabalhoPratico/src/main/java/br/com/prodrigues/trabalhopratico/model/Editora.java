@@ -86,7 +86,7 @@ public class Editora implements Serializable {
 
     @Override
     public String toString() {
-        return "com.trabalhopratico.prodrigues.app.model.Editora[ id=" + id + " ]";
+        return "Editora[ id=" + id + " ]";
     }
 
     public String getNamepublisher() {

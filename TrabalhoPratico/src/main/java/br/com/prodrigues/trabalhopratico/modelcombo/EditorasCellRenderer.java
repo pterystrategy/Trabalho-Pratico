@@ -22,8 +22,8 @@ public class EditorasCellRenderer extends DefaultListCellRenderer {
         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
          
         if (value instanceof Editora) {
-            Editora editora = (Editora) value;
-            setText(editora.getEmail());
+            Editora name = (Editora) value;
+            setText((String)name.getNamepublisher());
         }
         return this;
     }

@@ -32,11 +32,8 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     }
 
     LivroControle(AutorControle autorControle, EditoraControle editoraControle) {
-        this.dao = new LivroDao();
-        this.autorControle = autorControle;
+        this(autorControle);
         this.editoraControle = editoraControle;
-        this.grid = LivroGrid.getInstance(null, true, this);
-        this.tela = LivroTela.getInstance(null, true);
     }
 
     @Override

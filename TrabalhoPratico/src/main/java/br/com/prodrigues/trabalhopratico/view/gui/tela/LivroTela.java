@@ -374,7 +374,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     private final EditorasComboModel modelEditoras = new EditorasComboModel();
     private final ClassificacoesComboModel modelClassificacoes = new ClassificacoesComboModel();
     private List<Autor> listaAutores;
-    
+    private List<Editora> listaEditoras;
     private List<Classificacao> classificacoes;
     
     public List<Autor> getListaAutores() {
