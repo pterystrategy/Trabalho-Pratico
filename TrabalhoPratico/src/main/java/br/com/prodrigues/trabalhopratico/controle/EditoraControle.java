@@ -72,7 +72,8 @@ public class EditoraControle extends AbstractControleSimples<Editora>{
     public Editora update(Editora objeto) {
         this.read(null);
         long id = tela.askForLong("Digite o código do cliente a editar");
-        Editora findById = this.dao.findById(id);
+        Editora findById;
+        findById = this.dao.findById(id);
         tela.preparaUpdate(findById);
         Editora update = this.tela.update(findById);
         return dao.update(update);

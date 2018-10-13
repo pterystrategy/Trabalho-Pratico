@@ -27,19 +27,19 @@ public class Telefone implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDTELEFONE", nullable = false)
+    @Column(name = "CDTELEFONE")
     private Long id;
     
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "FKCLIENTE")
     private Cliente cliente;
     
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "FKEDITORA")
     private Editora editora;
     
     
-    @Column(name="number", length = 45, nullable = false)
+    @Column(name="number", length = 45)
     private String numero;
 
     public Telefone(String numero) {

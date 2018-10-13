@@ -40,11 +40,11 @@ public class Editora implements Serializable {
     private String email;
     
     //Endereço
-    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Endereco> enderecos = new ArrayList<>();
     
     //Telefone
-    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Telefone> telefones = new ArrayList<>();
     
     @OneToMany(orphanRemoval = true)

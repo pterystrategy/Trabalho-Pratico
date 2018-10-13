@@ -25,8 +25,8 @@ public final class AutoresComboModel  extends AbstractListModel<Autor> implement
     public AutoresComboModel(List<Autor> listAutores) {
         this();
         this.listAutores.addAll(listAutores);
-        if (getSize() > 0) {
-            setSelectedItem(this.listAutores.get(FIRSTINDEX));
+        if (this.getSize() > 0) {
+            setSelectedItem(this.listAutores.get(AutoresComboModel.FIRSTINDEX));
         }
     }
 
@@ -37,48 +37,49 @@ public final class AutoresComboModel  extends AbstractListModel<Autor> implement
 
     @Override
     public int getSize() {
-        return listAutores.size();  
+        return this.listAutores.size();  
         }
 
     @Override
     public Autor getElementAt(int index) {
-        return listAutores.get(index);
+        return this.listAutores.get(index);
     }
 
     @Override
     public void setSelectedItem(Object o) {
-        selectedAutor = (Autor) o;
+        this.selectedAutor = (Autor) o;
     }
 
     @Override
     public Object getSelectedItem() {
-        return selectedAutor;    
+        return this.selectedAutor;    
     }
     
     
      public void addAutor(Autor autor) {
-        listAutores.add(autor);
-        fireIntervalAdded(this, getSize() - 1, getSize() - 1);
-        setSelectedItem(listAutores.get(getSize() - 1));
+        this.listAutores.add(autor);
+        fireIntervalAdded(this, this.getSize() - 1, this.getSize() - 1);
+        setSelectedItem(this.listAutores.get(this.getSize() - 1));
     }
      
     public void addListAutor(List<Autor> autores) {
         int primeiraLinha = getSize();
         listAutores.addAll(autores);
         fireIntervalAdded(this, primeiraLinha, primeiraLinha  + autores.size());
-        setSelectedItem(listAutores.get(getSize() - 1));
+        setSelectedItem(this.listAutores.get(getSize() - 1));
     }
      
-    public void removeAutor() {
+    public boolean removeAutor() {
         boolean remove;
         remove = listAutores.remove((Autor) getSelectedItem());
-        fireIntervalRemoved(this, FIRSTINDEX, getSize() - 1);
-        setSelectedItem(listAutores.get(FIRSTINDEX));
+        fireIntervalRemoved(this, AutoresComboModel.FIRSTINDEX, getSize() - 1);
+        setSelectedItem(listAutores.get(AutoresComboModel.FIRSTINDEX));
+        return remove;
     }
      
     public void clear() {
-        listAutores.clear();
-        fireContentsChanged(this, FIRSTINDEX, getSize() - 1);
+        this.listAutores.clear();
+        fireContentsChanged(this, AutoresComboModel.FIRSTINDEX, getSize() - 1);
     }
     
 }

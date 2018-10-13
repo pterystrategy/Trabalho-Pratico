@@ -23,7 +23,7 @@ public class AutoresCellRenderer extends DefaultListCellRenderer {
          
         if (value instanceof Autor) {
             Autor autor = (Autor) value;
-            setText(autor.getName());
+            setText(Long.toString(autor.getId()));
         }
         return this;
     }

@@ -27,7 +27,7 @@ public class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDENDERECO", length = 10, nullable = false)
+    @Column(name = "CDENDERECO")
     private Long id;
     
     @Column(name = "logradouro_Nome", length = 24)
@@ -46,7 +46,7 @@ public class Endereco implements Serializable {
     @JoinColumn(name = "FKCLIENTE")
     private Cliente cliente;
     
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "FKEDITORA")
     private Editora editora;
     

@@ -160,6 +160,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         labEditora.setText("Editoras:");
 
         cmbEditoras.setModel(this.modelEditoras);
+        cmbEditoras.setSelectedItem(this.listaEditoras);
 
         labClassificacoes.setText("Classificação:");
 

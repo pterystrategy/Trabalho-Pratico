@@ -20,7 +20,7 @@ public class EditoraDao extends AbstractDao<Editora>{
     public Editora create(Editora entity) {
         em.getTransaction().begin();
         em.persist(entity);
-//        em.flush();
+        em.flush();
         em.getTransaction().commit();
         em.refresh(entity);
 
@@ -57,7 +57,8 @@ public class EditoraDao extends AbstractDao<Editora>{
 
     @Override
     public Editora findById(long id) {
-        Editora item = em.find(Editora.class, id);
+        Editora item;
+        item = em.find(Editora.class, id);
         return item;
     }
 
