@@ -10,25 +10,23 @@ import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.EditoraGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.EditoraTela;
 import java.util.List;
+
 /**
  *
  * @author prorodrigues
  */
-public class EditoraControle extends AbstractControleSimples<Editora>{
+public class EditoraControle extends AbstractControleSimples<Editora> {
 
-    
     protected EditoraGrid grid;
-    private final   EditoraTela tela;
+    private final EditoraTela tela;
 
     public EditoraControle() {
         this.dao = new EditoraDao();
-        this.tela = EditoraTela.getInstance(null, true);
+
         this.grid = EditoraGrid.getInstance(null, true, this);
+        this.tela = EditoraTela.getInstance(null, true);
     }
-    
-    
-    
-    
+
     @Override
     public void showInicialScreen() {
         grid.setVisible(true);
@@ -39,32 +37,29 @@ public class EditoraControle extends AbstractControleSimples<Editora>{
     public Editora create() {
         Editora editora = tela.create(null);
         boolean concluido = false;
-        
-        do{
-            if(tela.isConfirmado() == true){
 
-                if(! editora.getNamepublisher().isEmpty()){
+        do {
+            if (tela.isConfirmado() == true) {
+
+                if (!editora.getNamepublisher().isEmpty()) {
                     concluido = true;
-                }
-                else{
+                } else {
                     tela.showErrorMessage("Falta Nome");
                     tela.setVisible(true);
                     editora = tela.getScreenObject();
                 }
+            } else {
+                return null;
             }
-            
-        }while((concluido == false )&& (tela.isConfirmado() == true));
-
-        
-      
-        return dao.create(editora); 
+        } while ((concluido == false) && (tela.isConfirmado() == true));
+        return dao.create(editora);
     }
 
     @Override
     public void read(Editora objeto) {
         List<Editora> findAll = this.dao.findAll();
         String lista = "";
-        lista = findAll.stream().map((editora) -> editora.getId() +"\n"+ editora.getNamepublisher() +"\n_________-").reduce(lista, String::concat);
+        lista = findAll.stream().map((editora) -> editora.getId() + "\n" + editora.getNamepublisher() + "\n_________-").reduce(lista, String::concat);
         this.tela.showMessage(lista);
     }
 
@@ -88,7 +83,7 @@ public class EditoraControle extends AbstractControleSimples<Editora>{
         if (delete) {
             return this.dao.delete(findById);
         }
-        return  false;
+        return false;
     }
 
     @Override

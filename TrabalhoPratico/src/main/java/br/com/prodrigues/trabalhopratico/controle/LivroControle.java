@@ -44,15 +44,27 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     @Override
     public Livro create() {
         Livro livro;
-        List<Autor> lista = this.autorControle.getAll();
-        
-        List<Editora> all = this.editoraControle.getAll();
-        
-        tela.setListaEditoras(all);
-
-        tela.setListaAutores(lista);
         livro = tela.create(null);
+        List<Autor> lista = this.autorControle.getAll();
 
+        List<Editora> all = this.editoraControle.getAll();
+
+        boolean concluido = false;
+        do {
+            if (tela.isConfirmado() == true) {
+                if (!livro.getTitulo().isEmpty()) {
+                    concluido = true;
+                } else {
+                    tela.showErrorMessage("Falta Nome");
+                    tela.setVisible(true);
+                    tela.setListaEditoras(all);
+                    tela.setListaAutores(lista);
+                    livro = tela.getScreenObject();
+                }
+            } else {
+                return null;
+            }
+        } while ((concluido == false) && (tela.isConfirmado() == true));
         return dao.create(livro);
     }
 
@@ -91,7 +103,7 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         if (delete) {
             return this.dao.delete(findById);
         }
-        return  false;
+        return false;
     }
 
     @Override

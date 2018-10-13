@@ -10,27 +10,24 @@ import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.AutorGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.AutorTela;
 import java.util.List;
+
 /**
  *
  * @author prorodrigues
  */
-public class AutorControle extends AbstractControleSimples<Autor>{
+public class AutorControle extends AbstractControleSimples<Autor> {
 
-    
     protected AutorGrid grid;
-    private final   AutorTela tela;
+    private final AutorTela tela;
 
     public AutorControle() {
         this.dao = new AutorDao();
-        
+
         this.grid = AutorGrid.getInstance(null, true, this);
         this.tela = AutorTela.getInstance(null, true);
-        
+
     }
-    
-    
-    
-    
+
     @Override
     public void showInicialScreen() {
         grid.setVisible(true);
@@ -41,25 +38,24 @@ public class AutorControle extends AbstractControleSimples<Autor>{
     public Autor create() {
         Autor autor = tela.create(null);
         boolean concluido = false;
-        
-        do{
-            if(tela.isConfirmado() == true){
 
-                if(! autor.getName().isEmpty()){
+        do {
+            if (tela.isConfirmado() == true) {
+
+                if (!autor.getName().isEmpty()) {
                     concluido = true;
-                }
-                else{
+                } else {
                     tela.showErrorMessage("Falta Nome");
                     tela.setVisible(true);
                     autor = tela.getScreenObject();
                 }
+            } else {
+                return null;
             }
-            
-        }while((concluido == false )&& (tela.isConfirmado() == true));
 
-        
-      
-        return dao.create(autor); 
+        } while ((concluido == false) && (tela.isConfirmado() == true));
+
+        return dao.create(autor);
     }
 
     @Override
@@ -76,7 +72,7 @@ public class AutorControle extends AbstractControleSimples<Autor>{
     public Autor update(Autor objeto) {
         this.read(null);
         long id = tela.askForLong("Digite o código do autor a editar");
-        
+
         Autor findById = dao.findById(id);
         tela.preparaUpdate(findById);
         Autor update = tela.update(findById);
@@ -92,9 +88,8 @@ public class AutorControle extends AbstractControleSimples<Autor>{
         if (delete) {
             return this.dao.delete(findById);
         }
-        return  false;
+        return false;
     }
-    
 
     @Override
     public void print() {
@@ -105,5 +100,5 @@ public class AutorControle extends AbstractControleSimples<Autor>{
     public boolean filter(String column, String valor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
