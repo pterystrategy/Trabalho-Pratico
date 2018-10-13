@@ -20,14 +20,14 @@ public final class ClientesComboModel extends AbstractListModel<Cliente> impleme
     public ClientesComboModel(List<Cliente> listCliente) {
         this();
         this.listCliente.addAll(listCliente);
-        if (getSize() > 0) {
-            setSelectedItem(this.listCliente.get(FIRSTINDEX));
+        if (this.getSize() > 0) {
+            this.setSelectedItem(this.listCliente.get(FIRSTINDEX));
         }
     }
      
     @Override
     public Cliente getElementAt(int index) {
-        return listCliente.get(index);
+        return this.listCliente.get(index);
     }
  
     @Override
@@ -37,36 +37,38 @@ public final class ClientesComboModel extends AbstractListModel<Cliente> impleme
  
     @Override
     public Object getSelectedItem() {
-        return selectedCliente;
+        return this.selectedCliente;
     }
  
     @Override
     public void setSelectedItem(Object anItem) {
-        selectedCliente = (Cliente) anItem;
+        this.selectedCliente = (Cliente) anItem;
     }
      
     public void addCliente(Cliente cliente) {
-        listCliente.add(cliente);
+        this.listCliente.add(cliente);
         fireIntervalAdded(this, getSize() - 1, getSize() - 1);
-        setSelectedItem(listCliente.get(getSize() - 1));
+        this.setSelectedItem(this.listCliente.get(getSize() - 1));
     }
      
     public void addListCliente(List<Cliente> clientes) {
         int primeiraLinha = getSize();
-        listCliente.addAll(clientes);
+        this.listCliente.addAll(clientes);
         fireIntervalAdded(this, primeiraLinha, primeiraLinha  + clientes.size());
-        setSelectedItem(listCliente.get(getSize() - 1));
+        this.setSelectedItem(this.listCliente.get(getSize() - 1));
     }
      
-    public void removeCliente() {
+    public boolean removeCliente() {
         boolean remove;
-        remove = listCliente.remove((Cliente) this.getSelectedItem());
+        remove = this.listCliente.remove((Cliente) this.getSelectedItem());
         fireIntervalRemoved(this, FIRSTINDEX, getSize() - 1);
-        setSelectedItem(listCliente.get(FIRSTINDEX));
+        setSelectedItem(this.listCliente.get(FIRSTINDEX));
+        
+        return remove;
     }
      
     public void clear() {
-        listCliente.clear();
+        this.listCliente.clear();
         fireContentsChanged(this, FIRSTINDEX, getSize() - 1);
     }
 }

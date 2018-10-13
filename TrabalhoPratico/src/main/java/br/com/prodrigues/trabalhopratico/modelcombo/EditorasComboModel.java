@@ -25,7 +25,7 @@ public final class EditorasComboModel  extends AbstractListModel<Editora> implem
     public EditorasComboModel(List<Editora> listEditoras) {
         this();
         this.listEditoras.addAll(listEditoras);
-        if (getSize() > 0) {
+        if (this.getSize() > 0) {
             setSelectedItem(this.listEditoras.get(FIRSTINDEX));
         }
     }
@@ -68,11 +68,12 @@ public final class EditorasComboModel  extends AbstractListModel<Editora> implem
         setSelectedItem(listEditoras.get(getSize() - 1));
     }
      
-    public void removeAutor() {
+    public boolean removeAutor() {
         boolean remove;
         remove = listEditoras.remove((Editora) getSelectedItem());
         fireIntervalRemoved(this, FIRSTINDEX, getSize() - 1);
         setSelectedItem(listEditoras.get(FIRSTINDEX));
+        return remove;
     }
      
     public void clear() {
