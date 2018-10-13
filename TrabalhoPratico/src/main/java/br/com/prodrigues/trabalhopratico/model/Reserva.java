@@ -34,25 +34,24 @@ public class Reserva implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CDRESERVA")
     private Long id;
-    
-    
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATAHORARESERVA", nullable = true)
+    @Column(name = "DATAHORARESERVA", nullable = false)
     private Date dataHoraReserva;
-    
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FKLIVRO")
     private Livro livro;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FKCLIENTE")
     private Cliente cliente;
-    
-    @OneToOne(mappedBy = "reserva", cascade =
-            {CascadeType.PERSIST, CascadeType.REMOVE}, 
-              fetch = FetchType.EAGER, optional = false)
+
+    @OneToOne(mappedBy = "reserva", cascade
+            = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.EAGER, optional = false)
     private Emprestimo emprestimo;
-    
+
     public Long getId() {
         return id;
     }
@@ -114,5 +113,5 @@ public class Reserva implements Serializable {
     public void setEmprestimo(Emprestimo emprestimo) {
         this.emprestimo = emprestimo;
     }
-    
+
 }

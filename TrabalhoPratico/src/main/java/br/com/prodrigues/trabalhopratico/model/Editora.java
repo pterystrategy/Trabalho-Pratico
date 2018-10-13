@@ -30,27 +30,27 @@ public class Editora implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDEDITORA", length = 10)
+    @Column(name = "CDEDITORA", length = 10, nullable = false)
     private Long id;
-    
+
     @Column(name = "NNEDITORA", length = 20)
     private String namepublisher;
-    
+
     @Column(name = "EMAIL", length = 20)
     private String email;
-    
+
     //Endereço
     @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Endereco> enderecos = new ArrayList<>();
-    
+
     //Telefone
     @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Telefone> telefones = new ArrayList<>();
-    
+
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "FKEDITORA")
     private List<Livro> livros;
-    
+
     public Editora() {
     }
 
@@ -58,7 +58,7 @@ public class Editora implements Serializable {
         this.namepublisher = namepublisher;
         this.email = email;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -128,12 +128,12 @@ public class Editora implements Serializable {
     public void setLivros(List<Livro> livros) {
         this.livros = livros;
     }
-    
-    public void addEndereco(Telefone add){
+
+    public void addEndereco(Telefone add) {
         this.telefones.add(add);
     }
-    
-    public void addEndereco(Endereco add){
+
+    public void addEndereco(Endereco add) {
         this.enderecos.add(add);
     }
 }

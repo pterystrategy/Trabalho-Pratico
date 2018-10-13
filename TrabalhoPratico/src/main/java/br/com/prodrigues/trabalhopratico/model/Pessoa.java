@@ -22,27 +22,27 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TBPESSOA")
-@Inheritance(strategy=JOINED)
-@DiscriminatorColumn(name="PESSOA_TYPE")
+@Inheritance(strategy = JOINED)
+@DiscriminatorColumn(name = "PESSOA_TYPE")
 public abstract class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDPESSOA", length = 10)
+    @Column(name = "CDPESSOA", length = 10, nullable = false)
     private Long id;
-    
+
     @Column(name = "NNPESSOA", length = 20)
     private String name;
 
     public Pessoa() {
-        
+
     }
-    
+
     public Pessoa(String name) {
         this.name = name;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -65,15 +65,15 @@ public abstract class Pessoa implements Serializable {
             return false;
         }
         Pessoa other = (Pessoa) object;
-        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+        return !((this.id == null && other.id != null)
+                || (this.id != null
+                && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
         return "Pessoa{" + "name=" + name + '}';
     }
-
-    
 
     public String getName() {
         return name;
@@ -82,5 +82,4 @@ public abstract class Pessoa implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
 }

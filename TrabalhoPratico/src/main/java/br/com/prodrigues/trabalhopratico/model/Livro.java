@@ -31,7 +31,6 @@ import javax.persistence.TemporalType;
  * @author prodrigues
  *
  */
-
 @Entity
 @Table(name = "TBLIVRO")
 public class Livro implements Serializable {
@@ -39,51 +38,51 @@ public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDLIVRO", length = 10)
+    @Column(name = "CDLIVRO", length = 10, nullable = false)
     private Long id;
 
     @Column(name = "TITULOLIVRO", length = 20)
     private String titulo;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "CLASSIFICACAOLIVRO", length = 35)
     private Classificacao classificacao;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "DATALANCAMENTO", nullable = true)
     private Date dataDeLancamento;
-    
-    @OneToMany(orphanRemoval = true, mappedBy = "livro", cascade =
-            {CascadeType.PERSIST, CascadeType.REMOVE}, 
-              fetch = FetchType.EAGER)
+
+    @OneToMany(orphanRemoval = true, mappedBy = "livro", cascade
+            = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "FKEXEMPLAR")
     private List<Exemplar> exemplares = new ArrayList<>();
-    
-    @OneToOne(mappedBy = "livro", cascade =
-            {CascadeType.PERSIST, CascadeType.REMOVE}, 
-              fetch = FetchType.EAGER, optional = false)
+
+    @OneToOne(mappedBy = "livro", cascade
+            = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.EAGER, optional = false)
     private Reserva reserva;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FKAUTOR")
     private Autor autor;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FKEDITORA")
     private Editora editora;
-    
+
     @Column(name = "SINOPSE", length = 125)
     private String sinopse;
-    
-    @OneToMany(mappedBy = "livro", cascade =
-            {CascadeType.PERSIST, CascadeType.REMOVE}, 
-              fetch = FetchType.EAGER, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "livro", cascade
+            = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Emprestimo> emprestimos;
-    
+
     public Livro() {
-        
+
     }
-    
+
     public Livro(String titulo, Classificacao classificacao) {
         this.titulo = titulo;
         this.classificacao = classificacao;
@@ -92,8 +91,7 @@ public class Livro implements Serializable {
     public Livro(String titulo) {
         this.titulo = titulo;
     }
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -195,5 +193,5 @@ public class Livro implements Serializable {
     public void setExemplares(List<Exemplar> exemplares) {
         this.exemplares = exemplares;
     }
-    
+
 }
