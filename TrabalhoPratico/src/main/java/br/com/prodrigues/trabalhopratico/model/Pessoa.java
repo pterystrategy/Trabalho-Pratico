@@ -29,10 +29,10 @@ public abstract class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDPESSOA")
+    @Column(name = "CDPESSOA", length = 10)
     private Long id;
     
-    @Column(name = "NNPESSOA")
+    @Column(name = "NNPESSOA", length = 20)
     private String name;
 
     public Pessoa() {

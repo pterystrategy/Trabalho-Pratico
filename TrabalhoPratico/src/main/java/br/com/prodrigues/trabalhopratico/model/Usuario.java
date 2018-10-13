@@ -25,11 +25,11 @@ public class Usuario extends Pessoa implements Serializable {
         return super.getId(); //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Column(name = "LOGIN")
+    @Column(name = "LOGIN", length = 15, nullable = false)
     private String login;
     
     
-    @Column(name = "SENHA")
+    @Column(name = "SENHA", length = 20, nullable = false)
     private String senha;
 
     public Usuario() {

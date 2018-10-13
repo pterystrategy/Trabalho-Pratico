@@ -37,17 +37,17 @@ public class Emprestimo implements Serializable {
     private Long id;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATAEMPRESTIMO")
+    @Column(name = "DATAEMPRESTIMO", nullable = true)
     private Date dataEmprestimo;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATADEVOLUCAO")
+    @Column(name = "DATADEVOLUCAO", nullable = true)
     private Date dataDevolucao;
     
-    @Column(name = "PENDENCIA")
+    @Column(name = "PENDENCIA", nullable = false)
     private Boolean pendencia;
     
-    @Column(name = "DEVOLUCAO")
+    @Column(name = "DEVOLUCAO", nullable = false)
     private Boolean devolucao;
     
     @Column(name = "OBS", length = 500)
@@ -56,7 +56,7 @@ public class Emprestimo implements Serializable {
     @ManyToMany(mappedBy = "emprestimos")
     private List<Exemplar> exemplares;
     
-    @Column(name = "OBSDEVOLUCAO")
+    @Column(name = "OBSDEVOLUCAO", length = 225)
     private String obervacoesDevolucao;
     
     @OneToOne(fetch = FetchType.EAGER)

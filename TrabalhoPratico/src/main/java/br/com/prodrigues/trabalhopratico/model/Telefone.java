@@ -27,7 +27,7 @@ public class Telefone implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDTELEFONE")
+    @Column(name = "CDTELEFONE", nullable = false)
     private Long id;
     
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

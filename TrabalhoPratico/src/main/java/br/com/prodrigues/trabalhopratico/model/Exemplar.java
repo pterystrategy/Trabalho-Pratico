@@ -31,14 +31,14 @@ public class Exemplar implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDEXEMPLAR")
+    @Column(name = "CDEXEMPLAR", nullable = false)
     private Long id;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FKLIVRO")
     private Livro livro;
     
-    @Column(name = "QTD", length = 3)
+    @Column(name = "QTD", length = 3, nullable = false)
     private int quantidade;
     
     @ManyToMany(cascade = {

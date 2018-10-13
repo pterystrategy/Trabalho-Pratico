@@ -39,18 +39,18 @@ public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDLIVRO")
+    @Column(name = "CDLIVRO", length = 10)
     private Long id;
 
-    @Column(name = "TITULOLIVRO")
+    @Column(name = "TITULOLIVRO", length = 20)
     private String titulo;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "CLASSIFICACAOLIVRO")
+    @Column(name = "CLASSIFICACAOLIVRO", length = 35)
     private Classificacao classificacao;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATALANCAMENTO")
+    @Column(name = "DATALANCAMENTO", nullable = true)
     private Date dataDeLancamento;
     
     @OneToMany(orphanRemoval = true, mappedBy = "livro", cascade =
@@ -72,7 +72,7 @@ public class Livro implements Serializable {
     @JoinColumn(name = "FKEDITORA")
     private Editora editora;
     
-    @Column(name = "SINOPSE")
+    @Column(name = "SINOPSE", length = 125)
     private String sinopse;
     
     @OneToMany(mappedBy = "livro", cascade =

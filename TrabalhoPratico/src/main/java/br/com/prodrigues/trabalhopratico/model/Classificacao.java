@@ -11,8 +11,6 @@ package br.com.prodrigues.trabalhopratico.model;
  */
 public enum Classificacao {
     
-    
-    
     LINGUAS_LINGUISTICA("LINGUAS_LINGUISTICA"),
     CIENCIAS_EXATAS("CIENCIAS_EXATAS"),
     FILOSOFIA("FILOSOFIA");
@@ -27,6 +25,8 @@ public enum Classificacao {
     public String toString() {
         return classificacao;
     }
-    
-    
+
+    public String getClassificacao() {
+        return classificacao;
+    }   
 }

@@ -37,6 +37,7 @@ public class Reserva implements Serializable {
     
     
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATAHORARESERVA", nullable = true)
     private Date dataHoraReserva;
     
     @OneToOne(fetch = FetchType.EAGER)

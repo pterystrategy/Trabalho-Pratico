@@ -38,7 +38,7 @@ public class Autor extends Pessoa implements Serializable {
     @JoinColumn(name = "FKAUTOR")
     private List<Livro> livros;
     
-    @Column(name = "DTNASC")
+    @Column(name = "DTNASC", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date nascimento;
 

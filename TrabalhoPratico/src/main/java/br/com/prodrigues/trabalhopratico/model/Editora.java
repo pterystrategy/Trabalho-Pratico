@@ -30,12 +30,14 @@ public class Editora implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CDEDITORA")
+    @Column(name = "CDEDITORA", length = 10)
     private Long id;
     
-    @Column(name = "NNEDITORA")
+    @Column(name = "NNEDITORA", length = 20)
     private String namepublisher;
     
+    @Column(name = "EMAIL", length = 20)
+    private String email;
     
     //Endereço
     @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -49,8 +51,6 @@ public class Editora implements Serializable {
     @JoinColumn(name = "FKEDITORA")
     private List<Livro> livros;
     
-    private String email;
-
     public Editora() {
     }
 
