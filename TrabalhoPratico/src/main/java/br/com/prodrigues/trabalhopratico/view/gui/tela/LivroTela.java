@@ -17,8 +17,10 @@ import br.com.prodrigues.trabalhopratico.modelcombo.ClassificacoesCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.EditorasComboModel;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
+import java.awt.Frame;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -30,8 +32,8 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         return tela;
     }
 
-    public static void setTela(LivroTela aTela) {
-        tela = aTela;
+    public static void setTela(LivroTela tela) {
+        LivroTela.tela = tela;
     }
 
     /**
@@ -40,19 +42,19 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
      * @param parent
      * @param modal
      */
-    public LivroTela(java.awt.Frame parent, boolean modal) {
+    public LivroTela(Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        cmbAutores.setRenderer(new AutoresCellRenderer());
-        cmbClassificacoes.setRenderer(new ClassificacoesCellRenderer());
+        this.cmbAutores.setRenderer(new AutoresCellRenderer());
+        this.cmbClassificacoes.setRenderer(new ClassificacoesCellRenderer());
     }
 
-    public static LivroTela getInstance(java.awt.Frame parent, boolean modal) {
+    public static LivroTela getInstance(Frame parent, boolean modal) {
         if (tela == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
              */
             try {
                 for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -118,6 +120,14 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         });
 
         btnOk.setText("Ok");
+        btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnOkMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnOkMouseReleased(evt);
+            }
+        });
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOkActionPerformed(evt);
@@ -305,6 +315,14 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
+    private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
+        this.btnOk.setForeground(java.awt.Color.GREEN);
+    }//GEN-LAST:event_btnOkMousePressed
+
+    private void btnOkMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseReleased
+        this.btnOk.setForeground(UIManager.getDefaults().getColor(this.btnOk.getForeground()));
+    }//GEN-LAST:event_btnOkMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -312,7 +330,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -377,7 +395,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     private List<Autor> listaAutores;
     private List<Editora> listaEditoras;
     private List<Classificacao> classificacoes;
-    
+
     public List<Autor> getListaAutores() {
         return listaAutores;
     }
@@ -386,7 +404,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         modelEditoras.clear();
         modelEditoras.addListEditora(listaEditoras);
     }
-    
+
     public void setListaAutores(List<Autor> listaAutores) {
         modelAutores.clear();
         modelAutores.addListAutor(listaAutores);
@@ -404,6 +422,17 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     public Livro create(Livro object) {
         labTitulo.setText("Cadastro de Livro");
 
+        edtTitulo.setText("");
+        edtTitulo.setEditable(true);
+        edtTitulo.setEnabled(true);
+
+        edtData.setEditable(true);
+        edtData.setEnabled(true);
+
+        edtSinopse.setText("");
+        edtSinopse.setEditable(true);
+        edtSinopse.setEnabled(true);
+
         this.setVisible(true);
 
         return this.getScreenObject();
@@ -416,7 +445,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
     @Override
     public Livro update(Livro object) {
-        if(confirmado){
+        if (confirmado) {
             object.setTitulo(edtTitulo.getText());
             object.setAutor((Autor) cmbAutores.getSelectedItem());
             object.setSinopse(edtSinopse.getText());
@@ -426,24 +455,24 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
             set.setLivro(object);
             object.setEditora((Editora) cmbEditoras.getSelectedItem());
             object.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
-                
-        } else if(!confirmado){
+
+        } else if (!confirmado) {
             showMessage("CANCELADO PELO USUÁRIO!");
-        }else if (object == null) {
-                showMessage("NÃO ENCONTRADO!");
-        }else{
-                showMessage("ALTERADO COM SUCESSO!");
-        }return object;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
+        } else {
+            showMessage("ALTERADO COM SUCESSO!");
+        }
+        return object;
     }
 
     @Override
     public boolean delete(Livro object) {
-         if (confirmado){
-            showMessage("Quer deletar?"+ object.getTitulo());
+        if (confirmado) {
+            showMessage("Quer deletar?" + object.getTitulo());
             return true;
-        }
-        else{
-            showMessage("NAO DELETADO,"+ object.getTitulo());
+        } else {
+            showMessage("NAO DELETADO," + object.getTitulo());
             return false;
         }
     }
@@ -473,32 +502,28 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     @Override
     public void preparaUpdate(Livro object) {
         labTitulo.setText("Dados do Cliente");
-        
+
         edtTitulo.setText(object.getTitulo());
         edtTitulo.setEditable(true);
         edtTitulo.setEnabled(true);
         cmbAutores.setSelectedItem(object.getAutor());
         cmbAutores.setEditable(true);
         cmbAutores.setEnabled(true);
-        
+
         edtData.setDate(object.getDataDeLancamento());
         edtData.setEditable(true);
         edtData.setEnabled(true);
-        
+
         edtQtd.setValue(object.getExemplares().get(0).getQuantidade());
-        
+
         edtSinopse.setText(object.getSinopse());
         edtSinopse.setEditable(true);
         edtSinopse.setEnabled(true);
-        
+
         cmbEditoras.setSelectedItem(object.getEditora());
-        cmbEditoras.setEditable(true);
-        cmbEditoras.setEnabled(true);
-        
-        cmbClassificacoes.setSelectedItem(object.getClassificacao().name());
-        cmbClassificacoes.setEditable(true);
-        cmbClassificacoes.setEnabled(true);
-        
+
+        cmbClassificacoes.setSelectedItem(object.getClassificacao());
+
         this.setVisible(true);
     }
 

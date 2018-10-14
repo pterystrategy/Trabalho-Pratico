@@ -17,13 +17,11 @@ import javax.swing.JList;
 public class EditorasCellRenderer extends DefaultListCellRenderer {
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Object> list,
-            Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-         
-        if (value instanceof Editora) {
-            Editora name = (Editora) value;
-            setText((String)name.getNamepublisher());
+    public Component getListCellRendererComponent(JList<?> jlist, Object o, int i, boolean bln, boolean bln1) {
+        super.getListCellRendererComponent(jlist, o, i, bln, bln1); //To change body of generated methods, choose Tools | Templates.
+        if (o instanceof Editora) {
+            Editora e = (Editora) o;
+            this.setText(e.getNamepublisher());
         }
         return this;
     }

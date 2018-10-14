@@ -51,14 +51,14 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
         boolean concluido = false;
         do {
+            tela.setListaEditoras(all);
+            tela.setListaAutores(lista);
             if (tela.isConfirmado() == true) {
                 if (!livro.getTitulo().isEmpty()) {
                     concluido = true;
                 } else {
                     tela.showErrorMessage("Falta Nome");
                     tela.setVisible(true);
-                    tela.setListaEditoras(all);
-                    tela.setListaAutores(lista);
                     livro = tela.getScreenObject();
                 }
             } else {

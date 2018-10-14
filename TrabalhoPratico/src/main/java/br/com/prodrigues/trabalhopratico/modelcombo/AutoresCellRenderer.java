@@ -20,10 +20,10 @@ public class AutoresCellRenderer extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList<? extends Object> list,
             Object value, int index, boolean isSelected, boolean cellHasFocus) {
         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-         
+
         if (value instanceof Autor) {
             Autor autor = (Autor) value;
-            setText(Long.toString(autor.getId()));
+            setText(autor.getName());
         }
         return this;
     }

@@ -5,7 +5,6 @@
  */
 package br.com.prodrigues.trabalhopratico.modeltable;
 
-import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,31 +14,27 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author prorodrigues
  */
-public class LivroTableModel extends AbstractTableModel{
-    
+public class LivroTableModel extends AbstractTableModel {
+
     List<Livro> lista = new ArrayList<>();
-    
-    
+
     protected List<Livro> listaoriginal;
-    
+
     protected String[] columnNames;
     protected Class[] classes;
 
-    
-    public LivroTableModel(List<Livro> listanova){
-       columnNames = new String[]{"ID","Nome","Autor"};
-       classes = new Class[]{Long.class,String.class,Autor.class};
-       lista = listanova;
-    }
-    
-    
-    
-    public void setLista(List<Livro> lista){
-        this.lista = lista;
-    
+    public LivroTableModel(List<Livro> listanova) {
+        columnNames = new String[]{"ID", "Nome", "Autor"};
+        classes = new Class[]{Long.class, String.class, String.class};
+        lista = listanova;
     }
 
-     @Override
+    public void setLista(List<Livro> lista) {
+        this.lista = lista;
+
+    }
+
+    @Override
     public int getRowCount() {
         return lista.size();
     }
@@ -52,7 +47,7 @@ public class LivroTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Livro livro = lista.get(rowIndex);
-        switch (columnIndex){
+        switch (columnIndex) {
             case 0:
                 return livro.getId();
             case 1:
@@ -60,13 +55,13 @@ public class LivroTableModel extends AbstractTableModel{
             case 2:
                 return livro.getAutor().getName();
             default:
-                 return null;
-        }   
-       
+                return null;
+        }
+
     }
 
     @Override
     public String getColumnName(int column) {
-       return columnNames[column];
+        return columnNames[column];
     }
 }

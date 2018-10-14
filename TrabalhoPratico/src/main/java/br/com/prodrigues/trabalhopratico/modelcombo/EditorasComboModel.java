@@ -15,9 +15,8 @@ import javax.swing.ComboBoxModel;
  *
  * @author prorodrigues
  */
-public final class EditorasComboModel  extends AbstractListModel<Editora> implements ComboBoxModel<Editora>{
-    
-    
+public final class EditorasComboModel extends AbstractListModel<Editora> implements ComboBoxModel<Editora> {
+
     private final List<Editora> listEditoras;
     private Editora selectedEditora;
     private final static int FIRSTINDEX = 0;
@@ -33,12 +32,11 @@ public final class EditorasComboModel  extends AbstractListModel<Editora> implem
     public EditorasComboModel() {
         this.listEditoras = new ArrayList<>();
     }
-    
 
     @Override
     public int getSize() {
-        return listEditoras.size();  
-        }
+        return listEditoras.size();
+    }
 
     @Override
     public Editora getElementAt(int index) {
@@ -52,22 +50,22 @@ public final class EditorasComboModel  extends AbstractListModel<Editora> implem
 
     @Override
     public Object getSelectedItem() {
-        return selectedEditora;    
+        return this.selectedEditora;
     }
-    
+
     public void addEditoras(Editora editora) {
-        listEditoras.add(editora);
+        this.listEditoras.add(editora);
         fireIntervalAdded(this, getSize() - 1, getSize() - 1);
-        setSelectedItem(listEditoras.get(getSize() - 1));
+        this.setSelectedItem(this.listEditoras.get(getSize() - 1));
     }
-     
+
     public void addListEditora(List<Editora> editoras) {
         int primeiraLinha = getSize();
-        listEditoras.addAll(editoras);
-        fireIntervalAdded(this, primeiraLinha, primeiraLinha  + editoras.size());
-        setSelectedItem(listEditoras.get(getSize() - 1));
+        this.listEditoras.addAll(editoras);
+        fireIntervalAdded(this, primeiraLinha, primeiraLinha + editoras.size());
+        this.setSelectedItem(this.listEditoras.get(getSize() - 1));
     }
-     
+
     public boolean removeAutor() {
         boolean remove;
         remove = listEditoras.remove((Editora) getSelectedItem());
@@ -75,10 +73,10 @@ public final class EditorasComboModel  extends AbstractListModel<Editora> implem
         setSelectedItem(listEditoras.get(FIRSTINDEX));
         return remove;
     }
-     
+
     public void clear() {
         listEditoras.clear();
         fireContentsChanged(this, FIRSTINDEX, getSize() - 1);
     }
-    
+
 }

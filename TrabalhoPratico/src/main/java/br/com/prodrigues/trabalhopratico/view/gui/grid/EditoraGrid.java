@@ -19,16 +19,13 @@ public class EditoraGrid extends javax.swing.JDialog {
         return grid;
     }
 
-   
-    
-     
     public static EditoraGrid getInstance(Frame parent, boolean modal, IControleSimples controle) {
-        if (grid == null){
+        if (grid == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-            */
+             */
             try {
                 for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                     if ("Nimbus".equals(info.getName())) {
@@ -42,11 +39,14 @@ public class EditoraGrid extends javax.swing.JDialog {
             //</editor-fold>
             //</editor-fold>
             return new EditoraGrid(parent, modal, controle);
-        }else
+        } else {
             return grid;
+        }
     }
+
     /**
      * Creates new form EditoraGrid
+     *
      * @param parent
      * @param modal
      */
@@ -54,11 +54,10 @@ public class EditoraGrid extends javax.swing.JDialog {
 //        super(parent, modal);
 //        initComponents();
 //    }
-
     private EditoraGrid(Frame parent, boolean modal, IControleSimples controle) {
         super(parent, modal);
         this.controle = controle;
-        
+
         this.model = new EditoraTableModel(controle.getAll());
         initComponents();
     }
@@ -252,7 +251,8 @@ public class EditoraGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        System.out.println(controle.create().toString());
+        Object create = controle.create();
+        System.err.println(create);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
@@ -275,7 +275,7 @@ public class EditoraGrid extends javax.swing.JDialog {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 //         */
 //        try {
 //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -309,7 +309,6 @@ public class EditoraGrid extends javax.swing.JDialog {
 //            }
 //        });
 //    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnInserir;
@@ -329,13 +328,10 @@ public class EditoraGrid extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private final IControleSimples controle;
     private static EditoraGrid grid;
-    private final  EditoraTableModel model;
+    private final EditoraTableModel model;
 
     public IControleSimples getControle() {
         return controle;
     }
-    
-    
-    
 
 }
