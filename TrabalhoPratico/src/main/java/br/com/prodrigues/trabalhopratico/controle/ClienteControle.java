@@ -14,46 +14,43 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+public class ClienteControle extends AbstractControleSimples<Cliente> {
 
-public class ClienteControle extends AbstractControleSimples<Cliente>{
-    
     protected ClienteGrid grid;
     private final ClienteTela tela;
-        
-    public ClienteControle(){
+
+    public ClienteControle() {
         dao = new ClienteDao();
-        
+
         //Cria CRUD
         grid = ClienteGrid.getInstance(null, true, this);
-        
-        tela = ClienteTela.getInstance(null, true); 
+
+        tela = ClienteTela.getInstance(null, true);
     }
-    
+
     @Override
     public Cliente create() {
         Cliente cli = tela.create(null);
         boolean concluido = false;
-        
-        do{
-            if(tela.isConfirmado() == true){
 
-                if(! cli.getCpf().isEmpty()){
+        do {
+            if (tela.isConfirmado() == true) {
+
+                if (!cli.getCpf().isEmpty()) {
                     concluido = true;
-                }
-                else{
+                } else {
                     tela.mostrarErro("Falta CPF");
                     tela.setVisible(true);
-                    
+
                     cli = tela.getScreenObject();
                 }
-            }
-            else{
+            } else {
                 return null;
             }
-            
-        }while((concluido == false )&& (tela.isConfirmado() == true));
 
-        return dao.create(cli);        
+        } while ((concluido == false) && (tela.isConfirmado() == true));
+
+        return dao.create(cli);
 
     }
 
@@ -61,15 +58,13 @@ public class ClienteControle extends AbstractControleSimples<Cliente>{
     public void read(Cliente estado) {
         //Cliente e = (Cliente)estado;
         //crud.read(e);
-        List<Cliente> clientes = dao.findAll();
-        //String lista = "";
-        clientes.forEach((Cliente cliente) -> {
-            tela.showMessage(cliente.toString());
-        });
-     
-    }    
-        
-    @Override    
+        List<Cliente> clientes = this.dao.findAll();
+        String lista = "";
+        lista = clientes.stream().map((cliente) -> cliente.getId() + "\n" + cliente.getName() + "\n" + cliente.getCpf()).reduce(lista, String::concat);
+        this.tela.showMessage(lista);
+    }
+
+    @Override
     public boolean delete(Cliente objeto) {
         long askForLong = this.tela.askForLong("Informe o ID: ");
         Cliente findById = dao.findById(askForLong);
@@ -77,15 +72,14 @@ public class ClienteControle extends AbstractControleSimples<Cliente>{
         if (delete) {
             return this.dao.delete(findById);
         }
-        return  false;
+        return false;
     }
-    
+
     @Override
     public boolean filter(String column, String valor) {
         return true;
     }
 
-        
     @Override
     public void showInicialScreen() {
         grid.setVisible(true);
@@ -95,13 +89,13 @@ public class ClienteControle extends AbstractControleSimples<Cliente>{
     public Cliente update(Cliente objeto) {
         this.read(null);
         long id = tela.askForLong("Digite o código do cliente a editar");
-        
+
         Cliente findById = dao.findById(id);
         tela.preparaUpdate(findById);
         Cliente update = tela.update(findById);
         return dao.update(update);
     }
-    
+
     @Override
     public void print() {
         List<Cliente> lista = dao.findAll();
@@ -109,7 +103,7 @@ public class ClienteControle extends AbstractControleSimples<Cliente>{
         String relatorioHtml = ClienteHtml.gerarRelatorio(lista, "Meu Relatório");
 
         //Salvar em Disco
-        FileWriter arquivo;       
+        FileWriter arquivo;
         try {
             arquivo = new FileWriter("/home/alessiojr/file.html");
             arquivo.append(relatorioHtml);
@@ -117,17 +111,16 @@ public class ClienteControle extends AbstractControleSimples<Cliente>{
         } catch (IOException ex) {
             Logger.getLogger(ClienteControle.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(Desktop.isDesktopSupported())
-        {
+
+        if (Desktop.isDesktopSupported()) {
             try {
                 Desktop.getDesktop().browse(new URI("file:///home/alessiojr/file.html"));
             } catch (IOException | URISyntaxException ex) {
                 Logger.getLogger(ClienteControle.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }        
+        }
         //Abrir em Browser
         //Converter em HTML
-        
+
     }
 }

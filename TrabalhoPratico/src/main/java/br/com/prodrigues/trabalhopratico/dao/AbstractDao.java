@@ -25,9 +25,4 @@ public abstract class AbstractDao<T> implements IDAO<T> {
         return factory.createEntityManager();
     }
 
-    public void closeEntityManager(EntityManager manager) {
-        if (manager.isOpen()) {
-            manager.close();
-        }
-    }
 }

@@ -84,6 +84,7 @@ public class AutorControle extends AbstractControleSimples<Autor> {
         this.read(null);
         long askForLong = this.tela.askForLong("Informe o ID: ");
         Autor findById = dao.findById(askForLong);
+        this.tela.setConfirmado(true);
         boolean delete = this.tela.delete(findById);
         if (delete) {
             return this.dao.delete(findById);

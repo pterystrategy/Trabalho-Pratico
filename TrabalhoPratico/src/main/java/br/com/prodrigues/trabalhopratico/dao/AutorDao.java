@@ -44,15 +44,15 @@ public class AutorDao extends AbstractDao<Autor> {
     public Autor update(Autor entity) {
         em.getTransaction().begin();
         Autor merge = this.getEntityManager().merge(entity);
-        
+
         em.getTransaction().commit();
-        
+
         return merge;
-    }    
+    }
 
     @Override
     public Autor findById(int id) {
-        return this.findById((long)id);
+        return this.findById((long) id);
     }
 
     @Override
@@ -72,5 +72,5 @@ public class AutorDao extends AbstractDao<Autor> {
         cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Autor.class));
         return em.createQuery(cq).getResultList();
-      }
+    }
 }

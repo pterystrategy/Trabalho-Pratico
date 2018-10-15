@@ -79,7 +79,7 @@ public class LivroControle extends AbstractControleSimples<Livro> {
                     + livro.getDataDeLancamento()
                     + "\n";
         }).reduce(lista, String::concat);
-        tela.showMessage(lista);
+        this.tela.showMessage(lista);
     }
 
     @Override
@@ -87,11 +87,13 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         this.read(null);
         long id = tela.askForLong("Digite o código do cliente a editar");
         List<Autor> lista = this.autorControle.getAll();
+        List<Editora> all = this.editoraControle.getAll();
         tela.setListaAutores(lista);
+        tela.setListaEditoras(all);
         Livro findById = dao.findById(id);
         tela.preparaUpdate(findById);
         Livro update = tela.update(findById);
-        return dao.update(update);
+        return this.dao.update(update);
     }
 
     @Override

@@ -15,21 +15,20 @@ import java.util.List;
  *
  * @author prorodrigues
  */
-public class UsuarioControle extends AbstractControleSimples<Usuario>{
+public class UsuarioControle extends AbstractControleSimples<Usuario> {
 
     protected UsuarioGrid grid;
     private final UsuarioTela tela;
-    
+
     public UsuarioControle() {
         dao = new UsuarioDao();
-        
+
         //Cria CRUD
         grid = new UsuarioGrid(null, true, this);
-        
+
         tela = new UsuarioTela(null, true);
-        
+
     }
-    
 
     @Override
     public void showInicialScreen() {
@@ -40,22 +39,20 @@ public class UsuarioControle extends AbstractControleSimples<Usuario>{
     public Usuario create() {
         Usuario usuario = tela.create(null);
         boolean concluido = false;
-        
-        do{
-            if (tela.isConfirmado() ) {
-                if (! usuario.getName().isEmpty()) {
+
+        do {
+            if (tela.isConfirmado()) {
+                if (!usuario.getName().isEmpty()) {
                     concluido = true;
-                    
-                }
-                else{
+
+                } else {
                     tela.showErrorMessage("Falta nome");
                     tela.setVisible(true);
                     usuario = tela.getScreenObject();
                 }
             }
-            
-        }while((concluido == false) && (tela.isConfirmado() == true));
-        
+
+        } while ((concluido == false) && (tela.isConfirmado() == true));
         return dao.create(usuario);
     }
 
@@ -64,9 +61,9 @@ public class UsuarioControle extends AbstractControleSimples<Usuario>{
         List<Usuario> usuarios = dao.findAll();
         String lista = "";
         for (Usuario usuario : usuarios) {
-            lista += "Id: "+ usuario.getId() + ", Nome: "
-                  + usuario.getName() +", Login: "+ usuario.getLogin() + "\n";
-            
+            lista += "Id: " + usuario.getId() + ", Nome: "
+                    + usuario.getName() + ", Login: " + usuario.getLogin() + "\n";
+
         }
         tela.showMessage(lista);
     }
@@ -75,7 +72,7 @@ public class UsuarioControle extends AbstractControleSimples<Usuario>{
     public Usuario update(Usuario objeto) {
         this.read(null);
         long id = tela.askForLong("Digite o código do funcionário a editar");
-        
+
         Usuario findById = dao.findById(id);
         tela.preparaUpdate(findById);
         Usuario update = tela.update(findById);
@@ -84,16 +81,17 @@ public class UsuarioControle extends AbstractControleSimples<Usuario>{
 
     @Override
     public boolean delete(Usuario objeto) {
-        this.read(null);        
-        
-        long id = tela.askForLong("Insira o código do usuario a remover");    
+        this.read(null);
+
+        long id = tela.askForLong("Insira o código do usuario a remover");
         Usuario findById = dao.findById(id);
         boolean delete = dao.delete(findById);
-        
-        if(delete)
+
+        if (delete) {
             tela.showMessage("Usuario excluído com êxito");
-        else   
+        } else {
             tela.showMessage("Usuario não encontrado");
+        }
         return delete;
     }
 

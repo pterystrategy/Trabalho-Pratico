@@ -506,9 +506,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         edtTitulo.setText(object.getTitulo());
         edtTitulo.setEditable(true);
         edtTitulo.setEnabled(true);
-        cmbAutores.setSelectedItem(object.getAutor());
-        cmbAutores.setEditable(true);
-        cmbAutores.setEnabled(true);
+        cmbAutores.setSelectedItem(object.getAutor().getName());
 
         edtData.setDate(object.getDataDeLancamento());
         edtData.setEditable(true);
@@ -520,7 +518,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         edtSinopse.setEditable(true);
         edtSinopse.setEnabled(true);
 
-        cmbEditoras.setSelectedItem(object.getEditora());
+        cmbEditoras.setSelectedItem(object.getEditora().getNamepublisher());
 
         cmbClassificacoes.setSelectedItem(object.getClassificacao());
 
