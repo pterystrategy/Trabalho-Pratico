@@ -7,10 +7,13 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.LivroDao;
 import br.com.prodrigues.trabalhopratico.model.Autor;
+import br.com.prodrigues.trabalhopratico.model.Classificacao;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.LivroGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LivroTela;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,10 +52,13 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
         List<Editora> all = this.editoraControle.getAll();
 
+        List<Classificacao> classificacoes = this.getClassificacaoAll();
+
         boolean concluido = false;
         do {
             tela.setListaEditoras(all);
             tela.setListaAutores(lista);
+            tela.setListaClassificacoes(classificacoes);
             if (tela.isConfirmado() == true) {
                 if (!livro.getTitulo().isEmpty()) {
                     concluido = true;
@@ -123,4 +129,7 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         return dao.findAll();
     }
 
+    private List<Classificacao> getClassificacaoAll() {
+        return Arrays.asList(Classificacao.values());
+    }
 }

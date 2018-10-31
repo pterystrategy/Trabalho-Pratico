@@ -14,6 +14,7 @@ import br.com.prodrigues.trabalhopratico.model.Exemplar;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modelcombo.AutoresCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClassificacoesCellRenderer;
+import br.com.prodrigues.trabalhopratico.modelcombo.EditorasCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.EditorasComboModel;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
@@ -47,6 +48,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         initComponents();
         this.cmbAutores.setRenderer(new AutoresCellRenderer());
         this.cmbClassificacoes.setRenderer(new ClassificacoesCellRenderer());
+        this.cmbEditoras.setRenderer(new EditorasCellRenderer());
     }
 
     public static LivroTela getInstance(Frame parent, boolean modal) {
@@ -531,5 +533,10 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
     public void setClassificacoes(List<Classificacao> classificacoes) {
         this.classificacoes = classificacoes;
+    }
+    
+    public void setListaClassificacoes(List<Classificacao> classificacoes) {
+        modelClassificacoes.clear();
+        modelClassificacoes.addListClassificacao(classificacoes);
     }
 }
