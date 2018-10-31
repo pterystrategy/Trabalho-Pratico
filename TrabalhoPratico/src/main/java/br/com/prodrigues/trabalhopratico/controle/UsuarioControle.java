@@ -8,6 +8,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 import br.com.prodrigues.trabalhopratico.dao.UsuarioDao;
 import br.com.prodrigues.trabalhopratico.model.Usuario;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.UsuarioGrid;
+import br.com.prodrigues.trabalhopratico.view.gui.tela.LoginTela;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.UsuarioTela;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
 
     protected UsuarioGrid grid;
     private final UsuarioTela tela;
+    private final LoginTela telaL;
 
     public UsuarioControle() {
         dao = new UsuarioDao();
@@ -27,6 +29,8 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
         grid = new UsuarioGrid(null, true, this);
 
         tela = new UsuarioTela(null, true);
+
+        telaL = LoginTela.getInstance(null, true);
 
     }
 
@@ -103,5 +107,9 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     @Override
     public boolean filter(String column, String valor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void showInicialLogin() {
+        telaL.setVisible(true);
     }
 }
