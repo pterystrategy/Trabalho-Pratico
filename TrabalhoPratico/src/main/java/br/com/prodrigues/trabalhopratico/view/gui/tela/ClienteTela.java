@@ -328,13 +328,24 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
 
     @Override
     public boolean delete(Cliente object) {
-        if (confirmado) {
-            showMessage("Quer deletar?" + object.getName());
+//        if (confirmado) {
+            labTitulo.setText("Dados do Cliente");
+            edtCPF.setText(object.getCpf());
+            edtCPF.setEditable(true);
+            edtCPF.setEnabled(true);
+            edtNome.setText(object.getName());
+            edtNome.setEditable(true);
+            edtNome.setEnabled(true);
+            edtEmail.setText(object.getEmail());
+            edtEmail.setEditable(true);
+            edtEmail.setEnabled(true);
+            
+            this.setVisible(true);
             return true;
-        } else {
-            showMessage("NAO DELETADO," + object.getName());
-            return false;
-        }
+//        } else {
+//            showMessage("NAO DELETADO," + object.getName());
+//            return false;
+//        }
 
     }
 

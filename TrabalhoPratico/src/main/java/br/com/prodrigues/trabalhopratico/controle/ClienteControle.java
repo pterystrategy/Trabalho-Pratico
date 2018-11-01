@@ -2,6 +2,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.ClienteDao;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
+import br.com.prodrigues.trabalhopratico.modeltable.novo.ClienteTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.ClienteGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.ClienteTela;
 import br.com.prodrigues.trabalhopratico.view.html.ClienteHtml;
@@ -18,14 +19,19 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
 
     protected ClienteGrid grid;
     private final ClienteTela tela;
+    private final ClienteTableModel model;
 
     public ClienteControle() {
-        dao = new ClienteDao();
+        this.dao = new ClienteDao();
+        this.model = new ClienteTableModel(this.dao.findAll());
 
         //Cria CRUD
-        grid = ClienteGrid.getInstance(null, true, this);
+//        this.grid = ClienteGrid.getInstance(null, true, this);
+        this.grid = new ClienteGrid(null, true, this, this.model);
 
-        tela = ClienteTela.getInstance(null, true);
+        this.tela = ClienteTela.getInstance(null, true);
+        
+
     }
 
     @Override
@@ -49,8 +55,9 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
             }
 
         } while ((concluido == false) && (tela.isConfirmado() == true));
-
-        return dao.create(cli);
+        cli = dao.create(cli);
+        model.add(cli);
+        return cli;
 
     }
 
@@ -66,11 +73,13 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
 
     @Override
     public boolean delete(Cliente objeto) {
-        long askForLong = this.tela.askForLong("Informe o ID: ");
-        Cliente findById = dao.findById(askForLong);
+//        long askForLong = this.tela.askForLong("Informe o ID: ");
+        Cliente findById = dao.findById(objeto.getId());
         boolean delete = this.tela.delete(findById);
         if (delete) {
+            this.model.remove(findById);
             return this.dao.delete(findById);
+           
         }
         return false;
     }

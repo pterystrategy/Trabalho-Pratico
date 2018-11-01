@@ -13,6 +13,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import br.com.prodrigues.trabalhopratico.model.Usuario;
 
 /**
  *
@@ -336,10 +337,33 @@ public class LoginTela extends javax.swing.JDialog {
     private boolean confirmado;
     private int returnStatus = RET_CANCEL;
 
+     public Usuario getScreenObject() {
+        Usuario retorno = new Usuario();
+        retorno.setLogin(edtLogin.getText());
+        retorno.setSenha(edtSenha.getText());
+        return retorno;
+    }
     public boolean isConfirmado() {
         return confirmado;
     }
-
+    
+    public void autenticar(){
+        Usuario usuario = this.getScreenObject();
+        if (usuario.getSenha().equals("123") && usuario.getLogin().equals("admin")) {
+            
+        }
+        
+    }
+    
+    public void preparaLogin(){
+        edtLogin.setText("");
+        edtLogin.setEditable(true);
+        edtLogin.setEnabled(true);
+        
+        edtSenha.setText("");
+        edtSenha.setEditable(true);
+        edtSenha.setEnabled(true);
+    }
     public void setConfirmado(boolean confirmado) {
         this.confirmado = confirmado;
     }

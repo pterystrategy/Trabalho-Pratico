@@ -6,7 +6,8 @@
 package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
-import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
+import br.com.prodrigues.trabalhopratico.model.Cliente;
+import br.com.prodrigues.trabalhopratico.modeltable.novo.ClienteTableModel;
 
 
 
@@ -33,7 +34,12 @@ public class ClienteGrid extends javax.swing.JDialog {
         initComponents();
     }
 
-     
+     public ClienteGrid(java.awt.Frame parent, boolean modal,IControleSimples controle, ClienteTableModel model) {
+        super(parent, modal);
+        this.controle = controle;
+        this.model = model;
+        initComponents();
+    }
      public static ClienteGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle) {        
         if (tela == null){
             /* Set the Nimbus look and feel */
@@ -288,7 +294,9 @@ public class ClienteGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_edtPesquisaActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        this.controle.delete(null);
+        int selectedRow = this.tblGrid.getSelectedRow();
+        Cliente objetoLinha = model.getObjetoLinha(selectedRow);
+        this.controle.delete(objetoLinha);
     }//GEN-LAST:event_btnRemoverActionPerformed
 
 
