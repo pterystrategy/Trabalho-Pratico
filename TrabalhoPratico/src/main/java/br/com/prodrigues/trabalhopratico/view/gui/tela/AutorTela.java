@@ -295,22 +295,29 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor> {
 
     @Override
     public Autor update(Autor object) {
+
         if (confirmado) {
             object.setName(edtNome.getText());
             object.setNascimento(edtData.getDate());
-
-        } else if (!confirmado) {
-            showMessage("CANCELADO PELO USUÁRIO!");
-        } else if (object == null) {
-            showMessage("NÃO ENCONTRADO!");
-        } else {
-            showMessage("ALTERADO COM SUCESSO!");
         }
+
+        this.showMessage("ALTERADO COM SUCESSO!");
         return object;
     }
 
     @Override
     public boolean delete(Autor object) {
+        labTitulo.setText("Dados do Autor");
+
+        edtData.setDate(object.getNascimento());
+        edtData.setEditable(true);
+        edtData.setEnabled(true);
+        edtNome.setText(object.getName());
+        edtNome.setEditable(true);
+        edtNome.setEnabled(true);
+
+        this.setVisible(true);
+
         if (confirmado) {
             showMessage("Quer deletar?" + object.getName());
             return true;
@@ -336,7 +343,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor> {
 
     @Override
     public void preparaUpdate(Autor object) {
-        labTitulo.setText("Dados do Cliente");
+        labTitulo.setText("Dados do Autor");
 
         edtData.setDate(object.getNascimento());
         edtData.setEditable(true);

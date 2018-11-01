@@ -7,9 +7,7 @@ package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
-import br.com.prodrigues.trabalhopratico.modeltable.novo.ClienteTableModel;
-
-
+import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
 
 /**
  *
@@ -19,34 +17,33 @@ public class ClienteGrid extends javax.swing.JDialog {
 
     private final IControleSimples controle;
     private static ClienteGrid tela;
-    private final ClienteTableModel model;
-    
+    private ClienteTableModel model;
+
     /**
      * Creates new form ClienteCRUD
+     *
      * @param parent
      * @param modal
      * @param controle
      */
-    public ClienteGrid(java.awt.Frame parent, boolean modal,IControleSimples controle) {
+    public ClienteGrid(java.awt.Frame parent, boolean modal, IControleSimples controle) {
         super(parent, modal);
         this.controle = controle;
-        this.model = new ClienteTableModel(controle.getAll());
-        initComponents();
     }
 
-     public ClienteGrid(java.awt.Frame parent, boolean modal,IControleSimples controle, ClienteTableModel model) {
-        super(parent, modal);
-        this.controle = controle;
+    public ClienteGrid(java.awt.Frame parent, boolean modal, IControleSimples controle, ClienteTableModel model) {
+        this(parent, modal, controle);
         this.model = model;
         initComponents();
     }
-     public static ClienteGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle) {        
-        if (tela == null){
+
+    public static ClienteGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle) {
+        if (tela == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-            */
+             */
             try {
                 for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                     if ("Nimbus".equals(info.getName())) {
@@ -60,10 +57,36 @@ public class ClienteGrid extends javax.swing.JDialog {
             //</editor-fold>
             //</editor-fold>
             return new ClienteGrid(parent, modal, controle);
-        }
-        else
+        } else {
             return tela;
-    } 
+        }
+    }
+
+    public static ClienteGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle, ClienteTableModel model) {
+        if (tela == null) {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+            * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(ClienteGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            //</editor-fold>
+            return new ClienteGrid(parent, modal, controle, model);
+        } else {
+            return tela;
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -273,7 +296,7 @@ public class ClienteGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_edtFiltroKeyReleased
 
     private void tblGridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGridMouseClicked
-        
+
     }//GEN-LAST:event_tblGridMouseClicked
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
@@ -286,7 +309,10 @@ public class ClienteGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        this.controle.update(null);
+
+        int selectedRow = this.tblGrid.getSelectedRow();
+        Cliente objetoLinha = model.getObjetoLinha(selectedRow);
+        this.controle.update(objetoLinha);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void edtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtPesquisaActionPerformed
@@ -298,7 +324,6 @@ public class ClienteGrid extends javax.swing.JDialog {
         Cliente objetoLinha = model.getObjetoLinha(selectedRow);
         this.controle.delete(objetoLinha);
     }//GEN-LAST:event_btnRemoverActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

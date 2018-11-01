@@ -7,6 +7,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.AutorDao;
 import br.com.prodrigues.trabalhopratico.model.Autor;
+import br.com.prodrigues.trabalhopratico.modeltable.AutorTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.AutorGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.AutorTela;
 import java.util.List;
@@ -19,11 +20,13 @@ public class AutorControle extends AbstractControleSimples<Autor> {
 
     protected AutorGrid grid;
     private final AutorTela tela;
+    private final AutorTableModel model;
 
     public AutorControle() {
         this.dao = new AutorDao();
+        this.model = new AutorTableModel(this.dao.findAll());
 
-        this.grid = AutorGrid.getInstance(null, true, this);
+        this.grid = AutorGrid.getInstance(null, true, this, model);
         this.tela = AutorTela.getInstance(null, true);
 
     }
@@ -54,8 +57,9 @@ public class AutorControle extends AbstractControleSimples<Autor> {
             }
 
         } while ((concluido == false) && (tela.isConfirmado() == true));
-
-        return dao.create(autor);
+        autor = dao.create(autor);
+        model.add(autor);
+        return autor;
     }
 
     @Override
@@ -70,23 +74,22 @@ public class AutorControle extends AbstractControleSimples<Autor> {
 
     @Override
     public Autor update(Autor objeto) {
-        this.read(null);
-        long id = tela.askForLong("Digite o código do autor a editar");
-
-        Autor findById = dao.findById(id);
-        tela.preparaUpdate(findById);
-        Autor update = tela.update(findById);
-        return dao.update(update);
+        this.tela.preparaUpdate(objeto);
+        Autor update = tela.update(objeto);
+        Autor update1 = dao.update(update);
+        this.model.update(objeto, update1);
+        return update1;
     }
 
     @Override
     public boolean delete(Autor objeto) {
-        this.read(null);
-        long askForLong = this.tela.askForLong("Informe o ID: ");
-        Autor findById = dao.findById(askForLong);
+//        this.read(null);
+//        long askForLong = this.tela.askForLong("Informe o ID: ");
+        Autor findById = dao.findById(objeto.getId());
         this.tela.setConfirmado(true);
         boolean delete = this.tela.delete(findById);
         if (delete) {
+            this.model.remove(findById);
             return this.dao.delete(findById);
         }
         return false;

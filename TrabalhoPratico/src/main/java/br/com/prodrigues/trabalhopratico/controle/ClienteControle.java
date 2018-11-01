@@ -2,7 +2,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.ClienteDao;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
-import br.com.prodrigues.trabalhopratico.modeltable.novo.ClienteTableModel;
+import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.ClienteGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.ClienteTela;
 import br.com.prodrigues.trabalhopratico.view.html.ClienteHtml;
@@ -27,10 +27,9 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
 
         //Cria CRUD
 //        this.grid = ClienteGrid.getInstance(null, true, this);
-        this.grid = new ClienteGrid(null, true, this, this.model);
+        this.grid = ClienteGrid.getInstance(null, true, this, this.model);
 
         this.tela = ClienteTela.getInstance(null, true);
-        
 
     }
 
@@ -79,7 +78,7 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
         if (delete) {
             this.model.remove(findById);
             return this.dao.delete(findById);
-           
+
         }
         return false;
     }
@@ -91,18 +90,16 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
 
     @Override
     public void showInicialScreen() {
-        grid.setVisible(true);
+        this.grid.setVisible(true);
     }
 
     @Override
     public Cliente update(Cliente objeto) {
-        this.read(null);
-        long id = tela.askForLong("Digite o código do cliente a editar");
-
-        Cliente findById = dao.findById(id);
-        tela.preparaUpdate(findById);
-        Cliente update = tela.update(findById);
-        return dao.update(update);
+        this.tela.preparaUpdate(objeto);
+        Cliente update = tela.update(objeto);
+        Cliente update1 = this.dao.update(update);
+        this.model.update(objeto, update1);
+        return update1;
     }
 
     @Override
@@ -130,6 +127,5 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
         }
         //Abrir em Browser
         //Converter em HTML
-
     }
 }

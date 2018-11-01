@@ -143,7 +143,7 @@ public abstract class UtilTableModel<T> extends AbstractTableModel{
     }
     
     /* Adiciona uma lista de sÃ³cios ao final dos registros. */
-    public void setLista(List<T> lista) {
+    public void setListaA(List<T> lista) {
         // Pega o tamanho antigo da tabela.
         int tamanhoAntigo = getRowCount();
 

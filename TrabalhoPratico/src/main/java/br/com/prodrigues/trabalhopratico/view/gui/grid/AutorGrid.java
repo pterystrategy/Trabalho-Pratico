@@ -7,6 +7,7 @@ package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.modeltable.AutorTableModel;
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
+import br.com.prodrigues.trabalhopratico.model.Autor;
 import java.awt.Frame;
 
 /**
@@ -17,6 +18,7 @@ public class AutorGrid extends javax.swing.JDialog {
 
     /**
      * Creates new form AutorGrid
+     *
      * @param parent
      * @param modal
      * @param controle
@@ -24,16 +26,21 @@ public class AutorGrid extends javax.swing.JDialog {
     public AutorGrid(Frame parent, boolean modal, IControleSimples controle) {
         super(parent, modal);
         this.controle = controle;
-        this.model = new AutorTableModel(controle.getAll());
+
+    }
+
+    public AutorGrid(Frame parent, boolean modal, IControleSimples controle, AutorTableModel model) {
+        this(parent, modal, controle);
+        this.model = model;
         initComponents();
     }
-    
-     public static AutorGrid getInstance(Frame parent, boolean modal, IControleSimples controle) {        
-        if (grid == null){
+
+    public static AutorGrid getInstance(Frame parent, boolean modal, IControleSimples controle) {
+        if (grid == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
              */
             try {
                 for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -47,12 +54,36 @@ public class AutorGrid extends javax.swing.JDialog {
             }
             //</editor-fold>
             //</editor-fold>
-            return new AutorGrid(parent, modal, controle);        
-        }
-        else{
+            return new AutorGrid(parent, modal, controle);
+        } else {
             return grid;
         }
-    } 
+    }
+
+    public static AutorGrid getInstance(Frame parent, boolean modal, IControleSimples controle, AutorTableModel model) {
+        if (grid == null) {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(AutorGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            //</editor-fold>
+            return new AutorGrid(parent, modal, controle, model);
+        } else {
+            return grid;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,7 +96,7 @@ public class AutorGrid extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblGrid = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -84,8 +115,8 @@ public class AutorGrid extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultado"));
 
-        jTable1.setModel(this.getModel());
-        jScrollPane1.setViewportView(jTable1);
+        tblGrid.setModel(this.getModel());
+        jScrollPane1.setViewportView(tblGrid);
 
         jLabel1.setText("jLabel1");
 
@@ -234,7 +265,9 @@ public class AutorGrid extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        controle.update(null);
+        int selectedRow = this.tblGrid.getSelectedRow();
+        Autor objetoLinha = model.getObjetoLinha(selectedRow);
+        this.controle.update(objetoLinha);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -251,7 +284,9 @@ public class AutorGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        this.controle.delete(null);
+        int selectedRow = this.tblGrid.getSelectedRow();
+        Autor objetoLinha = model.getObjetoLinha(selectedRow);
+        this.controle.delete(objetoLinha);
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     /**
@@ -261,7 +296,7 @@ public class AutorGrid extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -287,7 +322,7 @@ public class AutorGrid extends javax.swing.JDialog {
 //                dialog.setVisible(true);
 //            }
 //        });
-        
+
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -303,7 +338,7 @@ public class AutorGrid extends javax.swing.JDialog {
 //                dialog.setVisible(true);
 //            }
 //        });
-}
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -317,12 +352,12 @@ public class AutorGrid extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel panRodape;
+    private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables
-    private final  IControleSimples controle;
+    private final IControleSimples controle;
     private AutorTableModel model;
 
     public AutorTableModel getModel() {
