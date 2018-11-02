@@ -6,6 +6,7 @@
 package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
+import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.modeltable.EditoraTableModel;
 import java.awt.Frame;
 
@@ -44,21 +45,46 @@ public class EditoraGrid extends javax.swing.JDialog {
         }
     }
 
+    public static EditoraGrid getInstance(Frame parent, boolean modal, IControleSimples controle, EditoraTableModel model) {
+        if (grid == null) {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+            * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(LivroGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            //</editor-fold>
+            return new EditoraGrid(parent, modal, controle, model);
+        } else {
+            return grid;
+        }
+    }
+
     /**
      * Creates new form EditoraGrid
      *
      * @param parent
      * @param modal
+     * @param controle
      */
-//    public EditoraGrid(Frame parent, boolean modal) {
-//        super(parent, modal);
-//        initComponents();
-//    }
     private EditoraGrid(Frame parent, boolean modal, IControleSimples controle) {
         super(parent, modal);
         this.controle = controle;
+    }
 
-        this.model = new EditoraTableModel(controle.getAll());
+    private EditoraGrid(Frame parent, boolean modal, IControleSimples controle, EditoraTableModel model) {
+        this(parent, modal, controle);
+        this.model = model;
         initComponents();
     }
 
@@ -85,7 +111,7 @@ public class EditoraGrid extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblGrid = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editora Grid");
@@ -183,7 +209,7 @@ public class EditoraGrid extends javax.swing.JDialog {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultado"));
@@ -196,8 +222,8 @@ public class EditoraGrid extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(this.model);
-        jScrollPane1.setViewportView(jTable1);
+        tblGrid.setModel(this.model);
+        jScrollPane1.setViewportView(tblGrid);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -217,7 +243,7 @@ public class EditoraGrid extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,7 +257,7 @@ public class EditoraGrid extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -243,11 +269,15 @@ public class EditoraGrid extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        controle.update(null);
+        int selectedRow = this.tblGrid.getSelectedRow();
+        Editora objetoLinha = model.getObjetoLinha(selectedRow);
+        this.controle.update(objetoLinha);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        controle.delete(null);
+        int selectedRow = this.tblGrid.getSelectedRow();
+        Editora objetoLinha = model.getObjetoLinha(selectedRow);
+        this.controle.delete(objetoLinha);
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -321,14 +351,14 @@ public class EditoraGrid extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel panRodape;
+    private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables
     private final IControleSimples controle;
     private static EditoraGrid grid;
-    private final EditoraTableModel model;
+    private EditoraTableModel model;
 
     public IControleSimples getControle() {
         return controle;

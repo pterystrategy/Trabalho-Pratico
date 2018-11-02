@@ -3,23 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.prodrigues.trabalhopratico.modeltable;
+package br.com.prodrigues.trabalhopratico.modeltable.antigo;
 
 import br.com.prodrigues.trabalhopratico.model.Livro;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author prorodrigues
  */
-public class LivroTableModel extends UtilTableModel<Livro> {
+public class LivroTableModel extends AbstractTableModel {
+
+    List<Livro> lista = new ArrayList<>();
 
     protected List<Livro> listaoriginal;
 
-    public LivroTableModel(List<Livro> l) {
-        super(l);
+    protected String[] columnNames;
+    protected Class[] classes;
+
+    public LivroTableModel(List<Livro> listanova) {
         columnNames = new String[]{"ID", "Nome", "Autor"};
         classes = new Class[]{Long.class, String.class, String.class};
+        lista = listanova;
+    }
+
+    public void setLista(List<Livro> lista) {
+        this.lista = lista;
+
+    }
+
+    @Override
+    public int getRowCount() {
+        return lista.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 3;
     }
 
     @Override
@@ -39,7 +61,7 @@ public class LivroTableModel extends UtilTableModel<Livro> {
     }
 
     @Override
-    public void filter(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getColumnName(int column) {
+        return columnNames[column];
     }
 }

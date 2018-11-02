@@ -7,6 +7,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.EditoraDao;
 import br.com.prodrigues.trabalhopratico.model.Editora;
+import br.com.prodrigues.trabalhopratico.modeltable.EditoraTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.EditoraGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.EditoraTela;
 import java.util.List;
@@ -19,11 +20,13 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
 
     protected EditoraGrid grid;
     private final EditoraTela tela;
+    private EditoraTableModel model;
 
     public EditoraControle() {
         this.dao = new EditoraDao();
+        this.model = new EditoraTableModel(this.dao.findAll());
 
-        this.grid = EditoraGrid.getInstance(null, true, this);
+        this.grid = EditoraGrid.getInstance(null, true, this, this.model);
         this.tela = EditoraTela.getInstance(null, true);
     }
 
@@ -52,7 +55,9 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
                 return null;
             }
         } while ((concluido == false) && (tela.isConfirmado() == true));
-        return dao.create(editora);
+        editora = dao.create(editora);
+        model.add(editora);
+        return editora;
     }
 
     @Override
@@ -65,22 +70,26 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
 
     @Override
     public Editora update(Editora objeto) {
-        this.read(null);
-        long id = tela.askForLong("Digite o código do cliente a editar");
-        Editora findById;
-        findById = this.dao.findById(id);
-        tela.preparaUpdate(findById);
-        Editora update = this.tela.update(findById);
-        return dao.update(update);
+//////        this.read(null);
+//        long id = tela.askForLong("Digite o código do cliente a editar");
+//        Editora findById;
+        this.tela.preparaUpdate(objeto);
+        Editora update = tela.update(objeto);
+        Editora update1 = dao.update(update);
+        this.model.update(objeto, update1);
+        return update1;
     }
 
     @Override
     public boolean delete(Editora objeto) {
-        this.read(null);
-        long askForLong = this.tela.askForLong("Informe o ID: ");
-        Editora findById = this.dao.findById(askForLong);
+//        this.read(null);
+//        long askForLong = this.tela.askForLong("Informe o ID: ");
+//        Editora findById = this.dao.findById(askForLong);
+        Editora findById = dao.findById(objeto.getId());
+        this.tela.setConfirmado(true);
         boolean delete = this.tela.delete(findById);
         if (delete) {
+            this.model.remove(findById);
             return this.dao.delete(findById);
         }
         return false;

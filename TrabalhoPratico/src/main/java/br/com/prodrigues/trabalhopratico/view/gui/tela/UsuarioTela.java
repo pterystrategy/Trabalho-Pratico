@@ -8,6 +8,7 @@ package br.com.prodrigues.trabalhopratico.view.gui.tela;
 import br.com.prodrigues.trabalhopratico.model.Usuario;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,8 +25,34 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         tela = aTela;
     }
 
+    public static UsuarioTela getInstance(Frame parent, boolean modal) {
+        if (tela == null) {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(UsuarioTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            //</editor-fold>
+            return new UsuarioTela(parent, modal);
+        } else {
+            return tela;
+        }
+    }
+
     /**
      * Creates new form UsuarioTela
+     *
      * @param parent
      * @param modal
      */
@@ -206,10 +233,9 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if(edtNome.getText().trim().isEmpty()){
+        if (edtNome.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Falta o Nome");
-        }
-        else{
+        } else {
             this.setConfirmado(true);
             this.dispose();
         }
@@ -230,7 +256,7 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -262,11 +288,10 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
             dialog.setVisible(true);
         });
     }
-    
+
     private static UsuarioTela tela;
     private boolean confirmado = false;
 
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOk;
@@ -289,22 +314,22 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         edtNome.setText("");
         edtNome.setEditable(true);
         edtNome.setEnabled(true);
-        
+
         edtLogin.setText("");
         edtLogin.setEditable(true);
         edtLogin.setEnabled(true);
-        
+
         edtSenha.setText("");
         edtSenha.setEditable(true);
         edtSenha.setEnabled(true);
-        
+
         edtSenhaConfirmacao.setText("");
         edtSenhaConfirmacao.setEditable(true);
         edtSenhaConfirmacao.setEnabled(true);
-        
+
         btnCancel.setVisible(true);
         this.setVisible(true);
-        
+
         return this.getScreenObject();
 
     }
@@ -312,22 +337,22 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
     @Override
     public void read(Usuario object) {
         labTitulo.setText("Dados do Usuario");
-        
+
         edtNome.setText(object.getName());
         edtNome.setEditable(false);
         edtNome.setEnabled(false);
-        
+
         edtLogin.setText(object.getLogin());
         edtLogin.setEditable(false);
         edtLogin.setEnabled(false);
-        
+
         edtSenha.setText("");
         edtSenha.setEditable(false);
         edtSenha.setEnabled(false);
-        
+
         edtSenha.setEditable(false);
         edtSenha.setEnabled(false);
-        
+
         btnCancel.setVisible(false);
         this.setVisible(true);
     }
@@ -338,18 +363,40 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
             object.setName(edtNome.getText());
             object.setLogin(edtLogin.getText());
             object.setSenha(edtSenha.getText());
-        }else if (confirmado == false)
+        } else if (confirmado == false) {
             showMessage("CANCELADO PELO USUÁRIO!");
-        else if (object == null)
+        } else if (object == null) {
             showMessage("NÃO ENCONTRADO!");
-        else
+        } else {
             showMessage("ALTERADO COM SUCESSO!");
+        }
         return object;
     }
 
     @Override
     public boolean delete(Usuario object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        edtNome.setText(object.getName());
+        edtNome.setEditable(false);
+        edtNome.setEnabled(false);
+
+        edtLogin.setText(object.getLogin());
+        edtLogin.setEditable(false);
+        edtLogin.setEnabled(false);
+        edtSenha.setEditable(false);
+        edtSenha.setEnabled(false);
+        edtSenhaConfirmacao.setText(object.getSenha());
+        edtSenhaConfirmacao.setEditable(false);
+        edtSenhaConfirmacao.setEnabled(false);
+
+        this.setVisible(true);
+
+        if (confirmado) {
+            showMessage("Quer deletar?" + object.getName());
+            return true;
+        } else {
+            showMessage("NAO DELETADO," + object.getName());
+            return false;
+        }
     }
 
     @Override
@@ -359,7 +406,7 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         retorno.setLogin(edtLogin.getText());
         retorno.setSenha(edtSenha.getText());
         return retorno;
-    }    
+    }
 
     public boolean isConfirmado() {
         return confirmado;
@@ -377,22 +424,22 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
     @Override
     public void preparaUpdate(Usuario object) {
         labTitulo.setText("Dados do Usuario");
-        
+
         edtNome.setText(object.getName());
         edtNome.setEditable(true);
         edtNome.setEnabled(true);
-        
+
         edtLogin.setText(object.getLogin());
         edtLogin.setEditable(true);
         edtLogin.setEnabled(true);
-        
+
         edtSenha.setText(object.getSenha());
         edtSenha.setEditable(false);
         edtSenha.setEnabled(false);
         edtSenhaConfirmacao.setText(object.getSenha());
         edtSenhaConfirmacao.setEditable(false);
         edtSenhaConfirmacao.setEnabled(false);
-        
+
         btnCancel.setVisible(true);
         this.setVisible(true);
         setConfirmado(true);

@@ -10,9 +10,9 @@ import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Classificacao;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Livro;
+import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.LivroGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LivroTela;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,13 +24,16 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     private final LivroGrid grid;
     private final LivroTela tela;
+    private LivroTableModel model;
     private final AutorControle autorControle;
     private EditoraControle editoraControle;
 
     public LivroControle(AutorControle autorControle) {
         this.dao = new LivroDao();
         this.autorControle = autorControle;
-        this.grid = LivroGrid.getInstance(null, true, this);
+        this.model = new LivroTableModel(this.dao.findAll());
+
+        this.grid = LivroGrid.getInstance(null, true, this, model);
         this.tela = LivroTela.getInstance(null, true);
     }
 
@@ -71,7 +74,9 @@ public class LivroControle extends AbstractControleSimples<Livro> {
                 return null;
             }
         } while ((concluido == false) && (tela.isConfirmado() == true));
-        return dao.create(livro);
+        livro = dao.create(livro);
+        model.add(livro);
+        return livro;
     }
 
     @Override
@@ -90,25 +95,28 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     @Override
     public Livro update(Livro objeto) {
-        this.read(null);
-        long id = tela.askForLong("Digite o código do cliente a editar");
+//        this.read(null);
+//        long id = tela.askForLong("Digite o código do cliente a editar");
         List<Autor> lista = this.autorControle.getAll();
         List<Editora> all = this.editoraControle.getAll();
         tela.setListaAutores(lista);
         tela.setListaEditoras(all);
-        Livro findById = dao.findById(id);
-        tela.preparaUpdate(findById);
-        Livro update = tela.update(findById);
-        return this.dao.update(update);
+        this.tela.preparaUpdate(objeto);
+        Livro update = tela.update(objeto);
+        Livro update1 = dao.update(update);
+        this.model.update(objeto, update1);
+        return update1;
     }
 
     @Override
     public boolean delete(Livro objeto) {
-        this.read(null);
-        long askForLong = this.tela.askForLong("Informe o ID: ");
-        Livro findById = dao.findById(askForLong);
+//        this.read(null);
+//        long askForLong = this.tela.askForLong("Informe o ID: ");
+        Livro findById = dao.findById(objeto.getId());
+        this.tela.setConfirmado(true);
         boolean delete = this.tela.delete(findById);
         if (delete) {
+            this.model.remove(findById);
             return this.dao.delete(findById);
         }
         return false;

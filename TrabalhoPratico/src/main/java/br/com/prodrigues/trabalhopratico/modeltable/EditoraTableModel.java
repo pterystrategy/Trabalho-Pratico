@@ -5,62 +5,38 @@
  */
 package br.com.prodrigues.trabalhopratico.modeltable;
 
-import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Editora;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author prorodrigues
  */
-public class EditoraTableModel extends AbstractTableModel{
-    
-    
-    List<Editora> lista = new ArrayList<>();
+public class EditoraTableModel extends UtilTableModel<Editora> {
+
     protected List<Editora> listaoriginal;
-    
-    protected String[] columnNames;
-    protected Class[] classes;
 
-    public EditoraTableModel(List<Editora> listanova) {
-        lista = listanova;
-        columnNames = new String[]{"ID","Nome"};
-        classes = new Class[]{Long.class,String.class};
-    }
-    
-    public void setLista(List<Editora> lista){
-        this.lista = lista;
-    }
-    
-
-    @Override
-    public int getRowCount() {
-        return lista.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return 2;
+    public EditoraTableModel(List<Editora> l) {
+        super(l);
+        this.columnNames = new String[]{"ID", "Nome"};
+        this.classes = new Class[]{Long.class, String.class};
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Editora get = lista.get(rowIndex);
-        switch (columnIndex){
+        switch (columnIndex) {
             case 0:
                 return get.getId();
             case 1:
                 return get.getNamepublisher();
             default:
-                 return null;
+                return null;
         }
     }
-    
+
     @Override
-    public String getColumnName(int column) {
-        return columnNames[column];
-    }   
+    public void filter(String filtro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

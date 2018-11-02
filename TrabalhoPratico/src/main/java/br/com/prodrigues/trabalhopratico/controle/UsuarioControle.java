@@ -7,6 +7,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.UsuarioDao;
 import br.com.prodrigues.trabalhopratico.model.Usuario;
+import br.com.prodrigues.trabalhopratico.modeltable.UsuarioTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.UsuarioGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LoginTela;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.UsuarioTela;
@@ -21,14 +22,17 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     protected UsuarioGrid grid;
     private final UsuarioTela tela;
     private final LoginTela telaL;
+    private UsuarioTableModel model;
 
     public UsuarioControle() {
         dao = new UsuarioDao();
 
-        //Cria CRUD
-        grid = new UsuarioGrid(null, true, this);
+        this.model = new UsuarioTableModel(this.dao.findAll());
 
-        tela = new UsuarioTela(null, true);
+        //Cria CRUD
+        grid = UsuarioGrid.getInstance(null, true, this, this.model);
+
+        this.tela = UsuarioTela.getInstance(null, true);
 
         telaL = LoginTela.getInstance(null, true);
 
@@ -57,7 +61,9 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
             }
 
         } while ((concluido == false) && (tela.isConfirmado() == true));
-        return dao.create(usuario);
+        usuario = dao.create(usuario);
+        model.add(usuario);
+        return usuario;
     }
 
     @Override
@@ -74,29 +80,29 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
 
     @Override
     public Usuario update(Usuario objeto) {
-        this.read(null);
-        long id = tela.askForLong("Digite o código do funcionário a editar");
+//        this.read(null);
+//        long id = tela.askForLong("Digite o código do funcionário a editar");
 
-        Usuario findById = dao.findById(id);
-        tela.preparaUpdate(findById);
-        Usuario update = tela.update(findById);
-        return dao.update(update);
+        this.tela.preparaUpdate(objeto);
+        Usuario update = tela.update(objeto);
+        Usuario update1 = dao.update(update);
+        this.model.update(objeto, update1);
+        return update1;
     }
 
     @Override
     public boolean delete(Usuario objeto) {
-        this.read(null);
-
-        long id = tela.askForLong("Insira o código do usuario a remover");
-        Usuario findById = dao.findById(id);
-        boolean delete = dao.delete(findById);
-
+//        this.read(null);
+//
+//        long id = tela.askForLong("Insira o código do usuario a remover");
+        Usuario findById = dao.findById(objeto.getId());
+        this.tela.setConfirmado(true);
+        boolean delete = this.tela.delete(findById);
         if (delete) {
-            tela.showMessage("Usuario excluído com êxito");
-        } else {
-            tela.showMessage("Usuario não encontrado");
+            this.model.remove(findById);
+            return this.dao.delete(findById);
         }
-        return delete;
+        return false;
     }
 
     @Override

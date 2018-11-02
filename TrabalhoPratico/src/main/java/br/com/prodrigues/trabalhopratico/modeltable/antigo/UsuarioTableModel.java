@@ -3,26 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.prodrigues.trabalhopratico.modeltable;
+package br.com.prodrigues.trabalhopratico.modeltable.antigo;
 
 import br.com.prodrigues.trabalhopratico.model.Usuario;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author prorodrigues
  */
-public class UsuarioTableModel extends UtilTableModel<Usuario> {
+public class UsuarioTableModel extends AbstractTableModel {
 
-    protected List<Usuario> listaoriginal;
+    List<Usuario> lista = new ArrayList<>();
 
-    public UsuarioTableModel(List<Usuario> l) {
-        super(l);
-        this.columnNames = new String[]{"ID", "Login"};
-        this.classes = new Class[]{Long.class, String.class};
+    public UsuarioTableModel(List<Usuario> listanova) {
+        lista = listanova;
     }
 
     public void setLista(List<Usuario> lista) {
+        this.lista = lista;
+
+    }
+
+    @Override
+    public int getRowCount() {
+        return lista.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 2;
     }
 
     @Override
@@ -30,7 +42,7 @@ public class UsuarioTableModel extends UtilTableModel<Usuario> {
         Usuario usuario = lista.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return usuario.getId();
+                return usuario.getName();
             case 1:
                 return usuario.getLogin();
             default:
@@ -50,10 +62,5 @@ public class UsuarioTableModel extends UtilTableModel<Usuario> {
             default:
                 return "default:";
         }
-    }
-
-    @Override
-    public void filter(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
