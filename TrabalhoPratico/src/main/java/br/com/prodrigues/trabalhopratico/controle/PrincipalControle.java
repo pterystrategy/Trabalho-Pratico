@@ -32,6 +32,8 @@ public class PrincipalControle {
 
     public void iniciar() {
         this.usuarioControle.showInicialLogin();
+        
+        
         tela = TelaPrincipal.getInstance(this);
         tela.setVisible(true);
     }

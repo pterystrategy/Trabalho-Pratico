@@ -22,7 +22,12 @@ public class ClienteTableModel extends UtilTableModel<Cliente> {
 
     @Override
     public void filter(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lista.clear();;
+        for (Cliente cliente : listaOriginal) {
+            if(cliente.getName().contains(filtro)){
+                lista.add(cliente);
+            }
+        }
     }
 
     @Override

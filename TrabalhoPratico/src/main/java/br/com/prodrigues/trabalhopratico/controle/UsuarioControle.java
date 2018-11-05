@@ -115,7 +115,11 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void showInicialLogin() {
+    public boolean showInicialLogin() {
+        
+        
         telaL.setVisible(true);
+        
+       return false;
     }
 }

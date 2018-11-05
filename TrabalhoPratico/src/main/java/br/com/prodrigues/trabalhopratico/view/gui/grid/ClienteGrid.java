@@ -293,6 +293,8 @@ public class ClienteGrid extends javax.swing.JDialog {
 
     private void edtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtFiltroKeyReleased
 
+        model.filter(edtFiltro.getText());
+        
     }//GEN-LAST:event_edtFiltroKeyReleased
 
     private void tblGridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGridMouseClicked
