@@ -34,11 +34,8 @@ public class PrincipalControle {
     }
 
     public void iniciar() {
-        boolean showInicialLogin;
-        do {            
-            showInicialLogin = usuarioControle.showInicialLogin();
-            System.err.println(showInicialLogin);
-        } while (!showInicialLogin);
+        this.usuarioControle.showInicialLogin();
+//        return autenticar.getLogin().equals("admin") && autenticar.getSenha().equals("123")&& this.telaL.isConfirmado() == true;
         tela = TelaPrincipal.getInstance(this);
         tela.setVisible(true); 
     }

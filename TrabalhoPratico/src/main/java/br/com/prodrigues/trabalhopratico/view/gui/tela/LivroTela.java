@@ -19,6 +19,8 @@ import br.com.prodrigues.trabalhopratico.modelcombo.EditorasComboModel;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -430,7 +432,11 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
         edtData.setEditable(true);
         edtData.setEnabled(true);
-
+        
+        edtData.setDate(Date.from(Instant.now()));
+        edtData.setEditable(true);
+        edtData.setEnabled(true);
+        
         edtSinopse.setText("");
         edtSinopse.setEditable(true);
         edtSinopse.setEnabled(true);
