@@ -253,6 +253,7 @@ public class LoginTela extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         doClose(RET_OK);
+        this.setConfirmado(true);
     }//GEN-LAST:event_okButtonActionPerformed
 
     /**
@@ -264,6 +265,7 @@ public class LoginTela extends javax.swing.JDialog {
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
+        this.setConfirmado(false);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void edtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtLoginActionPerformed
@@ -347,12 +349,12 @@ public class LoginTela extends javax.swing.JDialog {
         return confirmado;
     }
     
-    public void autenticar(){
-        Usuario usuario = this.getScreenObject();
-        if (usuario.getSenha().equals("123") && usuario.getLogin().equals("admin")) {
-            
-        }
-        
+    public Usuario autenticar(){
+        String login = edtLogin.getText() , senha = edtSenha.getText();
+        Usuario usuario = new Usuario(login, senha);
+        this.setVisible(true);
+
+        return usuario;
     }
     
     public void preparaLogin(){

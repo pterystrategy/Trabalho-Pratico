@@ -116,10 +116,7 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     }
 
     public boolean showInicialLogin() {
-        
-        
-        telaL.setVisible(true);
-        
-       return false;
+        Usuario autenticar = telaL.autenticar();
+       return autenticar.getLogin().equals("admin") && autenticar.getSenha().equals("123")&& this.telaL.isConfirmado() == true;
     }
 }

@@ -5,18 +5,57 @@
  */
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
+import br.com.prodrigues.trabalhopratico.model.Cliente;
+import br.com.prodrigues.trabalhopratico.model.Emprestimo;
+import br.com.prodrigues.trabalhopratico.model.Livro;
+import br.com.prodrigues.trabalhopratico.modelcombo.ClientesCellRenderer;
+import br.com.prodrigues.trabalhopratico.modelcombo.ClientesComboModel;
+import br.com.prodrigues.trabalhopratico.modelcombo.LivrosCellRenderer;
+import br.com.prodrigues.trabalhopratico.modelcombo.LivrosComboModel;
+import br.com.prodrigues.trabalhopratico.view.IViewCrud;
+import java.awt.Frame;
+import java.util.List;
+
 /**
  *
  * @author prorodrigues
  */
-public class EmprestimoTela extends javax.swing.JDialog {
+public class EmprestimoTela extends javax.swing.JDialog implements IViewCrud<Emprestimo>{
 
     /**
      * Creates new form EmprestimoTela
      */
-    public EmprestimoTela(java.awt.Frame parent, boolean modal) {
+    public EmprestimoTela(Frame parent, boolean modal) {
         super(parent, modal);
+        this.cmbClientes.setRenderer(new ClientesCellRenderer());
+        this.cmbLivros.setRenderer(new LivrosCellRenderer());
         initComponents();
+    }
+    
+    
+    public static EmprestimoTela getInstance(Frame parent, boolean modal) {
+        if (tela == null) {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(EmprestimoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            //</editor-fold>
+            return new EmprestimoTela(parent, modal);
+        } else {
+            return tela;
+        }
     }
 
     /**
@@ -308,7 +347,25 @@ public class EmprestimoTela extends javax.swing.JDialog {
             }
         });
     }
+    
+    private static EmprestimoTela tela;
 
+    public static EmprestimoTela getTela() {
+        return tela;
+    }
+
+    public static void setTela(EmprestimoTela tela) {
+        EmprestimoTela.tela = tela;
+    }
+    private boolean confirmado;
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOk;
@@ -338,4 +395,62 @@ public class EmprestimoTela extends javax.swing.JDialog {
     private javax.swing.JScrollPane panSinopse;
     private javax.swing.JScrollPane panSinopse1;
     // End of variables declaration//GEN-END:variables
+
+    private final ClientesComboModel modelClientes = new ClientesComboModel();
+    private List<Cliente> listaClientes;
+    
+    private final LivrosComboModel modelLivros = new LivrosComboModel();
+    private List<Livro> listaLivros;
+    
+    public List<Livro> getListaLivros() {
+        return listaLivros;
+    }
+    
+     public List<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+    public void setListaLivros(List<Livro> listaLivros) {
+        modelLivros.clear();
+        modelLivros.addListLivro(listaLivros);
+    }
+
+    public void setListaClientes(List<Cliente> listaClientes) {
+        modelClientes.clear();
+        modelClientes.addListCliente(listaClientes);
+    }
+    
+    @Override
+    public Emprestimo create(Emprestimo object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void read(Emprestimo object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Emprestimo update(Emprestimo object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean delete(Emprestimo object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Emprestimo getScreenObject() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void limpaTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void preparaUpdate(Emprestimo object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

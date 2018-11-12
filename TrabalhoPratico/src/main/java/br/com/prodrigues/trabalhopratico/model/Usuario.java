@@ -20,6 +20,11 @@ import javax.persistence.Table;
 @DiscriminatorValue("USUARIO")
 public class Usuario extends Pessoa implements Serializable {
 
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
+    
     @Override
     public Long getId() {
         return super.getId(); //To change body of generated methods, choose Tools | Templates.

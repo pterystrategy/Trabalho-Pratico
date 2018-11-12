@@ -15,6 +15,8 @@ public class PrincipalControle {
     private final LivroControle livroControle;
 
     private final EditoraControle editoraControle;
+    
+    private EmprestimoControle emprestimoControle;
 
     public PrincipalControle() {
 
@@ -23,6 +25,7 @@ public class PrincipalControle {
         this.usuarioControle = new UsuarioControle();
         this.editoraControle = new EditoraControle();
         this.livroControle = new LivroControle(this.autorControle, this.editoraControle);
+        
 
     }
 
@@ -31,11 +34,13 @@ public class PrincipalControle {
     }
 
     public void iniciar() {
-        this.usuarioControle.showInicialLogin();
-        
-        
+        boolean showInicialLogin;
+        do {            
+            showInicialLogin = usuarioControle.showInicialLogin();
+            System.err.println(showInicialLogin);
+        } while (!showInicialLogin);
         tela = TelaPrincipal.getInstance(this);
-        tela.setVisible(true);
+        tela.setVisible(true); 
     }
 
 //    public void iniciaContaControle() {
