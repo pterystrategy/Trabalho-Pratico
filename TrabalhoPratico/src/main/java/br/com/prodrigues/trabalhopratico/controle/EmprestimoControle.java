@@ -6,7 +6,9 @@
 package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.EmprestimoDao;
+import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
+import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.EmprestimoTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.EmprestimoGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.EmprestimoTela;
@@ -49,10 +51,14 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
 
     @Override
     public Emprestimo create() {
+        List<Cliente> all = clienteControle.getAll();
+        List<Livro> all1 = livroControle.getAll();
         Emprestimo create = tela.create(null);
         boolean concluido = false;
 
         do {
+            tela.setListaClientes(all);
+            tela.setListaLivros(all1);
             if (tela.isConfirmado() == true) {
 
                 if (!create.getCliente().getName().isEmpty()) {
