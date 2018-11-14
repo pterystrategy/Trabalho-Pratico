@@ -6,8 +6,9 @@
 package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
-import br.com.prodrigues.trabalhopratico.model.Cliente;
-import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
+import br.com.prodrigues.trabalhopratico.model.Emprestimo;
+import br.com.prodrigues.trabalhopratico.modeltable.EmprestimoTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,7 +18,7 @@ public class EmprestimoGrid extends javax.swing.JDialog {
 
     private final IControleSimples controle;
     private static EmprestimoGrid tela;
-    private ClienteTableModel model;
+    private EmprestimoTableModel model;
 
     /**
      * Creates new form ClienteCRUD
@@ -31,7 +32,7 @@ public class EmprestimoGrid extends javax.swing.JDialog {
         this.controle = controle;
     }
 
-    public EmprestimoGrid(java.awt.Frame parent, boolean modal, IControleSimples controle, ClienteTableModel model) {
+    public EmprestimoGrid(java.awt.Frame parent, boolean modal, IControleSimples controle, EmprestimoTableModel model) {
         this(parent, modal, controle);
         this.model = model;
         initComponents();
@@ -62,7 +63,7 @@ public class EmprestimoGrid extends javax.swing.JDialog {
         }
     }
 
-    public static EmprestimoGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle, ClienteTableModel model) {
+    public static EmprestimoGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle, EmprestimoTableModel model) {
         if (tela == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -294,7 +295,7 @@ public class EmprestimoGrid extends javax.swing.JDialog {
     private void edtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtFiltroKeyReleased
 
         model.filter(edtFiltro.getText());
-        
+
     }//GEN-LAST:event_edtFiltroKeyReleased
 
     private void tblGridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGridMouseClicked
@@ -311,10 +312,14 @@ public class EmprestimoGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Emprestimo objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.update(objetoLinha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+        }
 
-        int selectedRow = this.tblGrid.getSelectedRow();
-        Cliente objetoLinha = model.getObjetoLinha(selectedRow);
-        this.controle.update(objetoLinha);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void edtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtPesquisaActionPerformed
@@ -322,9 +327,14 @@ public class EmprestimoGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_edtPesquisaActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        int selectedRow = this.tblGrid.getSelectedRow();
-        Cliente objetoLinha = model.getObjetoLinha(selectedRow);
-        this.controle.delete(objetoLinha);
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Emprestimo objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.delete(objetoLinha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+        }
+
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

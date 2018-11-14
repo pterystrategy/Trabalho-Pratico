@@ -331,22 +331,26 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
 //        if (confirmado) {
             labTitulo.setText("Dados do Cliente");
             edtCPF.setText(object.getCpf());
-            edtCPF.setEditable(true);
-            edtCPF.setEnabled(true);
+            edtCPF.setEditable(false);
+            edtCPF.setEnabled(false);
             edtNome.setText(object.getName());
-            edtNome.setEditable(true);
-            edtNome.setEnabled(true);
+            edtNome.setEditable(false);
+            edtNome.setEnabled(false);
             edtEmail.setText(object.getEmail());
-            edtEmail.setEditable(true);
-            edtEmail.setEnabled(true);
-            
-            this.setVisible(true);
-            return true;
-//        } else {
-//            showMessage("NAO DELETADO," + object.getName());
-//            return false;
-//        }
-
+            edtEmail.setEditable(false);
+            edtEmail.setEnabled(false);
+        this.setVisible(true);
+        
+        if (confirmado) {
+            object.setName(edtNome.getText());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+            return false;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
+            return false;
+        }
+        return true;
     }
 
     @Override

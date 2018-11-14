@@ -501,14 +501,65 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
 
     @Override
     public boolean delete(Editora object) {
-        if (confirmado){
-            showMessage("Quer deletar?"+ object.getNamepublisher());
-            return true;
-        }
-        else{
-            showMessage("NAO DELETADO,"+ object.getNamepublisher());
+         labTitulo.setText("Cadastro de Editora");
+        edtName.setText(object.getNamepublisher());
+        edtName.setEditable(false);
+        edtName.setEnabled(false);
+        
+        edtEmail.setText(object.getEmail());
+        edtEmail.setEditable(false);
+        edtEmail.setEnabled(false);
+        
+        edtTelefone.setText(object.getTelefones().get(0).getNumero());
+        edtTelefone.setEditable(false);
+        edtTelefone.setEnabled(false);
+        
+        edtTelefoneFixo.setText(object.getTelefones().get(0).getNumero());
+        edtTelefoneFixo.setEditable(false);
+        edtTelefoneFixo.setEnabled(false);
+        //ENDEREÇO
+        edtLogradouroNome.setText(object.getEnderecos().get(0).getLogradouro());
+        edtLogradouroNome.setEditable(false);
+        edtLogradouroNome.setEnabled(false);
+        
+        edtBairroDistrito.setText(object.getEnderecos().get(0).getBairro());
+        edtBairroDistrito.setEditable(false);
+        edtBairroDistrito.setEnabled(false);
+        
+        edtLocalidadeUF.setText(object.getEnderecos().get(0).getLocalidade());
+        edtLocalidadeUF.setEditable(false);
+        edtLocalidadeUF.setEnabled(false);
+        
+        edtCEP.setText(object.getEnderecos().get(0).getCep());
+        edtCEP.setEditable(false);
+        edtCEP.setEnabled(false);
+        
+        btnCancel.setVisible(true);
+        this.setVisible(true);
+        if (confirmado) {
+            edtName.setText(object.getNamepublisher());
+            
+        edtEmail.setText(object.getEmail());
+      
+        edtTelefone.setText(object.getTelefones().get(0).getNumero());
+        
+        edtTelefoneFixo.setText(object.getTelefones().get(0).getNumero());
+        //ENDEREÇO
+        edtLogradouroNome.setText(object.getEnderecos().get(0).getLogradouro());
+        
+        edtBairroDistrito.setText(object.getEnderecos().get(0).getBairro());
+   
+        edtLocalidadeUF.setText(object.getEnderecos().get(0).getLocalidade());
+        
+        edtCEP.setText(object.getEnderecos().get(0).getCep());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+            return false;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
             return false;
         }
+        return true;
     }
 
     @Override

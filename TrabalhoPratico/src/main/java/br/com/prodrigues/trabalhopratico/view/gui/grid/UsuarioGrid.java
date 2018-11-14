@@ -9,6 +9,7 @@ import br.com.prodrigues.trabalhopratico.modeltable.UsuarioTableModel;
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Usuario;
 import java.awt.Frame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -70,8 +71,8 @@ public class UsuarioGrid extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGrid = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        labFiltro = new javax.swing.JLabel();
+        edtFiltro = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -151,11 +152,11 @@ public class UsuarioGrid extends javax.swing.JDialog {
         tblGrid.setModel(this.model);
         jScrollPane1.setViewportView(tblGrid);
 
-        jLabel1.setText("Filtro:");
+        labFiltro.setText("Filtro:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        edtFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                edtFiltroActionPerformed(evt);
             }
         });
 
@@ -165,9 +166,9 @@ public class UsuarioGrid extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labFiltro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1))
+                .addComponent(edtFiltro))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -177,8 +178,8 @@ public class UsuarioGrid extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labFiltro)
+                    .addComponent(edtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
         );
@@ -238,9 +239,14 @@ public class UsuarioGrid extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        int selectedRow = this.tblGrid.getSelectedRow();
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
         Usuario objetoLinha = model.getObjetoLinha(selectedRow);
         this.controle.update(objetoLinha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+        }
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -255,14 +261,19 @@ public class UsuarioGrid extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void edtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtFiltroActionPerformed
+       model.filter(edtFiltro.getText());
+    }//GEN-LAST:event_edtFiltroActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        int selectedRow = this.tblGrid.getSelectedRow();
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
         Usuario objetoLinha = model.getObjetoLinha(selectedRow);
         this.controle.delete(objetoLinha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+        }
+        
     }//GEN-LAST:event_btnRemoverActionPerformed
 //
 //    /**
@@ -307,14 +318,14 @@ public class UsuarioGrid extends javax.swing.JDialog {
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSair;
+    private javax.swing.JTextField edtFiltro;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel labFiltro;
     private javax.swing.JPanel panRodape;
     private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables

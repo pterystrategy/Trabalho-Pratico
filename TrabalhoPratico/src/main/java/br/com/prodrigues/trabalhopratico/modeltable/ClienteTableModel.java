@@ -6,7 +6,6 @@
 package br.com.prodrigues.trabalhopratico.modeltable;
 
 import br.com.prodrigues.trabalhopratico.model.Cliente;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +13,8 @@ import java.util.List;
  * @author aluno
  */
 public class ClienteTableModel extends UtilTableModel<Cliente> {
-
+     
+    
     public ClienteTableModel(List<Cliente> lista) {
         super(lista);
         columnNames = new String[]{"ID", "Nome", "CPF"};
@@ -24,9 +24,16 @@ public class ClienteTableModel extends UtilTableModel<Cliente> {
     @Override
     public void filter(String filtro) {
         lista.clear();
-        listaOriginal.stream().filter((cliente) -> (cliente.getName().contains(filtro))).forEachOrdered((cliente) -> {
-            lista.add(cliente);
-        });
+        for (Cliente cliente : listaOriginal) {
+            if (cliente.getName().contains(filtro)) {
+                lista.add(cliente);
+            }
+
+            else if(cliente.getCpf().contains(filtro)){
+                lista.add(cliente);
+            }
+            
+        }
     }
 
     @Override
@@ -44,5 +51,4 @@ public class ClienteTableModel extends UtilTableModel<Cliente> {
                 return null;
         }
     }
-
 }

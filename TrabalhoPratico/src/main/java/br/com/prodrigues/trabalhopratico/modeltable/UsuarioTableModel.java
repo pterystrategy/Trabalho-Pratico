@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class UsuarioTableModel extends UtilTableModel<Usuario> {
 
-    protected List<Usuario> listaoriginal;
-
     public UsuarioTableModel(List<Usuario> l) {
         super(l);
         this.columnNames = new String[]{"ID", "Login"};

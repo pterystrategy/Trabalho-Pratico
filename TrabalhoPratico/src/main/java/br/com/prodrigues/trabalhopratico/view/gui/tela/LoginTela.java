@@ -349,14 +349,6 @@ public class LoginTela extends javax.swing.JDialog {
         return confirmado;
     }
     
-    public Usuario autenticar(){
-        String login = edtLogin.getText() , senha = edtSenha.getText();
-        Usuario usuario = new Usuario(login, senha);
-        this.setVisible(true);
-
-        return usuario;
-    }
-    
     public void preparaLogin(){
         edtLogin.setText("");
         edtLogin.setEditable(true);

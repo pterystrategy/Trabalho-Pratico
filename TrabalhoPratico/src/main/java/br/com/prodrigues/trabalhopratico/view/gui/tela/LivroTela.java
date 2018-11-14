@@ -457,7 +457,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
             set.setLivro(object);
             object.setEditora((Editora) cmbEditoras.getSelectedItem());
             object.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
-
+            this.setVisible(true);
         } else if (!confirmado) {
             showMessage("CANCELADO PELO USUÁRIO!");
         } else if (object == null) {
@@ -470,13 +470,37 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
     @Override
     public boolean delete(Livro object) {
+        labTitulo.setText("Dados do Cliente");
+
+        edtTitulo.setText(object.getTitulo());
+        edtTitulo.setEditable(false);
+        edtTitulo.setEnabled(false);
+        cmbAutores.setSelectedItem(object.getAutor().getName());
+
+        edtData.setDate(object.getDataDeLancamento());
+        edtData.setEditable(false);
+        edtData.setEnabled(false);
+
+        edtQtd.setValue(object.getExemplares().get(0).getQuantidade());
+
+        edtSinopse.setText(object.getSinopse());
+        edtSinopse.setEditable(false);
+        edtSinopse.setEnabled(false);
+
+        cmbEditoras.setSelectedItem(object.getEditora().getNamepublisher());
+
+        cmbClassificacoes.setSelectedItem(object.getClassificacao());
+        this.setVisible(true);
         if (confirmado) {
-            showMessage("Quer deletar?" + object.getTitulo());
-            return true;
-        } else {
-            showMessage("NAO DELETADO," + object.getTitulo());
+            object.setTitulo(edtTitulo.getText());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+            return false;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
             return false;
         }
+        return true;
     }
 
     @Override

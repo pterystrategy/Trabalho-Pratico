@@ -34,7 +34,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="labTitulo" min="-2" pref="81" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panPrincipal" min="-2" pref="198" max="-2" attributes="0"/>
+              <Component id="panPrincipal" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panRodape" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -167,7 +167,7 @@
                       <Component id="labSenhaConfirmacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="edtSenhaConfirmacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

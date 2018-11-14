@@ -299,9 +299,13 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor> {
         if (confirmado) {
             object.setName(edtNome.getText());
             object.setNascimento(edtData.getDate());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
+        } else {
+            showMessage("ALTERADO COM SUCESSO!");
         }
-
-        this.showMessage("ALTERADO COM SUCESSO!");
         return object;
     }
 
@@ -310,21 +314,25 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor> {
         labTitulo.setText("Dados do Autor");
 
         edtData.setDate(object.getNascimento());
-        edtData.setEditable(true);
-        edtData.setEnabled(true);
+        edtData.setEditable(false);
+        edtData.setEnabled(false);
         edtNome.setText(object.getName());
-        edtNome.setEditable(true);
-        edtNome.setEnabled(true);
+        edtNome.setEditable(false);
+        edtNome.setEnabled(false);
 
         this.setVisible(true);
-
+        
         if (confirmado) {
-            showMessage("Quer deletar?" + object.getName());
-            return true;
-        } else {
-            showMessage("NAO DELETADO," + object.getName());
+            object.setName(edtNome.getText());
+            object.setNascimento(edtData.getDate());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+            return false;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
             return false;
         }
+        return true;
     }
 
     @Override

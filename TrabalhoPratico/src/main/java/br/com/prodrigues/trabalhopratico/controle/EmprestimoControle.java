@@ -5,32 +5,42 @@
  */
 package br.com.prodrigues.trabalhopratico.controle;
 
-import br.com.prodrigues.trabalhopratico.dao.AutorDao;
-import br.com.prodrigues.trabalhopratico.model.Autor;
-import br.com.prodrigues.trabalhopratico.modeltable.AutorTableModel;
-import br.com.prodrigues.trabalhopratico.view.gui.grid.AutorGrid;
-import br.com.prodrigues.trabalhopratico.view.gui.tela.AutorTela;
+import br.com.prodrigues.trabalhopratico.dao.EmprestimoDao;
+import br.com.prodrigues.trabalhopratico.model.Emprestimo;
+import br.com.prodrigues.trabalhopratico.modeltable.EmprestimoTableModel;
+import br.com.prodrigues.trabalhopratico.view.gui.grid.EmprestimoGrid;
+import br.com.prodrigues.trabalhopratico.view.gui.tela.EmprestimoTela;
 import java.util.List;
 
 /**
  *
  * @author prorodrigues
  */
-public class EmprestimoControle extends AbstractControleSimples<Autor> {
+public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
 
-    protected AutorGrid grid;
-    private final AutorTela tela;
-    private final AutorTableModel model;
-
+    protected EmprestimoGrid grid;
+    private final EmprestimoTela tela;
+    private final EmprestimoTableModel model;
+    private  ClienteControle clienteControle;
+    private  LivroControle livroControle;
+    
     public EmprestimoControle() {
-        this.dao = new AutorDao();
-        this.model = new AutorTableModel(this.dao.findAll());
+        this.dao = new EmprestimoDao();
+        this.model = new EmprestimoTableModel(this.dao.findAll());
 
-        this.grid = AutorGrid.getInstance(null, true, this, model);
-        this.tela = AutorTela.getInstance(null, true);
+        this.grid = EmprestimoGrid.getInstance(null, true, this, model);
+        this.tela = EmprestimoTela.getInstance(null, true);
 
     }
 
+    public EmprestimoControle(ClienteControle clienteControle, LivroControle livroControle) {
+        this();
+        this.clienteControle = clienteControle;
+        this.livroControle = livroControle;
+    }
+    
+    
+    
     @Override
     public void showInicialScreen() {
         grid.setVisible(true);
@@ -38,54 +48,53 @@ public class EmprestimoControle extends AbstractControleSimples<Autor> {
     }
 
     @Override
-    public Autor create() {
-        Autor autor = tela.create(null);
+    public Emprestimo create() {
+        Emprestimo create = tela.create(null);
         boolean concluido = false;
 
         do {
             if (tela.isConfirmado() == true) {
 
-                if (!autor.getName().isEmpty()) {
+                if (!create.getCliente().getName().isEmpty()) {
                     concluido = true;
                 } else {
-                    tela.showErrorMessage("Falta Nome");
                     tela.setVisible(true);
-                    autor = tela.getScreenObject();
+                    create = tela.getScreenObject();
                 }
             } else {
                 return null;
             }
 
         } while ((concluido == false) && (tela.isConfirmado() == true));
-        autor = dao.create(autor);
-        model.add(autor);
-        return autor;
+        Emprestimo createD = dao.create(create);
+        model.add(createD);
+        return createD;
     }
 
     @Override
-    public void read(Autor objeto) {
-        List<Autor> findAll = dao.findAll();
+    public void read(Emprestimo objeto) {
+        List<Emprestimo> findAll = dao.findAll();
         String lista = "";
-        lista = findAll.stream().map((autor) -> autor.getId()
-                + "\n" + autor.getName() + "\n\n"
-                + autor.getNascimento() + "\n").reduce(lista, String::concat);
+        for (Emprestimo emprestimo : findAll) {
+            lista +="ID: "+ emprestimo.getId() + "Nome do Cliente: " 
+                  + emprestimo.getCliente().getName() 
+                  + "Nome do livro: " + emprestimo.getLivro().getTitulo() + "\n";
+        }
         this.tela.showMessage(lista);
     }
 
     @Override
-    public Autor update(Autor objeto) {
+    public Emprestimo update(Emprestimo objeto) {
         this.tela.preparaUpdate(objeto);
-        Autor update = tela.update(objeto);
-        Autor update1 = dao.update(update);
+        Emprestimo update = tela.update(objeto);
+        Emprestimo update1 = dao.update(update);
         this.model.update(objeto, update1);
         return update1;
     }
 
     @Override
-    public boolean delete(Autor objeto) {
-//        this.read(null);
-//        long askForLong = this.tela.askForLong("Informe o ID: ");
-        Autor findById = dao.findById(objeto.getId());
+    public boolean delete(Emprestimo objeto) {
+        Emprestimo findById = dao.findById(objeto.getId());
         this.tela.setConfirmado(true);
         boolean delete = this.tela.delete(findById);
         if (delete) {

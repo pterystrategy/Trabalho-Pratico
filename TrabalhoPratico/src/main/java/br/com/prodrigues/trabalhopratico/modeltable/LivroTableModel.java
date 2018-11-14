@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class LivroTableModel extends UtilTableModel<Livro> {
 
-    protected List<Livro> listaoriginal;
-
     public LivroTableModel(List<Livro> l) {
         super(l);
         columnNames = new String[]{"ID", "Nome", "Autor"};
@@ -40,6 +38,16 @@ public class LivroTableModel extends UtilTableModel<Livro> {
 
     @Override
     public void filter(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lista.clear();
+        for (Livro livro : listaOriginal) {
+            if (livro.getTitulo().contains(filtro)) {
+                lista.add(livro);
+            }
+
+            else if(livro.getAutor().getName().contains(filtro)){
+                lista.add(livro);
+            }
+            
+        }
     }
 }

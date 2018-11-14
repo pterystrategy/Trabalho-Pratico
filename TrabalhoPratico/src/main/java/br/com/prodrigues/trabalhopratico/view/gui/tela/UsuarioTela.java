@@ -390,13 +390,18 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
 
         this.setVisible(true);
 
-        if (confirmado) {
-            showMessage("Quer deletar?" + object.getName());
-            return true;
-        } else {
-            showMessage("NAO DELETADO," + object.getName());
+       if (confirmado) {
+            object.setName(edtNome.getText());
+            object.setLogin(edtLogin.getText());
+            object.setSenha(edtSenha.getText());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+            return false;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
             return false;
         }
+        return true;
     }
 
     @Override

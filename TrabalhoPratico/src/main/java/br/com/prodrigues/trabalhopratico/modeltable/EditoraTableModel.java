@@ -14,8 +14,6 @@ import java.util.List;
  */
 public class EditoraTableModel extends UtilTableModel<Editora> {
 
-    protected List<Editora> listaoriginal;
-
     public EditoraTableModel(List<Editora> l) {
         super(l);
         this.columnNames = new String[]{"ID", "Nome"};
@@ -37,6 +35,12 @@ public class EditoraTableModel extends UtilTableModel<Editora> {
 
     @Override
     public void filter(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       lista.clear();
+        for (Editora editora: listaOriginal) {
+            if (editora.getNamepublisher().contains(filtro)) {
+                lista.add(editora);
+            }
+            
+        }
     }
 }

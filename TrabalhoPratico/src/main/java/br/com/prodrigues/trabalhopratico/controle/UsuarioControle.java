@@ -59,6 +59,9 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
                     usuario = tela.getScreenObject();
                 }
             }
+            else{
+                return null;
+            }
 
         } while ((concluido == false) && (tela.isConfirmado() == true));
         usuario = dao.create(usuario);
@@ -116,7 +119,20 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     }
 
     public boolean showInicialLogin() {
-        Usuario autenticar = telaL.autenticar();
-       return autenticar.getLogin().equals("admin") && autenticar.getSenha().equals("123")&& this.telaL.isConfirmado() == true;
+        
+       return logar();
+    }
+    
+    private boolean logar(){
+        telaL.setVisible(true);
+        //telaL.preparaLogin();
+        
+        if (telaL.isConfirmado()){
+            Usuario screenObject = telaL.getScreenObject();
+            return screenObject.getLogin().equals("admin") && screenObject.getSenha().equals("123");
+        }
+        else{
+            return false;
+        }
     }
 }

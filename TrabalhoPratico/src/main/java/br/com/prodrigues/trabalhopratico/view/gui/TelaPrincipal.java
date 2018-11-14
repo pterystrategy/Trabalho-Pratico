@@ -48,6 +48,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         imnUsuario = new javax.swing.JMenuItem();
         imnLivro = new javax.swing.JMenuItem();
         imnEditora = new javax.swing.JMenuItem();
+        imnEmprestimo = new javax.swing.JMenuItem();
         imnRelatorio = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,6 +96,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         imnCadastro.add(imnEditora);
 
+        imnEmprestimo.setText("Emprestimo");
+        imnEmprestimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnEmprestimoActionPerformed(evt);
+            }
+        });
+        imnCadastro.add(imnEmprestimo);
+
         mnuPrincipal.add(imnCadastro);
 
         imnRelatorio.setText("Relatorios");
@@ -138,6 +147,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         controle.iniciaEditoraControle();
     }//GEN-LAST:event_imnEditoraActionPerformed
 
+    private void imnEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnEmprestimoActionPerformed
+       controle.iniciaEmprestimoControle();
+    }//GEN-LAST:event_imnEmprestimoActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -145,6 +158,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu imnCadastro;
     private javax.swing.JMenuItem imnCliente;
     private javax.swing.JMenuItem imnEditora;
+    private javax.swing.JMenuItem imnEmprestimo;
     private javax.swing.JMenuItem imnLivro;
     private javax.swing.JMenu imnRelatorio;
     private javax.swing.JMenuItem imnUsuario;

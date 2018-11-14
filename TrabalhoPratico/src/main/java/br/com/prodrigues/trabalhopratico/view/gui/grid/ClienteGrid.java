@@ -8,6 +8,7 @@ package br.com.prodrigues.trabalhopratico.view.gui.grid;
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +17,7 @@ import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
 public class ClienteGrid extends javax.swing.JDialog {
 
     private final IControleSimples controle;
-    private static ClienteGrid tela;
+    private static ClienteGrid grid;
     private ClienteTableModel model;
 
     /**
@@ -38,7 +39,7 @@ public class ClienteGrid extends javax.swing.JDialog {
     }
 
     public static ClienteGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle) {
-        if (tela == null) {
+        if (grid == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -58,12 +59,12 @@ public class ClienteGrid extends javax.swing.JDialog {
             //</editor-fold>
             return new ClienteGrid(parent, modal, controle);
         } else {
-            return tela;
+            return grid;
         }
     }
 
     public static ClienteGrid getInstance(java.awt.Frame parent, boolean modal, IControleSimples controle, ClienteTableModel model) {
-        if (tela == null) {
+        if (grid == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
             /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -83,7 +84,7 @@ public class ClienteGrid extends javax.swing.JDialog {
             //</editor-fold>
             return new ClienteGrid(parent, modal, controle, model);
         } else {
-            return tela;
+            return grid;
         }
     }
 
@@ -98,7 +99,7 @@ public class ClienteGrid extends javax.swing.JDialog {
 
         jToolBar1 = new javax.swing.JToolBar();
         panPrincipal = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labFiltro = new javax.swing.JLabel();
         edtFiltro = new javax.swing.JTextField();
         panGrid = new javax.swing.JScrollPane();
         tblGrid = new javax.swing.JTable();
@@ -121,8 +122,13 @@ public class ClienteGrid extends javax.swing.JDialog {
 
         panPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Resultado"));
 
-        jLabel1.setText("Filtro:");
+        labFiltro.setText("Filtro:");
 
+        edtFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtFiltroActionPerformed(evt);
+            }
+        });
         edtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 edtFiltroKeyReleased(evt);
@@ -146,7 +152,7 @@ public class ClienteGrid extends javax.swing.JDialog {
                 .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panGrid, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                     .addGroup(panPrincipalLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labFiltro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(edtFiltro)))
                 .addContainerGap())
@@ -156,7 +162,7 @@ public class ClienteGrid extends javax.swing.JDialog {
             .addGroup(panPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(labFiltro)
                     .addComponent(edtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(panGrid, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
@@ -307,14 +313,27 @@ public class ClienteGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        controle.create();
+        try {
+            controle.create();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado"); 
+        }
+        
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
 
-        int selectedRow = this.tblGrid.getSelectedRow();
-        Cliente objetoLinha = model.getObjetoLinha(selectedRow);
-        this.controle.update(objetoLinha);
+        
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Cliente objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.update(objetoLinha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado"); 
+        }
+        
+        
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void edtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtPesquisaActionPerformed
@@ -322,10 +341,20 @@ public class ClienteGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_edtPesquisaActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        int selectedRow = this.tblGrid.getSelectedRow();
-        Cliente objetoLinha = model.getObjetoLinha(selectedRow);
-        this.controle.delete(objetoLinha);
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Cliente objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.delete(objetoLinha);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado"); 
+        }
+        
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void edtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtFiltroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -337,8 +366,8 @@ public class ClienteGrid extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbCampos;
     private javax.swing.JTextField edtFiltro;
     private javax.swing.JTextField edtPesquisa;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel labFiltro;
     private javax.swing.JPanel panFiltroDB;
     private javax.swing.JScrollPane panGrid;
     private javax.swing.JPanel panPrincipal;

@@ -15,8 +15,6 @@ import java.util.List;
  */
 public class AutorTableModel extends UtilTableModel<Autor> {
 
-    protected List<Autor> listaoriginal;
-
     public AutorTableModel(List<Autor> listanova) {
         super(listanova);
         columnNames = new String[]{"ID", "Nome", "Data"};
@@ -41,6 +39,11 @@ public class AutorTableModel extends UtilTableModel<Autor> {
 
     @Override
     public void filter(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lista.clear();
+        for (Autor autor : listaOriginal) {
+            if (autor.getName().contains(filtro)) {
+                lista.add(autor);
+            }
+        }
     }
 }
