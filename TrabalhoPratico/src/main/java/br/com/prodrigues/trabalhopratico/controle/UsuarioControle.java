@@ -117,7 +117,7 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     public boolean filter(String column, String valor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     public boolean showInicialLogin() {
         
        return logar();
@@ -134,5 +134,5 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
         else{
             return false;
         }
-    }
+}
 }

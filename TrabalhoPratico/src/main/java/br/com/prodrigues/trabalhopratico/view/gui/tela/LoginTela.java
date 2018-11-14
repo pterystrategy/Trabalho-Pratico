@@ -347,8 +347,7 @@ public class LoginTela extends javax.swing.JDialog {
     }
     public boolean isConfirmado() {
         return confirmado;
-    }
-    
+    }   
     public void preparaLogin(){
         edtLogin.setText("");
         edtLogin.setEditable(true);
@@ -357,6 +356,7 @@ public class LoginTela extends javax.swing.JDialog {
         edtSenha.setText("");
         edtSenha.setEditable(true);
         edtSenha.setEnabled(true);
+        this.setVisible(true);
     }
     public void setConfirmado(boolean confirmado) {
         this.confirmado = confirmado;
