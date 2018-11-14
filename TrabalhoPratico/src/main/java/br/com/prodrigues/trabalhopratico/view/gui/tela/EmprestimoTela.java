@@ -297,16 +297,16 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-//        this.setConfirmado(false);
-//        this.dispose();
+        this.setConfirmado(false);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-//        if (edtNome.getText().trim().isEmpty()) {
+//        if (edt.getText().trim().isEmpty()) {
 //            JOptionPane.showMessageDialog(this, "Falta o Nome");
 //        } else {
-//            this.setConfirmado(true);
-//            this.dispose();
+            this.setConfirmado(true);
+            this.dispose();
 //        }
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -451,27 +451,87 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     @Override
     public Emprestimo update(Emprestimo object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         labTitulo.setText("Cadastro de Editora");
+        edtDataDevolução.setDate(object.getDataDevolucao());
+        edtDataDevolução.setEditable(false);
+        edtDataDevolução.setEnabled(false);
+        
+        edtDataEmprestimo.setDate(object.getDataEmprestimo());
+        edtDataEmprestimo.setEditable(false);
+        edtDataEmprestimo.setEnabled(false);
+        
+        edtMulta.setText(Double.toString(object.getMulta()));
+        edtMulta.setEditable(false);
+        edtMulta.setEnabled(false);
+        
+       edtObervacoes.setText(object.getObervacoes());
+        edtObervacoes.setEditable(false);
+        edtObervacoes.setEnabled(false);
+        btnCancel.setVisible(true);
+        this.setVisible(true);
+        if (confirmado) {
+            object.setDataDevolucao(edtDataDevolução.getDate());
+             object.setDataEmprestimo(edtDataEmprestimo.getDate());
+             object.setMulta(Double.parseDouble(edtMulta.getText()));
+             object.setObervacoes(edtObervacoes.getText());
+             object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+            return null;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
+            return null;
+        }
+        return object;
     }
 
     @Override
     public boolean delete(Emprestimo object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          labTitulo.setText("Cadastro de Editora");
+        edtDataDevolução.setDate(object.getDataDevolucao());
+        edtDataDevolução.setEditable(false);
+        edtDataDevolução.setEnabled(false);
+        
+        edtDataEmprestimo.setDate(object.getDataEmprestimo());
+        edtDataEmprestimo.setEditable(false);
+        edtDataEmprestimo.setEnabled(false);
+        
+        edtMulta.setText(Double.toString(object.getMulta()));
+        edtMulta.setEditable(false);
+        edtMulta.setEnabled(false);
+        
+       edtObervacoes.setText(object.getObervacoes());
+        edtObervacoes.setEditable(false);
+        edtObervacoes.setEnabled(false);
+        btnCancel.setVisible(true);
+        this.setVisible(true);
+        if (confirmado) {
+            object.setDataDevolucao(edtDataDevolução.getDate());
+             object.setDataEmprestimo(edtDataEmprestimo.getDate());
+             object.setMulta(Double.parseDouble(edtMulta.getText()));
+             object.setObervacoes(edtObervacoes.getText());
+             object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
+         } else if (!confirmado) {
+            showMessage("CANCELADO PELO USUÁRIO!");
+            return false;
+        } else if (object == null) {
+            showMessage("NÃO ENCONTRADO!");
+            return false;
+        }
+        return false;
     }
 
     @Override
     public Emprestimo getScreenObject() {
-        Emprestimo nova = new Emprestimo();
-//        nova.setTitulo(edtTitulo.getText());
-//        nova.setAutor((Autor) cmbAutores.getSelectedItem());
-//        nova.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
-//        nova.setEditora((Editora) cmbEditoras.getSelectedItem());
-//        nova.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
-//        nova.setDataDeLancamento(edtData.getDate());
-//        nova.setSinopse(edtSinopse.getText());
-//        nova.getExemplares().add(exemplar);
-//        exemplar.setLivro(nova);
-        return nova;
+        Emprestimo object = new Emprestimo();
+        object.setDataDevolucao(edtDataDevolução.getDate());
+             object.setDataEmprestimo(edtDataEmprestimo.getDate());
+//             object.setMulta(Double.parseDouble(edtMulta.getText()));
+             object.setObervacoes(edtObervacoes.getText());
+             object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
+             object.setCliente((Cliente)cmbClientes.getSelectedItem());
+            object.setLivro((Livro)cmbLivros.getSelectedItem());
+        return object;
     }
 
     @Override
@@ -481,6 +541,22 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     @Override
     public void preparaUpdate(Emprestimo object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         labTitulo.setText("Cadastro de Editora");
+        edtDataDevolução.setDate(object.getDataDevolucao());
+        edtDataDevolução.setEditable(false);
+        edtDataDevolução.setEnabled(false);
+        
+        edtDataEmprestimo.setDate(object.getDataEmprestimo());
+        edtDataEmprestimo.setEditable(false);
+        edtDataEmprestimo.setEnabled(false);
+        
+        edtMulta.setText(Double.toString(object.getMulta()));
+        edtMulta.setEditable(false);
+        edtMulta.setEnabled(false);
+        
+       edtObervacoes.setText(object.getObervacoes());
+        edtObervacoes.setEditable(false);
+        edtObervacoes.setEnabled(false);
+        btnCancel.setVisible(true);
     }
 }

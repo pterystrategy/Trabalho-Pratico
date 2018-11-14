@@ -24,7 +24,7 @@ public class ClienteTableModel extends UtilTableModel<Cliente> {
     @Override
     public void filter(String filtro) {
         lista.clear();
-        for (Cliente cliente : listaOriginal) {
+        listaOriginal.forEach((cliente) -> {
             if (cliente.getName().contains(filtro)) {
                 lista.add(cliente);
             }
@@ -32,8 +32,7 @@ public class ClienteTableModel extends UtilTableModel<Cliente> {
             else if(cliente.getCpf().contains(filtro)){
                 lista.add(cliente);
             }
-            
-        }
+        });
     }
 
     @Override
