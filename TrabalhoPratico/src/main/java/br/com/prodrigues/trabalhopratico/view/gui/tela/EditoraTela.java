@@ -13,7 +13,6 @@ import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 /**
  *
  * @author prorodrigues
@@ -313,18 +312,11 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.setConfirmado(false);
-        this.dispose();
+        this.checandoBtnCancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if(edtName.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Falta o Nome");
-        }
-        else{
-            this.setConfirmado(true);
-            this.dispose();
-        }
+        this.checandoBtnOk();     
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void edtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNameActionPerformed
@@ -420,43 +412,16 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
 
     @Override
     public Editora create(Editora object) {
-        labTitulo.setText("Cadastro de Autor");
-        edtName.setText("");
-        edtName.setEditable(true);
-        edtName.setEnabled(true);
-        
-        edtEmail.setText("");
-        edtEmail.setEditable(true);
-        edtEmail.setEnabled(true);
-        
-        edtTelefone.setText("");
-        edtTelefone.setEditable(true);
-        edtTelefone.setEnabled(true);
-        
-        edtTelefoneFixo.setText("");
-        edtTelefoneFixo.setEditable(true);
-        edtTelefoneFixo.setEnabled(true);
-        //ENDEREÇO
-        edtLogradouroNome.setText("");
-        edtLogradouroNome.setEditable(true);
-        edtLogradouroNome.setEnabled(true);
-        
-        edtBairroDistrito.setText("");
-        edtBairroDistrito.setEditable(true);
-        edtBairroDistrito.setEnabled(true);
-        
-        edtLocalidadeUF.setText("");
-        edtLocalidadeUF.setEditable(true);
-        edtLocalidadeUF.setEnabled(true);
-        
-        edtCEP.setText("");
-        edtCEP.setEditable(true);
-        edtCEP.setEnabled(true);
-        
-        btnCancel.setVisible(true);
+        this.preparaCreate();
         this.setVisible(true);
         
-        return this.getScreenObject();
+        if(confirmado){
+            return this.getScreenObject();
+        }
+        else{
+            showMessage("CANCELADO PELO USUÁRIO!");
+        }
+        return null;
     }
 
     @Override
@@ -627,4 +592,57 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         this.setVisible(true);
     }
     
+     public void preparaCreate(){
+         labTitulo.setText("Cadastro de Autor");
+        edtName.setText("");
+        edtName.setEditable(true);
+        edtName.setEnabled(true);
+        
+        edtEmail.setText("");
+        edtEmail.setEditable(true);
+        edtEmail.setEnabled(true);
+        
+        edtTelefone.setText("");
+        edtTelefone.setEditable(true);
+        edtTelefone.setEnabled(true);
+        
+        edtTelefoneFixo.setText("");
+        edtTelefoneFixo.setEditable(true);
+        edtTelefoneFixo.setEnabled(true);
+        //ENDEREÇO
+        edtLogradouroNome.setText("");
+        edtLogradouroNome.setEditable(true);
+        edtLogradouroNome.setEnabled(true);
+        
+        edtBairroDistrito.setText("");
+        edtBairroDistrito.setEditable(true);
+        edtBairroDistrito.setEnabled(true);
+        
+        edtLocalidadeUF.setText("");
+        edtLocalidadeUF.setEditable(true);
+        edtLocalidadeUF.setEnabled(true);
+        
+        edtCEP.setText("");
+        edtCEP.setEditable(true);
+        edtCEP.setEnabled(true);
+        
+        btnOk.setText("Salvar");
+        btnOk.setVisible(true);
+        btnCancel.setVisible(true);
+     }
+
+    private void checandoBtnCancel(){
+        this.setConfirmado(false);
+        this.dispose();
+    }
+
+    private void checandoBtnOk() {
+         if(edtName.getText().trim().isEmpty()){
+            this.showErrorMessage("Falta o Nome");
+        }
+        else{
+            this.setConfirmado(true);
+            this.dispose();
+        }
+    } 
 }

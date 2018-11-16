@@ -42,14 +42,13 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
         boolean concluido = false;
 
         do {
-            if (tela.isConfirmado() == true) {
+            if (tela.isConfirmado()) {
 
                 if (!editora.getNamepublisher().isEmpty()) {
                     concluido = true;
                 } else {
                     tela.showErrorMessage("Falta Nome");
-                    tela.setVisible(true);
-                    editora = tela.getScreenObject();
+                    editora = tela.create(null);
                 }
             } else {
                 return null;

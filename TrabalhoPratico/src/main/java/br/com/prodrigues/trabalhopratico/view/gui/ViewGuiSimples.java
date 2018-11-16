@@ -51,7 +51,7 @@ public class ViewGuiSimples extends javax.swing.JDialog implements IView{
 
    @Override
     public void showMessage(String msg){
-        JOptionPane.showMessageDialog(null, msg); 
+        JOptionPane.showMessageDialog(this, msg); 
     }
     
     @Override
@@ -89,7 +89,7 @@ public class ViewGuiSimples extends javax.swing.JDialog implements IView{
     
     @Override
     public void showErrorMessage(String msg){
-        JOptionPane.showMessageDialog(null, msg, "Erro", JOptionPane.ERROR_MESSAGE); 
+        JOptionPane.showMessageDialog(this, msg, "Erro", JOptionPane.ERROR_MESSAGE); 
     }
     @Override
     public long askForLong(String question) {

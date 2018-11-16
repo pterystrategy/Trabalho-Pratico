@@ -22,19 +22,13 @@ import java.util.List;
  * @author prorodrigues
  */
 public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Emprestimo>{
-
-    /**
-     * Creates new form EmprestimoTela
-     */
+    
     public EmprestimoTela(Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.cmbClientes.setRenderer(new ClientesCellRenderer());
-        this.cmbLivros.setRenderer(new LivrosCellRenderer());
-       
+        this.cmbLivros.setRenderer(new LivrosCellRenderer()); 
     }
-    
-    
     public static EmprestimoTela getInstance(Frame parent, boolean modal) {
         if (tela == null) {
             /* Set the Nimbus look and feel */
@@ -309,64 +303,18 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
             this.dispose();
 //        }
     }//GEN-LAST:event_btnOkActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmprestimoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmprestimoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmprestimoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmprestimoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EmprestimoTela dialog = new EmprestimoTela(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    
     private static EmprestimoTela tela;
 
     public static EmprestimoTela getTela() {
         return tela;
     }
-
     public static void setTela(EmprestimoTela tela) {
         EmprestimoTela.tela = tela;
     }
     private boolean confirmado;
-
     public boolean isConfirmado() {
         return confirmado;
     }
-
     public void setConfirmado(boolean confirmado) {
         this.confirmado = confirmado;
     }

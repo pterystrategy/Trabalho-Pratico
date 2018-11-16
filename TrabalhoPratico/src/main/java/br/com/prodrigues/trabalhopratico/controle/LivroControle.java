@@ -13,6 +13,7 @@ import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.LivroGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LivroTela;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,19 +50,10 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     @Override
     public Livro create() {
-        Livro livro;
-        livro = tela.create(null);
-        List<Autor> lista = this.autorControle.getAll();
-
-        List<Editora> all = this.editoraControle.getAll();
-
-        List<Classificacao> classificacoes = this.getClassificacaoAll();
-
         boolean concluido = false;
+        preencherCmbs();
+        Livro livro = tela.create(null);
         do {
-            tela.setListaEditoras(all);
-            tela.setListaAutores(lista);
-            tela.setListaClassificacoes(classificacoes);
             if (tela.isConfirmado() == true) {
                 if (!livro.getTitulo().isEmpty()) {
                     concluido = true;
@@ -139,5 +131,16 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     private List<Classificacao> getClassificacaoAll() {
         return Arrays.asList(Classificacao.values());
+    }
+    
+    private void preencherCmbs(){
+        List<Autor> autores = new ArrayList<>();
+        autores.addAll(this.autorControle.getAll());
+        List<Editora> editoras = new ArrayList<>();
+        editoras.addAll(this.editoraControle.getAll());
+        List<Classificacao> classificacoes = this.getClassificacaoAll();
+        tela.setListaEditoras(editoras);
+        tela.setListaAutores(autores);
+        tela.setListaClassificacoes(classificacoes);
     }
 }

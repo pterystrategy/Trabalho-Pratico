@@ -10,32 +10,20 @@ import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Autor;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
-
 /**
- *
  * @author prorodrigues
  */
 public class AutorGrid extends javax.swing.JDialog {
-
-    /**
-     * Creates new form AutorGrid
-     *
-     * @param parent
-     * @param modal
-     * @param controle
-     */
     public AutorGrid(Frame parent, boolean modal, IControleSimples controle) {
         super(parent, modal);
         this.controle = controle;
 
     }
-
     public AutorGrid(Frame parent, boolean modal, IControleSimples controle, AutorTableModel model) {
         this(parent, modal, controle);
         this.model = model;
         initComponents();
     }
-
     public static AutorGrid getInstance(Frame parent, boolean modal, IControleSimples controle) {
         if (grid == null) {
             /* Set the Nimbus look and feel */
@@ -274,8 +262,9 @@ public class AutorGrid extends javax.swing.JDialog {
             int selectedRow = this.tblGrid.getSelectedRow();
             Autor objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.update(objetoLinha);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(e);
+            showErrorMessage("Selecione um autor");
         }
 
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -285,8 +274,14 @@ public class AutorGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        controle.read(null);
-        System.err.println(controle.getAll().toString());
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Autor objetoLinha = model.getObjetoLinha(selectedRow);
+            controle.read(objetoLinha);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(e);
+            showErrorMessage("Selecione um autor");
+        }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -298,66 +293,15 @@ public class AutorGrid extends javax.swing.JDialog {
             int selectedRow = this.tblGrid.getSelectedRow();
             Autor objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.delete(objetoLinha);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(e);
+            showErrorMessage("Selecione um autor");
         }
-        
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void edtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtFiltroActionPerformed
         model.filter(edtFiltro.getText());
     }//GEN-LAST:event_edtFiltroActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AutorGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                AutorGrid dialog = new AutorGrid(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-
-        //</editor-fold>
-
-        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                AutorGrid dialog = new AutorGrid(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -383,4 +327,12 @@ public class AutorGrid extends javax.swing.JDialog {
         return model;
     }
     private static AutorGrid grid;
+
+    public void showMessage(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+
+    public void showErrorMessage(String msg) {
+        JOptionPane.showMessageDialog(this, msg, "Erro", JOptionPane.ERROR_MESSAGE);
+    }
 }

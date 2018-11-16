@@ -9,6 +9,7 @@ import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -300,7 +301,7 @@ public class ClienteGrid extends javax.swing.JDialog {
     private void edtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtFiltroKeyReleased
 
         model.filter(edtFiltro.getText());
-        
+
     }//GEN-LAST:event_edtFiltroKeyReleased
 
     private void tblGridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGridMouseClicked
@@ -308,32 +309,29 @@ public class ClienteGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_tblGridMouseClicked
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        controle.read(null);
-        System.err.println(controle.getAll());
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Cliente objetoLinha = model.getObjetoLinha(selectedRow);
+            controle.read(objetoLinha);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(e);
+            this.showErrorMessage("Selecione um cliente");
+        }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        try {
             controle.create();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado"); 
-        }
-        
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-
-        
         try {
             int selectedRow = this.tblGrid.getSelectedRow();
             Cliente objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.update(objetoLinha);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado"); 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(e);
+            this.showErrorMessage("Selecione um cliente");
         }
-        
-        
-        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void edtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtPesquisaActionPerformed
@@ -345,11 +343,12 @@ public class ClienteGrid extends javax.swing.JDialog {
             int selectedRow = this.tblGrid.getSelectedRow();
             Cliente objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.delete(objetoLinha);
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado"); 
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+           System.err.println(e);
+            this.showErrorMessage("Selecione um cliente");
         }
-        
+
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void edtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtFiltroActionPerformed
@@ -374,4 +373,13 @@ public class ClienteGrid extends javax.swing.JDialog {
     private javax.swing.JPanel panRodape;
     private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables
+    private void showErrorMessage(String selecione_um_autor) {
+        showMessageDialog(this, selecione_um_autor, "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showMessage(String msg) {
+        showMessageDialog(this, msg);
+    }
+    
+    
 }

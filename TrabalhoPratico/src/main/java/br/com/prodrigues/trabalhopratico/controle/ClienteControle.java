@@ -24,13 +24,9 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
     public ClienteControle() {
         this.dao = new ClienteDao();
         this.model = new ClienteTableModel(this.dao.findAll());
-
-        //Cria CRUD
-//        this.grid = ClienteGrid.getInstance(null, true, this);
+        
         this.grid = ClienteGrid.getInstance(null, true, this, this.model);
-
         this.tela = ClienteTela.getInstance(null, true);
-
     }
 
     @Override
@@ -39,46 +35,38 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
         boolean concluido = false;
 
         do {
-            if (tela.isConfirmado() == true) {
-
+            if (tela.isConfirmado()) {
                 if (!cli.getCpf().isEmpty()) {
                     concluido = true;
                 } else {
                     tela.mostrarErro("Falta CPF");
-                    tela.setVisible(true);
-
-                    cli = tela.getScreenObject();
+                    cli = tela.create(null);
                 }
             } else {
                 return null;
             }
 
-        } while ((concluido == false) && (tela.isConfirmado() == true));
+        } while ((concluido != true) && (tela.isConfirmado()));
         cli = dao.create(cli);
         model.add(cli);
         return cli;
-
     }
 
     @Override
-    public void read(Cliente estado) {
-        //Cliente e = (Cliente)estado;
-        //crud.read(e);
-        List<Cliente> clientes = this.dao.findAll();
-        String lista = "";
-        lista = clientes.stream().map((cliente) -> cliente.getId() + "\n" + cliente.getName() + "\n" + cliente.getCpf()).reduce(lista, String::concat);
-        this.tela.showMessage(lista);
+    public void read(Cliente cliente) {
+        this.tela.read(cliente);
     }
 
     @Override
     public boolean delete(Cliente objeto) {
-//        long askForLong = this.tela.askForLong("Informe o ID: ");
         Cliente findById = dao.findById(objeto.getId());
         boolean delete = this.tela.delete(findById);
         if (delete) {
-            this.model.remove(findById);
-            return this.dao.delete(findById);
-
+            if(this.dao.delete(findById)){
+                this.model.remove(findById);
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -95,10 +83,16 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
 
     @Override
     public Cliente update(Cliente objeto) {
-        this.tela.preparaUpdate(objeto);
-        Cliente update = tela.update(objeto);
-        Cliente update1 = this.dao.update(update);
-        this.model.update(objeto, update1);
+         boolean concluido = false;
+         Cliente update1 = null;
+        do {
+            Cliente update = tela.update(objeto);
+            if (tela.isConfirmado()) {
+                 update1 = this.dao.update(update);
+                this.model.update(objeto, update1);
+                concluido = true;
+            }
+        } while ((concluido != true) && (tela.isConfirmado()));
         return update1;
     }
 
