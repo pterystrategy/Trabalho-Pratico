@@ -15,17 +15,6 @@ import java.util.List;
 public class LivroDao extends AbstractDao<Livro> {
 
     @Override
-    public Livro create(Livro entity) {
-        em.getTransaction().begin();
-        em.persist(entity);
-        em.flush();
-        em.getTransaction().commit();
-        em.refresh(entity);
-
-        return entity;
-    }
-
-    @Override
     public boolean delete(Livro entity) {
          em.getTransaction().begin();
         Livro reference = em.getReference(Livro.class, entity.getId());
@@ -36,22 +25,6 @@ public class LivroDao extends AbstractDao<Livro> {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public Livro update(Livro entity) {
-        em.getTransaction().begin();
-        Livro merge = this.getEntityManager().merge(entity);
-        
-        em.getTransaction().commit();
-        
-        return merge;
-    }
-
-    @Override
-    public Livro findById(int id) {
-        return this.findById((long)id);
-
     }
 
     @Override

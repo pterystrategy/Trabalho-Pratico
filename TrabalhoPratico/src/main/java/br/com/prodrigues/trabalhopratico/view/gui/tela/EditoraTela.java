@@ -12,6 +12,7 @@ import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 /**
  *
@@ -162,6 +163,11 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        edtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtTelefoneActionPerformed(evt);
+            }
+        });
 
         lblTelefone.setText("Telefone:");
 
@@ -339,41 +345,9 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtEmailActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditoraTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            EditoraTela dialog = new EditoraTela(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
-        });
-    }
+    private void edtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtTelefoneActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -414,9 +388,23 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     public Editora create(Editora object) {
         this.preparaCreate();
         this.setVisible(true);
-        
         if(confirmado){
-            return this.getScreenObject();
+            return  this.getScreenObject();
+        }
+        else{
+            showMessage("CANCELADO PELO USUÁRIO!");
+        }
+        return null;
+    }
+    
+    public Editora create(Editora object, Endereco endereco) {
+        this.preparaCreate();
+        if(confirmado){
+            endereco = this.getScreenObject(object);
+            object.addEndereco(endereco);
+            List<Telefone> telefones = this.getScreenObject(object, endereco);
+            object.setTelefones(telefones);
+            return object;
         }
         else{
             showMessage("CANCELADO PELO USUÁRIO!");
@@ -530,22 +518,36 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     @Override
     public Editora getScreenObject() {
         Editora editora = new Editora(edtName.getText(), edtEmail.getText());
+        Endereco screenObject = this.getScreenObject(editora);
+        screenObject.setEditora(editora);
+        List<Telefone> screenObject1 = this.getScreenObject(editora, screenObject);
+        screenObject1.get(0).setEditora(editora);
+        screenObject1.get(1).setEditora(editora);
+        editora.setTelefones(screenObject1);
+        return editora;
+    }
+    
+    public Endereco getScreenObject(Editora editora){
+        
         Endereco endereco = new Endereco();
         endereco.setLogradouro(edtLogradouroNome.getText());
         endereco.setBairro(edtBairroDistrito.getText());
         endereco.setLocalidade(edtLocalidadeUF.getText());
         endereco.setCep(edtCEP.getText());
-        editora.addEndereco(endereco);
+        
+        return endereco;
+    }
+    
+    public List<Telefone> getScreenObject(Editora editora, Endereco endereco){
+        Telefone teleC = new Telefone();
+        Telefone teleF = new Telefone();
+        System.out.println(edtTelefone.getText());
+        teleC.setNumero(edtTelefone.getText());
+        teleF.setNumero(edtTelefoneFixo.getText());
         List<Telefone> telefones = new ArrayList<>();
-        Telefone telefonec = new Telefone(edtTelefone.getText());
-        Telefone telefoneF = new Telefone(edtTelefoneFixo.getText());
-        telefones.add(telefonec);
-        telefones.add(telefoneF);
-        editora.setTelefones(telefones);
-        telefonec.setEditora(editora);
-        telefoneF.setEditora(editora);
-        endereco.setEditora(editora);
-        return editora;
+        telefones.add(teleC);
+        telefones.add(teleF);
+        return telefones;
     }
 
     @Override
@@ -606,7 +608,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         edtTelefone.setEditable(true);
         edtTelefone.setEnabled(true);
         
-        edtTelefoneFixo.setText("");
+        edtTelefoneFixo.setText("322323");
         edtTelefoneFixo.setEditable(true);
         edtTelefoneFixo.setEnabled(true);
         //ENDEREÇO
@@ -645,4 +647,12 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
             this.dispose();
         }
     } 
+    
+    public Endereco getEndereco(Editora editora){
+        return this.getScreenObject(editora);
+    }
+    
+    public List<Telefone> getTelefones(Editora editora){
+        return this.getScreenObject(editora, null);
+    }
 }

@@ -7,16 +7,6 @@ import javax.persistence.criteria.CriteriaQuery;
 public class UsuarioDao extends AbstractDao<Usuario> {
 
     @Override
-    public Usuario create(Usuario entity) {
-        em.getTransaction().begin();
-        em.persist(entity);
-        em.flush();
-        em.getTransaction().commit();
-        em.refresh(entity);
-        return entity;
-    }
-
-    @Override
     public boolean delete(Usuario entity) {
         em.getTransaction().begin();
         Usuario usuario;
@@ -29,21 +19,7 @@ public class UsuarioDao extends AbstractDao<Usuario> {
         }
         return false;
     }
-
-    @Override
-    public Usuario update(Usuario entity) {
-        em.getTransaction().begin();
-        Usuario merge = this.getEntityManager().merge(entity);
-        
-        em.getTransaction().commit();
-        return merge;
-    }
-
-    @Override
-    public Usuario findById(int id) {
-        return this.findById((long)id);
-    }
-
+    
     @Override
     public Usuario findById(long id) {
         return this.em.find(Usuario.class, id);

@@ -5,7 +5,6 @@
  */
 package br.com.prodrigues.trabalhopratico.dao;
 
-import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,17 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author prorodrigues
  */
 public class EmprestimoDao extends AbstractDao<Emprestimo> {
-
-    @Override
-    public Emprestimo create(Emprestimo entity) {
-        em.getTransaction().begin();
-        em.persist(entity);
-        em.flush();
-        em.getTransaction().commit();
-        em.refresh(entity);
-
-        return entity;
-    }
 
     @Override
     public boolean delete(Emprestimo entity) {
@@ -39,22 +27,7 @@ public class EmprestimoDao extends AbstractDao<Emprestimo> {
         }
         return false;
     }
-
-    @Override
-    public Emprestimo update(Emprestimo entity) {
-        em.getTransaction().begin();
-        Emprestimo merge = this.getEntityManager().merge(entity);
-
-        em.getTransaction().commit();
-
-        return merge;
-    }
-
-    @Override
-    public Emprestimo findById(int id) {
-        return this.findById((long) id);
-    }
-
+    
     @Override
     public Emprestimo findById(long id) {
         Emprestimo item = em.find(Emprestimo.class, id);

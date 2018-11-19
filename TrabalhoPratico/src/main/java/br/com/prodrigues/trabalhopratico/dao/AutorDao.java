@@ -16,17 +16,6 @@ import javax.persistence.criteria.CriteriaQuery;
 public class AutorDao extends AbstractDao<Autor> {
 
     @Override
-    public Autor create(Autor entity) {
-        em.getTransaction().begin();
-        em.persist(entity);
-        em.flush();
-        em.getTransaction().commit();
-        em.refresh(entity);
-
-        return entity;
-    }
-
-    @Override
     public boolean delete(Autor entity) {
         em.getTransaction().begin();
         Autor autor;
@@ -38,21 +27,6 @@ public class AutorDao extends AbstractDao<Autor> {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public Autor update(Autor entity) {
-        em.getTransaction().begin();
-        Autor merge = this.getEntityManager().merge(entity);
-
-        em.getTransaction().commit();
-
-        return merge;
-    }
-
-    @Override
-    public Autor findById(int id) {
-        return this.findById((long) id);
     }
 
     @Override

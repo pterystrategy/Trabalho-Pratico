@@ -6,17 +6,6 @@ import java.util.List;
 public class ClienteDao extends AbstractDao<Cliente> {
 
     @Override
-    public Cliente create(Cliente entity) {
-        em.getTransaction().begin();
-        em.persist(entity);
-        em.flush();
-        em.getTransaction().commit();
-        em.refresh(entity);
-
-        return entity;
-    }
-
-    @Override
     public boolean delete(Cliente t) {
         
         em.getTransaction().begin();
@@ -32,26 +21,10 @@ public class ClienteDao extends AbstractDao<Cliente> {
     }
 
     @Override
-    public Cliente update(Cliente entity) {
-        em.getTransaction().begin();
-        Cliente merge = this.getEntityManager().merge(entity);
-        
-        em.getTransaction().commit();
-        return merge;
-    }
-
-
-    @Override
     public Cliente findById(long id) {
         Cliente item = em.find(Cliente.class, id);
         return item;
     }
-    
-    @Override
-    public Cliente findById(int id) {
-        return this.findById((long)id);
-    }
-    
     @Override
     public List<Cliente> findAll() {
         javax.persistence.criteria.CriteriaQuery cq;

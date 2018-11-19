@@ -20,10 +20,16 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
 
     protected EditoraGrid grid;
     private final EditoraTela tela;
-    private EditoraTableModel model;
+    private final EditoraTableModel model;
+    
+    private final EnderecoControle enderecoControle;
+    
+    private TelefoneControle telefoneControle;
 
     public EditoraControle() {
         this.dao = new EditoraDao();
+        this.enderecoControle = new EnderecoControle();
+        
         this.model = new EditoraTableModel(this.dao.findAll());
 
         this.grid = EditoraGrid.getInstance(null, true, this, this.model);
@@ -43,17 +49,16 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
 
         do {
             if (tela.isConfirmado()) {
-
                 if (!editora.getNamepublisher().isEmpty()) {
-                    concluido = true;
+                   concluido = true;
                 } else {
                     tela.showErrorMessage("Falta Nome");
                     editora = tela.create(null);
                 }
             } else {
-                return null;
+                concluido = false;
             }
-        } while ((concluido == false) && (tela.isConfirmado() == true));
+        } while ((concluido == false) && (tela.isConfirmado() == true)); 
         editora = dao.create(editora);
         model.add(editora);
         return editora;

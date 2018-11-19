@@ -5,7 +5,6 @@
  */
 package br.com.prodrigues.trabalhopratico.dao;
 
-import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,17 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author prorodrigues
  */
 public class EditoraDao extends AbstractDao<Editora>{
-
-    @Override
-    public Editora create(Editora entity) {
-        em.getTransaction().begin();
-        em.persist(entity);
-        em.flush();
-        em.getTransaction().commit();
-        em.refresh(entity);
-
-        return entity;
-    }
 
     @Override
     public boolean delete(Editora entity) {
@@ -38,21 +26,6 @@ public class EditoraDao extends AbstractDao<Editora>{
             return true;
         }
         return false;
-    }
-
-    @Override
-    public Editora update(Editora entity) {
-        em.getTransaction().begin();
-        Editora merge = this.getEntityManager().merge(entity);
-        
-        em.getTransaction().commit();
-        
-        return merge;
-    }
-
-    @Override
-    public Editora findById(int id) {
-        return this.findById((long) id);
     }
 
     @Override
