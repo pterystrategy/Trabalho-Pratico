@@ -15,6 +15,8 @@ import br.com.prodrigues.trabalhopratico.modelcombo.LivrosComboModel;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -373,20 +375,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     
     @Override
     public Emprestimo create(Emprestimo object) {
-       labTitulo.setText("Emprestimo");
-        edtMulta.setText("");
-        edtMulta.setEditable(true);
-        edtMulta.setEnabled(true);
-
-        edtObervacoesDevolucao.setText("");
-        edtObervacoesDevolucao.setEditable(true);
-        edtObervacoesDevolucao.setEnabled(true);
-        
-        edtObervacoes.setText("");
-        edtObervacoes.setEditable(true);
-        edtObervacoes.setEnabled(true);
-        
-        btnCancel.setVisible(true);
+        this.preparaCreate();
         this.setVisible(true);
 
         return this.getScreenObject();
@@ -399,24 +388,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     @Override
     public Emprestimo update(Emprestimo object) {
-         labTitulo.setText("Cadastro de Editora");
-        edtDataDevolução.setDate(object.getDataDevolucao());
-        edtDataDevolução.setEditable(false);
-        edtDataDevolução.setEnabled(false);
-        
-        edtDataEmprestimo.setDate(object.getDataEmprestimo());
-        edtDataEmprestimo.setEditable(false);
-        edtDataEmprestimo.setEnabled(false);
-        
-        edtMulta.setText(Double.toString(object.getMulta()));
-        edtMulta.setEditable(false);
-        edtMulta.setEnabled(false);
-        
-       edtObervacoes.setText(object.getObervacoes());
-        edtObervacoes.setEditable(false);
-        edtObervacoes.setEnabled(false);
-        btnCancel.setVisible(true);
-        this.setVisible(true);
+        preparaUpdate(object);
         if (confirmado) {
             object.setDataDevolucao(edtDataDevolução.getDate());
              object.setDataEmprestimo(edtDataEmprestimo.getDate());
@@ -435,26 +407,10 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     @Override
     public boolean delete(Emprestimo object) {
-          labTitulo.setText("Cadastro de Editora");
-        edtDataDevolução.setDate(object.getDataDevolucao());
-        edtDataDevolução.setEditable(false);
-        edtDataDevolução.setEnabled(false);
-        
-        edtDataEmprestimo.setDate(object.getDataEmprestimo());
-        edtDataEmprestimo.setEditable(false);
-        edtDataEmprestimo.setEnabled(false);
-        
-        edtMulta.setText(Double.toString(object.getMulta()));
-        edtMulta.setEditable(false);
-        edtMulta.setEnabled(false);
-        
-       edtObervacoes.setText(object.getObervacoes());
-        edtObervacoes.setEditable(false);
-        edtObervacoes.setEnabled(false);
-        btnCancel.setVisible(true);
+        preparaDelete(object);
         this.setVisible(true);
         if (confirmado) {
-            object.setDataDevolucao(edtDataDevolução.getDate());
+             object.setDataDevolucao(edtDataDevolução.getDate());
              object.setDataEmprestimo(edtDataEmprestimo.getDate());
              object.setMulta(Double.parseDouble(edtMulta.getText()));
              object.setObervacoes(edtObervacoes.getText());
@@ -489,7 +445,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     @Override
     public void preparaUpdate(Emprestimo object) {
-         labTitulo.setText("Cadastro de Editora");
+        labTitulo.setText("Cadastro de Editora");
         edtDataDevolução.setDate(object.getDataDevolucao());
         edtDataDevolução.setEditable(false);
         edtDataDevolução.setEnabled(false);
@@ -506,5 +462,103 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtObervacoes.setEditable(false);
         edtObervacoes.setEnabled(false);
         btnCancel.setVisible(true);
+    }
+    
+    private void preparaCreate(){
+        
+        edtDataDevolução.setDate(Date.from(Instant.now()));
+        edtDataDevolução.setEditable(true);
+        edtDataDevolução.setEnabled(true);
+        
+        edtDataEmprestimo.setDate(Date.from(Instant.now()));
+        edtDataEmprestimo.setEditable(true);
+        edtDataEmprestimo.setEnabled(true);
+        
+        edtMulta.setText("");
+        edtMulta.setEditable(true);
+        edtMulta.setEnabled(true);
+        
+        labTitulo.setText("Emprestimo");
+        edtMulta.setText("");
+        edtMulta.setEditable(true);
+        edtMulta.setEnabled(true);
+
+        edtObervacoesDevolucao.setText("");
+        edtObervacoesDevolucao.setEditable(true);
+        edtObervacoesDevolucao.setEnabled(true);
+        
+        edtObervacoes.setText("");
+        edtObervacoes.setEditable(true);
+        edtObervacoes.setEnabled(true);
+        
+        btnOk.setText("Salvar");
+        btnOk.setVisible(true);
+        
+        btnCancel.setVisible(true);
+        
+        
+    }
+    
+    private void preparaDelete(Emprestimo object){
+        
+        labTitulo.setText("Emprestimo");
+        
+        
+        
+        
+        edtDataDevolução.setDate(object.getDataDevolucao());
+        edtDataDevolução.setEditable(false);
+        edtDataDevolução.setEnabled(false);
+        
+        edtDataEmprestimo.setDate(object.getDataEmprestimo());
+        edtDataEmprestimo.setEditable(false);
+        edtDataEmprestimo.setEnabled(false);
+        
+        edtMulta.setText(Double.toString(object.getMulta()));
+        edtMulta.setEditable(false);
+        edtMulta.setEnabled(false);
+        
+       
+        edtObervacoes.setText(object.getObervacoes());
+        edtObervacoes.setEditable(false);
+        edtObervacoes.setEnabled(false);
+        
+        btnOk.setText("Deletar");
+        btnOk.setVisible(true);
+        
+        btnCancel.setVisible(true);
+    }
+    
+    private void preparaMostrar(Emprestimo object){
+        
+         
+        labTitulo.setText("Emprestimo");
+        
+        
+        
+        
+        edtDataDevolução.setDate(object.getDataDevolucao());
+        edtDataDevolução.setEditable(false);
+        edtDataDevolução.setEnabled(false);
+        
+        edtDataEmprestimo.setDate(object.getDataEmprestimo());
+        edtDataEmprestimo.setEditable(false);
+        edtDataEmprestimo.setEnabled(false);
+        
+        edtMulta.setText(Double.toString(object.getMulta()));
+        edtMulta.setEditable(false);
+        edtMulta.setEnabled(false);
+        
+       
+        edtObervacoes.setText(object.getObervacoes());
+        edtObervacoes.setEditable(false);
+        edtObervacoes.setEnabled(false);
+        btnCancel.setVisible(true);
+        
+        
+        btnOk.setText("Ok");
+        btnOk.setVisible(true);
+        
+        btnCancel.setVisible(false);
     }
 }

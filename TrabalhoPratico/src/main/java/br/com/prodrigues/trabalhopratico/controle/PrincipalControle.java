@@ -1,5 +1,6 @@
 package br.com.prodrigues.trabalhopratico.controle;
 
+import br.com.prodrigues.trabalhopratico.dao.gerarDados.auto.AutoDado;
 import br.com.prodrigues.trabalhopratico.view.gui.TelaPrincipal;
 
 public class PrincipalControle {
@@ -35,7 +36,10 @@ public class PrincipalControle {
     }
 
     public void iniciar() {
+        AutoDado ad = new AutoDado();
+        
         if (usuarioControle.showInicialLogin()) {
+            ad.Autores();
             tela = TelaPrincipal.getInstance(this);
             tela.setVisible(true); 
         }else

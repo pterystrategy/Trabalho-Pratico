@@ -285,6 +285,7 @@ public class AutorGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        model.setListaA(controle.getAll());
         this.setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
 

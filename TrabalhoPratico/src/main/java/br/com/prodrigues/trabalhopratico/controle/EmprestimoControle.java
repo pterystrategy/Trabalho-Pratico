@@ -12,6 +12,7 @@ import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.EmprestimoTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.EmprestimoGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.EmprestimoTela;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,21 +52,18 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
 
     @Override
     public Emprestimo create() {
-        List<Cliente> all = clienteControle.getAll();
-        List<Livro> all1 = livroControle.getAll();
+        this.preencherCmbs();
         Emprestimo create = tela.create(null);
         boolean concluido = false;
 
         do {
-            tela.setListaClientes(all);
-            tela.setListaLivros(all1);
             if (tela.isConfirmado() == true) {
 
                 if (!create.getCliente().getName().isEmpty()) {
                     concluido = true;
                 } else {
                     tela.setVisible(true);
-                    create = tela.getScreenObject();
+                    create = tela.create(create);
                 }
             } else {
                 return null;
@@ -119,5 +117,14 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
     public boolean filter(String column, String valor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+     private void preencherCmbs(){
+        List<Cliente> clientes = new ArrayList<>();
+        clientes.addAll(this.clienteControle.getAll());
+        List<Livro> livros = new ArrayList<>();
+        livros.addAll(this.livroControle.getAll());
+        tela.setListaClientes(clientes);
+        tela.setListaLivros(livros);
+    }
+    
 }

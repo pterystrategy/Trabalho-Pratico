@@ -50,7 +50,7 @@ public class AutorControle extends AbstractControleSimples<Autor> {
     }
 
     @Override
-    public void read(Autor objeto) {
+    public void read(Autor objeto) { 
        tela.read(objeto);
     }
 
