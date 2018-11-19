@@ -60,7 +60,7 @@ public class LivroControle extends AbstractControleSimples<Livro> {
                 } else {
                     tela.showErrorMessage("Falta Nome");
                     tela.setVisible(true);
-                    livro = tela.getScreenObject();
+                    livro = tela.create(livro);
                 }
             } else {
                 return null;
