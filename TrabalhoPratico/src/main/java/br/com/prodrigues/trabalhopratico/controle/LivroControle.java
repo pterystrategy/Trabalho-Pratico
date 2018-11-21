@@ -34,8 +34,9 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         this.autorControle = autorControle;
         this.model = new LivroTableModel(this.dao.findAll());
 
-        this.grid = LivroGrid.getInstance(null, true, this, model);
+        
         this.tela = LivroTela.getInstance(null, true);
+        this.grid = LivroGrid.getInstance(null, true, this, model);
     }
 
     LivroControle(AutorControle autorControle, EditoraControle editoraControle) {
@@ -69,6 +70,10 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         livro = dao.create(livro);
         model.add(livro);
         return livro;
+    }
+
+    public LivroTableModel getModel() {
+        return model;
     }
 
     @Override

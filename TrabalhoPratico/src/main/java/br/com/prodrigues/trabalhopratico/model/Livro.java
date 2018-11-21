@@ -5,6 +5,7 @@
  */
 package br.com.prodrigues.trabalhopratico.model;
 
+import br.com.prodrigues.trabalhopratico.model.antigo.Exemplar;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -47,7 +50,19 @@ public class Livro implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "CLASSIFICACAOLIVRO", length = 35)
     private Classificacao classificacao;
-
+    
+    @Column(name = "QTD", length = 3, nullable = false)
+    private int quantidade;
+    
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,CascadeType.PERSIST,
+        CascadeType.REMOVE})
+    @JoinTable(name = "TB_LIVRO_EMPRESTIMO",
+        joinColumns = @JoinColumn(name = "FKLIVRO"),
+        inverseJoinColumns = @JoinColumn(name = "FKEMPRESTIMO")
+    )
+    private List<Emprestimo> emprestimos;
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "DATALANCAMENTO", nullable = true)
     private Date dataDeLancamento;
@@ -74,10 +89,10 @@ public class Livro implements Serializable {
     @Column(name = "SINOPSE", length = 125)
     private String sinopse;
 
-    @OneToMany(mappedBy = "livro", cascade
-            = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Emprestimo> emprestimos;
+//    @OneToMany(mappedBy = "livro", cascade
+//            = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            fetch = FetchType.EAGER, orphanRemoval = true)
+//    private List<Emprestimo> emprestimos;
 
     public Livro() {
 
@@ -192,6 +207,14 @@ public class Livro implements Serializable {
 
     public void setExemplares(List<Exemplar> exemplares) {
         this.exemplares = exemplares;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
 }

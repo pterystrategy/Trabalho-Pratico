@@ -5,6 +5,7 @@
  */
 package br.com.prodrigues.trabalhopratico.model;
 
+import br.com.prodrigues.trabalhopratico.model.antigo.Exemplar;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -53,8 +54,11 @@ public class Emprestimo implements Serializable {
     @Column(name = "OBS", length = 500)
     private String obervacoes;
     
+//    @ManyToMany(mappedBy = "emprestimos")
+//    private List<Exemplar> exemplares;
+//    
     @ManyToMany(mappedBy = "emprestimos")
-    private List<Exemplar> exemplares;
+    private List<Livro> livros;
     
     @Column(name = "OBSDEVOLUCAO", length = 225)
     private String obervacoesDevolucao;
@@ -184,11 +188,20 @@ public class Emprestimo implements Serializable {
         this.livro = livro;
     }
 
-    public List<Exemplar> getExemplares() {
-        return exemplares;
+//    public List<Exemplar> getExemplares() {
+//        return exemplares;
+//    }
+//
+//    public void setExemplares(List<Exemplar> exemplares) {
+//        this.exemplares = exemplares;
+//    }
+
+    public List<Livro> getLivros() {
+        return livros;
     }
 
-    public void setExemplares(List<Exemplar> exemplares) {
-        this.exemplares = exemplares;
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
     }
+    
 }

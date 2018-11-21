@@ -12,7 +12,6 @@ import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 /**
  *

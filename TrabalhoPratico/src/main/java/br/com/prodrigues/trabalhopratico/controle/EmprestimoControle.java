@@ -24,25 +24,17 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
     protected EmprestimoGrid grid;
     private final EmprestimoTela tela;
     private final EmprestimoTableModel model;
-    private  ClienteControle clienteControle;
-    private  LivroControle livroControle;
+    private final  ClienteControle clienteControle;
+    private final  LivroControle livroControle;
     
-    public EmprestimoControle() {
-        this.dao = new EmprestimoDao();
-        this.model = new EmprestimoTableModel(this.dao.findAll());
-
-        this.grid = EmprestimoGrid.getInstance(null, true, this, model);
-        this.tela = EmprestimoTela.getInstance(null, true);
-
-    }
-
     public EmprestimoControle(ClienteControle clienteControle, LivroControle livroControle) {
-        this();
         this.clienteControle = clienteControle;
         this.livroControle = livroControle;
+        this.dao = new EmprestimoDao();
+        this.model = new EmprestimoTableModel(this.dao.findAll());    
+        this.grid = EmprestimoGrid.getInstance(null, true, this, model);
+        this.tela = EmprestimoTela.getInstance(null, true, this.livroControle.getModel());
     }
-    
-    
     
     @Override
     public void showInicialScreen() {

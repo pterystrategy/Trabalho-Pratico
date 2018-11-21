@@ -10,7 +10,7 @@ import br.com.prodrigues.trabalhopratico.modelcombo.AutoresComboModel;
 import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Classificacao;
 import br.com.prodrigues.trabalhopratico.model.Editora;
-import br.com.prodrigues.trabalhopratico.model.Exemplar;
+import br.com.prodrigues.trabalhopratico.model.antigo.Exemplar;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modelcombo.AutoresCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClassificacoesCellRenderer;
@@ -457,10 +457,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
             object.setTitulo(edtTitulo.getText());
             object.setAutor((Autor) cmbAutores.getSelectedItem());
             object.setSinopse(edtSinopse.getText());
-            Exemplar get = object.getExemplares().get(0);
-            get.setQuantidade((int) edtQtd.getValue());
-            Exemplar set = object.getExemplares().set(0, get);
-            set.setLivro(object);
+            object.setQuantidade((int) edtQtd.getValue());
             object.setEditora((Editora) cmbEditoras.getSelectedItem());
             object.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
             this.setVisible(true);
@@ -487,7 +484,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         edtData.setEditable(false);
         edtData.setEnabled(false);
 
-        edtQtd.setValue(object.getExemplares().get(0).getQuantidade());
+        edtQtd.setValue(object.getQuantidade());
 
         edtSinopse.setText(object.getSinopse());
         edtSinopse.setEditable(false);
@@ -519,10 +516,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         nova.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
         nova.setDataDeLancamento(edtData.getDate());
         nova.setSinopse(edtSinopse.getText());
-        Exemplar exemplar = new Exemplar();
-        exemplar.setQuantidade((int) edtQtd.getValue());
-        nova.getExemplares().add(exemplar);
-        exemplar.setLivro(nova);
+        nova.setQuantidade((int) edtQtd.getValue());
         return nova;
     }
 
@@ -544,7 +538,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         edtData.setEditable(true);
         edtData.setEnabled(true);
 
-        edtQtd.setValue(object.getExemplares().get(0).getQuantidade());
+        edtQtd.setValue(object.getQuantidade());
 
         edtSinopse.setText(object.getSinopse());
         edtSinopse.setEditable(true);

@@ -43,7 +43,7 @@ public class AutorControle extends AbstractControleSimples<Autor> {
                 return null;
             }
 
-        } while ((concluido == false) && (tela.isConfirmado() == true));
+        } while ((concluido != true) && (tela.isConfirmado()));
         autor = dao.create(autor);
         model.add(autor);
         return autor;

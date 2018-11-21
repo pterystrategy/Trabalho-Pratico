@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.prodrigues.trabalhopratico.model;
+package br.com.prodrigues.trabalhopratico.model.antigo;
 
+import br.com.prodrigues.trabalhopratico.model.Emprestimo;
+import br.com.prodrigues.trabalhopratico.model.Livro;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -38,17 +40,17 @@ public class Exemplar implements Serializable {
     @JoinColumn(name = "FKLIVRO")
     private Livro livro;
     
-    @Column(name = "QTD", length = 3, nullable = false)
-    private int quantidade;
-    
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,CascadeType.PERSIST,
-        CascadeType.REMOVE})
-    @JoinTable(name = "TB_EXEMPLAR_EMPRESTIMO",
-        joinColumns = @JoinColumn(name = "FKEXEMPLAR"),
-        inverseJoinColumns = @JoinColumn(name = "FKEMPRESTIMO")
-    )
-    private List<Emprestimo> emprestimos;
+//    @Column(name = "QTD", length = 3, nullable = false)
+//    private int quantidade;
+//    
+//    @ManyToMany(cascade = {
+//        CascadeType.PERSIST,CascadeType.PERSIST,
+//        CascadeType.REMOVE})
+//    @JoinTable(name = "TB_EXEMPLAR_EMPRESTIMO",
+//        joinColumns = @JoinColumn(name = "FKEXEMPLAR"),
+//        inverseJoinColumns = @JoinColumn(name = "FKEMPRESTIMO")
+//    )
+//    private List<Emprestimo> emprestimos;
     
     
     public Long getId() {
@@ -89,20 +91,20 @@ public class Exemplar implements Serializable {
         this.livro = livro;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public List<Emprestimo> getEmprestimos() {
-        return emprestimos;
-    }
-
-    public void setEmprestimos(List<Emprestimo> emprestimos) {
-        this.emprestimos = emprestimos;
-    }
+//    public int getQuantidade() {
+//        return quantidade;
+//    }
+//
+//    public void setQuantidade(int quantidade) {
+//        this.quantidade = quantidade;
+//    }
+//
+//    public List<Emprestimo> getEmprestimos() {
+//        return emprestimos;
+//    }
+//
+//    public void setEmprestimos(List<Emprestimo> emprestimos) {
+//        this.emprestimos = emprestimos;
+//    }
     
 }

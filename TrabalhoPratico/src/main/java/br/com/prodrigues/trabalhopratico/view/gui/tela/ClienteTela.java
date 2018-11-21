@@ -23,7 +23,8 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
     public boolean isConfirmado() {
         return confirmado;
     }
-
+    
+    
     /**
      * Creates new form ClienteTela
      *
@@ -251,6 +252,7 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
 
     @Override
     public Cliente create(Cliente cliente) {
+        
         this.preparaCreate();
         this.setVisible(true);
         if(confirmado){
@@ -258,8 +260,8 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
         }
         else{
             showMessage("CANCELADO PELO USUÁRIO!");
+            return null;
         }
-        return null;
     }
 
     @Override
