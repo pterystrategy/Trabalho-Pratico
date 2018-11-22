@@ -29,8 +29,6 @@ public class EmprestimoTableModel extends UtilTableModel<Emprestimo> {
             case 1:
                 return get.getCliente().getName();
             case 2:
-                return get.getLivro().getTitulo();
-            case 3:
                 return get.getMulta();
             default:
                 return null;
@@ -45,11 +43,6 @@ public class EmprestimoTableModel extends UtilTableModel<Emprestimo> {
             if (emprestimo.getCliente().getName().contains(filtro)) {
                 lista.add(emprestimo);
             }
-
-            else if(emprestimo.getLivro().getTitulo().contains(filtro)){
-                lista.add(emprestimo);
-            }
-            
         }
     }
 }

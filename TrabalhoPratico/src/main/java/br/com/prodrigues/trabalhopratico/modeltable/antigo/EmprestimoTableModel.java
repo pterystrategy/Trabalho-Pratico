@@ -6,7 +6,6 @@
 package br.com.prodrigues.trabalhopratico.modeltable.antigo;
 
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
-import br.com.prodrigues.trabalhopratico.model.Livro;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -25,7 +24,7 @@ public class EmprestimoTableModel extends AbstractTableModel {
     protected Class[] classes;
 
     public EmprestimoTableModel(List<Emprestimo> listanova) {
-        columnNames = new String[]{"ID", "Cliente", "Livro", "Multa"};
+        columnNames = new String[]{"ID", "Cliente", "Multa"};
         classes = new Class[]{Long.class, String.class, String.class, Double.class};
         lista = listanova;
     }
@@ -54,8 +53,6 @@ public class EmprestimoTableModel extends AbstractTableModel {
             case 1:
                 return get.getCliente().getName();
             case 2:
-                return get.getLivro().getTitulo();
-            case 3:
                 return get.getMulta();
             default:
                 return null;

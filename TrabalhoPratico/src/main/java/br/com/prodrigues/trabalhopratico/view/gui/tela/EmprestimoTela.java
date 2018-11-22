@@ -19,6 +19,7 @@ import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -174,7 +175,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
         labMulta.setText("Multa:");
 
-        edtMulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        edtMulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
 
         edtObervacoes.setColumns(20);
         edtObervacoes.setRows(5);
@@ -231,7 +232,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(edtDataDevolução, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, Short.MAX_VALUE)
+                                        .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                                         .addComponent(cmbLivros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cmbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -393,6 +394,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }
     public void setListaLivros(List<Livro> listaLivros) {
         modelLivros.clear();
+        this.listaLivros = listaLivros;
         modelLivros.addListLivro(listaLivros);
     }
 
@@ -458,11 +460,12 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         Emprestimo object = new Emprestimo();
         object.setDataDevolucao(edtDataDevolução.getDate());
              object.setDataEmprestimo(edtDataEmprestimo.getDate());
-//             object.setMulta(Double.parseDouble(edtMulta.getText()));
+             object.setMulta(Double.valueOf(edtMulta.getText()));
              object.setObervacoes(edtObervacoes.getText());
              object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
              object.setCliente((Cliente)cmbClientes.getSelectedItem());
-            object.setLivro((Livro)cmbLivros.getSelectedItem());
+            object.setLivros(listaLivros);
+        
         return object;
     }
 
@@ -485,6 +488,8 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtMulta.setText(Double.toString(object.getMulta()));
         edtMulta.setEditable(false);
         edtMulta.setEnabled(false);
+        
+        model.setListaA(object.getLivros());
         
        edtObervacoes.setText(object.getObervacoes());
         edtObervacoes.setEditable(false);
@@ -510,6 +515,8 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtMulta.setText("");
         edtMulta.setEditable(true);
         edtMulta.setEnabled(true);
+        
+        model.setListaA(listaLivros);
 
         edtObervacoesDevolucao.setText("");
         edtObervacoesDevolucao.setEditable(true);

@@ -9,6 +9,7 @@ import br.com.prodrigues.trabalhopratico.model.antigo.Exemplar;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,10 +46,10 @@ public class Emprestimo implements Serializable {
     @Column(name = "DATADEVOLUCAO", nullable = true)
     private Date dataDevolucao;
     
-    @Column(name = "PENDENCIA", nullable = false)
+    @Column(name = "PENDENCIA", nullable = true)
     private Boolean pendencia;
     
-    @Column(name = "DEVOLUCAO", nullable = false)
+    @Column(name = "DEVOLUCAO", nullable = true)
     private Boolean devolucao;
     
     @Column(name = "OBS", length = 500)
@@ -57,7 +58,7 @@ public class Emprestimo implements Serializable {
 //    @ManyToMany(mappedBy = "emprestimos")
 //    private List<Exemplar> exemplares;
 //    
-    @ManyToMany(mappedBy = "emprestimos")
+    @ManyToMany(mappedBy = "emprestimos", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Livro> livros;
     
     @Column(name = "OBSDEVOLUCAO", length = 225)
@@ -71,9 +72,9 @@ public class Emprestimo implements Serializable {
     @JoinColumn(name = "FKCLIENTE")
     private Cliente cliente;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FKLIVRO")
-    private Livro livro;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "FKLIVRO")
+//    private Livro livro;
     
     @Column(name = "MULTA", precision = 3 , scale = 2)
     private Double multa;
@@ -179,14 +180,14 @@ public class Emprestimo implements Serializable {
     public void setMulta(double multa) {
         this.multa = multa;
     }
-
-    public Livro getLivro() {
-        return livro;
-    }
-
-    public void setLivro(Livro livro) {
-        this.livro = livro;
-    }
+////
+////    public Livro getLivro() {
+////        return livro;
+////    }
+////
+////    public void setLivro(Livro livro) {
+////        this.livro = livro;
+////    }
 
 //    public List<Exemplar> getExemplares() {
 //        return exemplares;

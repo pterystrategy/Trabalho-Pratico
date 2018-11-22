@@ -10,6 +10,7 @@ import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.EmprestimoTableModel;
+import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.EmprestimoGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.EmprestimoTela;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
     protected EmprestimoGrid grid;
     private final EmprestimoTela tela;
     private final EmprestimoTableModel model;
+    private final LivroTableModel livrosModel;
     private final  ClienteControle clienteControle;
     private final  LivroControle livroControle;
     
@@ -33,7 +35,8 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
         this.dao = new EmprestimoDao();
         this.model = new EmprestimoTableModel(this.dao.findAll());    
         this.grid = EmprestimoGrid.getInstance(null, true, this, model);
-        this.tela = EmprestimoTela.getInstance(null, true, this.livroControle.getModel());
+        this.livrosModel = new LivroTableModel(new ArrayList<>());
+        this.tela = EmprestimoTela.getInstance(null, true, this.livrosModel);
     }
     
     @Override
@@ -73,8 +76,7 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
         String lista = "";
         for (Emprestimo emprestimo : findAll) {
             lista +="ID: "+ emprestimo.getId() + "Nome do Cliente: " 
-                  + emprestimo.getCliente().getName() 
-                  + "Nome do livro: " + emprestimo.getLivro().getTitulo() + "\n";
+                  + emprestimo.getCliente().getName();
         }
         this.tela.showMessage(lista);
     }
