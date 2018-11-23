@@ -1,5 +1,6 @@
 package br.com.prodrigues.trabalhopratico.controle;
 
+import br.com.prodrigues.trabalhopratico.model.Livro;
 import java.util.List;
 
 public interface IControleSimples<T> {
@@ -17,5 +18,5 @@ public interface IControleSimples<T> {
     public List<T> getAll();
     
     public boolean  filter(String column, String valor);
-    public T        getAObject();    
+    public T        getAObject();
 }

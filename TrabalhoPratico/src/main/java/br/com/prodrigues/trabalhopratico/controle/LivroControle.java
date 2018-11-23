@@ -25,28 +25,23 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     private final LivroGrid grid;
     private final LivroTela tela;
-    private LivroTableModel model;
+    private final LivroTableModel model;
     private final AutorControle autorControle;
-    private EditoraControle editoraControle;
-
-    public LivroControle(AutorControle autorControle) {
-        this.dao = new LivroDao();
-        this.autorControle = autorControle;
-        this.model = new LivroTableModel(this.dao.findAll());
-
-        
-        this.tela = LivroTela.getInstance(null, true);
-        this.grid = LivroGrid.getInstance(null, true, this, model);
-    }
+    private final EditoraControle editoraControle;
+    private List<Livro> listTemp = new ArrayList<>();
 
     LivroControle(AutorControle autorControle, EditoraControle editoraControle) {
-        this(autorControle);
+        this.dao = new LivroDao();
+        this.model = new LivroTableModel(this.dao.findAll());
         this.editoraControle = editoraControle;
+        this.autorControle = autorControle;
+        this.grid = LivroGrid.getInstance(null, true, this, model);
+        this.tela = LivroTela.getInstance(null, true);
     }
 
     @Override
     public void showInicialScreen() {
-        this.grid.setVisible(true);
+        this.grid.preparaTela();
     }
 
     @Override
@@ -147,5 +142,20 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         tela.setListaEditoras(editoras);
         tela.setListaAutores(autores);
         tela.setListaClassificacoes(classificacoes);
+    }
+
+    public List<Livro> showInicialScreen(Object aThis) {
+        if (aThis instanceof PrincipalControle) {
+            this.grid.preparaTela();
+        }
+        else{
+            this.grid.preparaTelaEmprestimo();
+            
+        }
+        return listTemp;
+    }
+    
+    public void livroSelecionado(Livro objetoLinha){
+        listTemp.add(objetoLinha);
     }
 }

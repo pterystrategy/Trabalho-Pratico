@@ -5,7 +5,7 @@
  */
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
-import br.com.prodrigues.trabalhopratico.controle.LivroControle;
+import br.com.prodrigues.trabalhopratico.controle.EmprestimoControle;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
 import br.com.prodrigues.trabalhopratico.model.Livro;
@@ -13,13 +13,11 @@ import br.com.prodrigues.trabalhopratico.modelcombo.ClientesCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClientesComboModel;
 import br.com.prodrigues.trabalhopratico.modelcombo.LivrosCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.LivrosComboModel;
-import br.com.prodrigues.trabalhopratico.modeltable.EmprestimoTableModel;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,25 +26,17 @@ import java.util.List;
  * @author prorodrigues
  */
 public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Emprestimo>{
-
     
-    
-//    public EmprestimoTela(Frame parent, boolean modal) {
-//        super(parent, modal);
-//        initComponents();
-//        this.cmbClientes.setRenderer(new ClientesCellRenderer());
-//        this.cmbLivros.setRenderer(new LivrosCellRenderer()); 
-//    }
-    
-    public EmprestimoTela(Frame parent, boolean modal, LivroTableModel model) {
+    public EmprestimoTela(Frame parent, boolean modal, LivroTableModel model , EmprestimoControle controle) {
        super(parent, modal);
         this.model = model;
+        this.controle = controle;
         initComponents();
         this.cmbClientes.setRenderer(new ClientesCellRenderer());
         this.cmbLivros.setRenderer(new LivrosCellRenderer()); 
         
     }
-    public static EmprestimoTela getInstance(Frame parent, boolean modal , LivroTableModel model) {
+    public static EmprestimoTela getInstance(Frame parent, boolean modal , LivroTableModel model, EmprestimoControle controle) {
         if (tela == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -65,7 +55,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
             }
             //</editor-fold>
             //</editor-fold>
-            return new EmprestimoTela(parent, modal, model);
+            return new EmprestimoTela(parent, modal, model, controle);
         } else {
             return tela;
    }
@@ -84,9 +74,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         jList1 = new javax.swing.JList<>();
         buttonGroup1 = new javax.swing.ButtonGroup();
         labTitulo = new javax.swing.JLabel();
-        panRodape = new javax.swing.JPanel();
-        btnCancel = new javax.swing.JButton();
-        btnOk = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         edtDataEmprestimo = new org.jdesktop.swingx.JXDatePicker();
         jLabel1 = new javax.swing.JLabel();
@@ -109,6 +96,12 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         labLivro = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblGrid = new javax.swing.JTable();
+        btnRemove = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        panRodape = new javax.swing.JPanel();
+        btnCancel = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -118,11 +111,69 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("TelaEmprestimo");
 
         labTitulo.setFont(new java.awt.Font("Nimbus Mono L", 1, 18)); // NOI18N
         labTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labTitulo.setText("Titulo");
         labTitulo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel1.setText("Data de Devolução");
+
+        jLabel3.setText("Data de Emprestimo");
+
+        labSituacao.setText("Situacao:");
+
+        buttonGroup1.add(btnRdPendencia);
+        btnRdPendencia.setText("Pendencia");
+
+        buttonGroup1.add(btnRdDevolucao);
+        btnRdDevolucao.setText("Devolução");
+
+        labMulta.setText("Multa:");
+
+        edtMulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        edtMulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtMultaActionPerformed(evt);
+            }
+        });
+
+        edtObervacoes.setColumns(20);
+        edtObervacoes.setRows(5);
+        panSinopse.setViewportView(edtObervacoes);
+
+        labObervacoes.setText("Obervações:");
+
+        edtObervacoesDevolucao.setColumns(20);
+        edtObervacoesDevolucao.setRows(5);
+        panSinopse1.setViewportView(edtObervacoesDevolucao);
+
+        labObervacoesDevolucao.setText("Obervações Devolução:");
+
+        cmbLivros.setModel(this.modelLivros);
+
+        cmbClientes.setModel(this.modelClientes);
+
+        labCliente.setText("Cliente");
+
+        labLivro.setText("Livro");
+
+        tblGrid.setModel(this.model);
+        jScrollPane2.setViewportView(tblGrid);
+
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/button-Delete-icon16.png"))); // NOI18N
+
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/pencil-icon16px.png"))); // NOI18N
+        btnEdit.setMaximumSize(new java.awt.Dimension(65, 22));
+
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/button-Add-icon16px.png"))); // NOI18N
+        btnAdd.setMaximumSize(new java.awt.Dimension(65, 22));
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         panRodape.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -160,45 +211,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
                     .addComponent(btnOk))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
-
-        jLabel1.setText("Data de Devolução");
-
-        jLabel3.setText("Data de Emprestimo");
-
-        labSituacao.setText("Situacao:");
-
-        buttonGroup1.add(btnRdPendencia);
-        btnRdPendencia.setText("Pendencia");
-
-        buttonGroup1.add(btnRdDevolucao);
-        btnRdDevolucao.setText("Devolução");
-
-        labMulta.setText("Multa:");
-
-        edtMulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
-
-        edtObervacoes.setColumns(20);
-        edtObervacoes.setRows(5);
-        panSinopse.setViewportView(edtObervacoes);
-
-        labObervacoes.setText("Obervações:");
-
-        edtObervacoesDevolucao.setColumns(20);
-        edtObervacoesDevolucao.setRows(5);
-        panSinopse1.setViewportView(edtObervacoesDevolucao);
-
-        labObervacoesDevolucao.setText("Obervações Devolução:");
-
-        cmbLivros.setModel(this.modelLivros);
-
-        cmbClientes.setModel(this.modelClientes);
-
-        labCliente.setText("Cliente");
-
-        labLivro.setText("Livro");
-
-        tblGrid.setModel(this.model);
-        jScrollPane2.setViewportView(tblGrid);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -244,14 +256,21 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
                                     .addComponent(labObervacoesDevolucao)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(panSinopse1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnRemove, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+            .addComponent(panRodape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(155, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labCliente))
@@ -286,16 +305,24 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panSinopse1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(labObervacoes))
+                        .addGap(9, 9, 9)
+                        .addComponent(labObervacoes)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRemove)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panRodape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -303,37 +330,35 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panRodape, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(labTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panRodape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.setConfirmado(false);
-        this.dispose();
+        
+        this.checandoBtnCancel();
     }//GEN-LAST:event_btnCancelActionPerformed
-
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-//        if (edt.getText().trim().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Falta o Nome");
-//        } else {
-            this.setConfirmado(true);
-            this.dispose();
-//        }
+        this.checandoBtnOk();
     }//GEN-LAST:event_btnOkActionPerformed
-    private static EmprestimoTela tela;
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        this.checandoBtnAdd();
+    }//GEN-LAST:event_btnAddActionPerformed
 
+    private void edtMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtMultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtMultaActionPerformed
+    private static EmprestimoTela tela;
     public static EmprestimoTela getTela() {
         return tela;
     }
@@ -348,10 +373,13 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         this.confirmado = confirmado;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnOk;
     private javax.swing.JRadioButton btnRdDevolucao;
     private javax.swing.JRadioButton btnRdPendencia;
+    private javax.swing.JButton btnRemove;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<Cliente> cmbClientes;
     private javax.swing.JComboBox<Livro> cmbLivros;
@@ -378,13 +406,12 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private javax.swing.JScrollPane panSinopse1;
     private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables
-
     private final ClientesComboModel modelClientes = new ClientesComboModel();
     private List<Cliente> listaClientes;
-    private LivroTableModel model;
+    private final LivroTableModel model;
     private final LivrosComboModel modelLivros = new LivrosComboModel();
     private List<Livro> listaLivros;
-    
+    private final EmprestimoControle controle;
     public List<Livro> getListaLivros() {
         return listaLivros;
     }
@@ -394,7 +421,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }
     public void setListaLivros(List<Livro> listaLivros) {
         modelLivros.clear();
-        this.listaLivros = listaLivros;
         modelLivros.addListLivro(listaLivros);
     }
 
@@ -460,11 +486,15 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         Emprestimo object = new Emprestimo();
         object.setDataDevolucao(edtDataDevolução.getDate());
              object.setDataEmprestimo(edtDataEmprestimo.getDate());
-             object.setMulta(Double.valueOf(edtMulta.getText()));
+             object.setMulta((double) edtMulta.getValue());
              object.setObervacoes(edtObervacoes.getText());
              object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
              object.setCliente((Cliente)cmbClientes.getSelectedItem());
-            object.setLivros(listaLivros);
+             model.getLista().forEach((livro) -> {
+                 livro.addEmprestimo(object);
+        });
+            object.setLivros(model.getLista());
+            
         
         return object;
     }
@@ -502,12 +532,14 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtDataDevolução.setDate(Date.from(Instant.now()));
         edtDataDevolução.setEditable(true);
         edtDataDevolução.setEnabled(true);
+        labLivro.setVisible(false);
+        cmbLivros.setVisible(false);
         
         edtDataEmprestimo.setDate(Date.from(Instant.now()));
         edtDataEmprestimo.setEditable(true);
         edtDataEmprestimo.setEnabled(true);
         
-        edtMulta.setText("");
+        edtMulta.setValue(0.00);
         edtMulta.setEditable(true);
         edtMulta.setEnabled(true);
         
@@ -516,8 +548,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtMulta.setEditable(true);
         edtMulta.setEnabled(true);
         
-        model.setListaA(listaLivros);
-
         edtObervacoesDevolucao.setText("");
         edtObervacoesDevolucao.setEditable(true);
         edtObervacoesDevolucao.setEnabled(true);
@@ -580,7 +610,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtDataEmprestimo.setEditable(false);
         edtDataEmprestimo.setEnabled(false);
         
-        edtMulta.setText(Double.toString(object.getMulta()));
+        edtMulta.setValue(object.getMulta());
         edtMulta.setEditable(false);
         edtMulta.setEnabled(false);
         
@@ -595,5 +625,24 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         btnOk.setVisible(true);
         
         btnCancel.setVisible(false);
+    }
+
+    private void checandoBtnCancel() {
+        this.setConfirmado(false);
+        this.dispose();
+    }
+
+    private void checandoBtnOk() {
+        if (edtObervacoes.getText().trim().isEmpty()) {
+            this.showMessage("Falta o Nome");
+        } else {
+            this.setConfirmado(true);
+            this.dispose();
+        }
+    }
+
+    private void checandoBtnAdd() {
+            confirmado = true;
+            controle.tabelaLivros();
     }
 }

@@ -16,8 +16,8 @@ public class EmprestimoTableModel extends UtilTableModel<Emprestimo> {
 
      public EmprestimoTableModel(List<Emprestimo> listanova) {
         super(listanova);
-        columnNames = new String[]{"ID", "Cliente", "Livro", "Multa"};
-        classes = new Class[]{Long.class, String.class, String.class, Double.class};
+        this.columnNames = new String[]{"ID", "Cliente", "Multa"};
+        this.classes = new Class[]{Long.class, String.class, Double.class};
     }
 
     @Override

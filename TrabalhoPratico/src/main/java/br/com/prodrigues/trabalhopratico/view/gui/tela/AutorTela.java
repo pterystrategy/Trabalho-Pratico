@@ -67,6 +67,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
         labData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tela Autor");
 
         panRodape.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -176,6 +177,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -188,9 +190,6 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnCancel4;
-    private javax.swing.JButton btnCancel5;
-    private javax.swing.JButton btnCancel6;
     private javax.swing.JButton btnOk;
     private org.jdesktop.swingx.JXDatePicker edtDataNascimento;
     private javax.swing.JTextField edtNome;
@@ -199,9 +198,6 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
     private javax.swing.JLabel labTitulo;
     private javax.swing.JPanel panPrincipal;
     private javax.swing.JPanel panRodape;
-    private javax.swing.JPanel panRodape4;
-    private javax.swing.JPanel panRodape5;
-    private javax.swing.JPanel panRodape6;
     private javax.swing.JPanel panTitulo;
     // End of variables declaration//GEN-END:variables
 

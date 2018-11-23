@@ -6,6 +6,7 @@
 package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
+import br.com.prodrigues.trabalhopratico.controle.LivroControle;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import java.awt.Frame;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class LivroGrid extends javax.swing.JDialog {
 
-    public static LivroGrid getInstance(Frame parent, boolean modal, IControleSimples controle, LivroTableModel model) {
+    public static LivroGrid getInstance(Frame parent, boolean modal, LivroControle controle, LivroTableModel model) {
         if (tela == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -49,13 +50,13 @@ public class LivroGrid extends javax.swing.JDialog {
     public static void setTela(LivroGrid aTela) {
         tela = aTela;
     }
-    
-    private LivroGrid(java.awt.Frame parent, boolean modal, IControleSimples controle, LivroTableModel model) {
+
+    private LivroGrid(java.awt.Frame parent, boolean modal, LivroControle controle, LivroTableModel model) {
         super(parent, modal);
         this.controle = controle;
         this.model = model;
         initComponents();
-        
+
     }
 
     /**
@@ -82,6 +83,8 @@ public class LivroGrid extends javax.swing.JDialog {
         tblGrid = new javax.swing.JTable();
         labFiltro = new javax.swing.JLabel();
         edtFiltro = new javax.swing.JTextField();
+        btnCancel = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Autor Grid");
@@ -197,17 +200,38 @@ public class LivroGrid extends javax.swing.JDialog {
             }
         });
 
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labFiltro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(labFiltro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jScrollPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,8 +241,12 @@ public class LivroGrid extends javax.swing.JDialog {
                     .addComponent(labFiltro)
                     .addComponent(edtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,24 +273,24 @@ public class LivroGrid extends javax.swing.JDialog {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
-        int selectedRow = this.tblGrid.getSelectedRow();
-        Livro objetoLinha = model.getObjetoLinha(selectedRow);
-        this.controle.update(objetoLinha);
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Livro objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.update(objetoLinha);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Objeto não selecionado");
         }
-        
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         try {
             int selectedRow = this.tblGrid.getSelectedRow();
-        Livro objetoLinha = model.getObjetoLinha(selectedRow);
-        this.controle.delete(objetoLinha);
-        } catch (Exception e) {
+            Livro objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.delete(objetoLinha);
+        } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Objeto não selecionado");
         }
-        
+
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -279,55 +307,23 @@ public class LivroGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void edtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtFiltroActionPerformed
-       model.filter(edtFiltro.getText());
+        model.filter(edtFiltro.getText());
     }//GEN-LAST:event_edtFiltroActionPerformed
-//
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(LivroGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(LivroGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(LivroGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(LivroGrid.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                LivroGrid dialog = new LivroGrid(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        this.checandoBtnOk();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.checandoBtnCancel();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnMostrar;
+    private javax.swing.JButton btnOk;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSair;
     private javax.swing.JTextField edtFiltro;
@@ -341,11 +337,40 @@ public class LivroGrid extends javax.swing.JDialog {
     private javax.swing.JPanel panRodape;
     private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables
-    private final IControleSimples controle;
+    private final LivroControle controle;
     private static LivroGrid tela;
-    private LivroTableModel model;
+    private final LivroTableModel model;
+    private boolean confirmado = false;
 
-//    public void setControle(IControleSimples controle) {
-//        model.setLista(controle.getAll());
-//    }
+    public void preparaTela() {
+        this.btnCancel.setVisible(false);
+        this.btnOk.setVisible(false);
+        this.setVisible(true);
+    }
+
+    public void preparaTelaEmprestimo() {
+        this.panRodape.setVisible(false);
+
+        this.btnCancel.setVisible(true);
+        this.btnOk.setVisible(true);
+        this.setVisible(true);
+    }
+
+    private void checandoBtnOk() {
+        try {
+            confirmado = true;
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Livro objetoLinha = model.getObjetoLinha(selectedRow);
+            controle.livroSelecionado(objetoLinha);
+            this.dispose();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "selecione um livro");
+        }
+        this.dispose();
+    }
+
+    private void checandoBtnCancel() {
+        this.confirmado = false;
+        this.dispose();
+    }
 }

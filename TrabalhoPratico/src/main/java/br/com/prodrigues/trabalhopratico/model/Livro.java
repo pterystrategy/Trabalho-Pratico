@@ -61,7 +61,7 @@ public class Livro implements Serializable {
         joinColumns = @JoinColumn(name = "FKLIVRO"),
         inverseJoinColumns = @JoinColumn(name = "FKEMPRESTIMO")
     )
-    private List<Emprestimo> emprestimos;
+    private List<Emprestimo> emprestimos = new ArrayList<>();
     
     @Temporal(TemporalType.DATE)
     @Column(name = "DATALANCAMENTO", nullable = true)
@@ -199,6 +199,10 @@ public class Livro implements Serializable {
 
     public void setEmprestimos(List<Emprestimo> emprestimos) {
         this.emprestimos = emprestimos;
+    }
+    
+     public void addEmprestimo(Emprestimo emprestimo) {
+        this.emprestimos.add(emprestimo);
     }
 
     public List<Exemplar> getExemplares() {

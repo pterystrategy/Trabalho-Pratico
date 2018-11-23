@@ -16,8 +16,8 @@ public class LivroTableModel extends UtilTableModel<Livro> {
 
     public LivroTableModel(List<Livro> l) {
         super(l);
-        columnNames = new String[]{"ID", "Nome", "Autor"};
-        classes = new Class[]{Long.class, String.class, String.class};
+        this.columnNames = new String[]{"ID", "Nome", "Autor"};
+        this.classes = new Class[]{Long.class, String.class, String.class};
     }
 
     @Override
@@ -29,7 +29,7 @@ public class LivroTableModel extends UtilTableModel<Livro> {
             case 1:
                 return livro.getTitulo();
             case 2:
-                return livro.getAutor().getName();
+                return String.valueOf(livro.getAutor().getName());
             default:
                 return null;
         }

@@ -58,7 +58,7 @@ public class PrincipalControle {
     }
 
     public void iniciaLivroControle() {
-        this.livroControle.showInicialScreen();
+        this.livroControle.showInicialScreen(this);
     }
 
     public void iniciaEditoraControle() {
