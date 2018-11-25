@@ -5,7 +5,6 @@
  */
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
-import br.com.prodrigues.trabalhopratico.controle.EmprestimoControle;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
 import br.com.prodrigues.trabalhopratico.model.Livro;
@@ -27,16 +26,14 @@ import java.util.List;
  */
 public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Emprestimo>{
     
-    public EmprestimoTela(Frame parent, boolean modal, LivroTableModel model , EmprestimoControle controle) {
+    public EmprestimoTela(Frame parent, boolean modal, LivroTableModel model) {
        super(parent, modal);
         this.model = model;
-        this.controle = controle;
         initComponents();
         this.cmbClientes.setRenderer(new ClientesCellRenderer());
-        this.cmbLivros.setRenderer(new LivrosCellRenderer()); 
-        
+        this.cmbLivros.setRenderer(new LivrosCellRenderer());       
     }
-    public static EmprestimoTela getInstance(Frame parent, boolean modal , LivroTableModel model, EmprestimoControle controle) {
+    public static EmprestimoTela getInstance(Frame parent, boolean modal , LivroTableModel model) {
         if (tela == null) {
             /* Set the Nimbus look and feel */
             //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -55,7 +52,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
             }
             //</editor-fold>
             //</editor-fold>
-            return new EmprestimoTela(parent, modal, model, controle);
+            return new EmprestimoTela(parent, modal, model);
         } else {
             return tela;
    }
@@ -411,7 +408,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private final LivroTableModel model;
     private final LivrosComboModel modelLivros = new LivrosComboModel();
     private List<Livro> listaLivros;
-    private final EmprestimoControle controle;
     public List<Livro> getListaLivros() {
         return listaLivros;
     }
@@ -643,6 +639,5 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     private void checandoBtnAdd() {
             confirmado = true;
-            controle.tabelaLivros();
     }
 }

@@ -6,7 +6,6 @@
 package br.com.prodrigues.trabalhopratico.model;
 
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -40,7 +39,7 @@ public class Editora implements Serializable {
     private String email;
 
     //Endereço
-    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     private List<Endereco> enderecos = new ArrayList<>();
 
     //Telefone

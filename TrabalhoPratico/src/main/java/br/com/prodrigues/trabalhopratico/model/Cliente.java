@@ -33,7 +33,7 @@ public class Cliente extends Pessoa implements Serializable {
     @Column(name = "CPF", length = 16, nullable = false, unique = false)
     private String cpf;
     
-    @Column(name = "EMAIL", length = 20, nullable = false)
+    @Column(name = "EMAIL", length = 255, nullable = false)
     private String email;
     
     @Column(name = "REGISTRO", length = 20, nullable = true)

@@ -11,6 +11,8 @@ import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -359,12 +361,9 @@ public class LivroGrid extends javax.swing.JDialog {
     private void checandoBtnOk() {
         try {
             confirmado = true;
-            int selectedRow = this.tblGrid.getSelectedRow();
-            Livro objetoLinha = model.getObjetoLinha(selectedRow);
-            controle.livroSelecionado(objetoLinha);
             this.dispose();
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "selecione um livro");
+            this.showErrorMessage("selecione um livro");
         }
         this.dispose();
     }
@@ -373,4 +372,14 @@ public class LivroGrid extends javax.swing.JDialog {
         this.confirmado = false;
         this.dispose();
     }
+    
+    
+    private void showErrorMessage(String selecione_um_autor) {
+        showMessageDialog(this, selecione_um_autor, "Erro", ERROR_MESSAGE);
+    }
+
+    public void showMessage(String msg) {
+        showMessageDialog(this, msg);
+    }
+    
 }

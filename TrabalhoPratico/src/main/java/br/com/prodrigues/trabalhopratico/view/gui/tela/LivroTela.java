@@ -10,7 +10,6 @@ import br.com.prodrigues.trabalhopratico.modelcombo.AutoresComboModel;
 import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Classificacao;
 import br.com.prodrigues.trabalhopratico.model.Editora;
-import br.com.prodrigues.trabalhopratico.model.antigo.Exemplar;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modelcombo.AutoresCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClassificacoesCellRenderer;
@@ -460,7 +459,6 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
             object.setQuantidade((int) edtQtd.getValue());
             object.setEditora((Editora) cmbEditoras.getSelectedItem());
             object.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
-            this.setVisible(true);
         } else if (!confirmado) {
             showMessage("CANCELADO PELO USUÁRIO!");
         } else if (object == null) {

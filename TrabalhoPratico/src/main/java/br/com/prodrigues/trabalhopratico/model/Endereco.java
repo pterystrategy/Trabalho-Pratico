@@ -39,14 +39,14 @@ public class Endereco implements Serializable {
     @Column(name = "localidade_UF", length = 24)
     private String localidade;
     
-    @Column(name = "CEP", length = 9)
+    @Column(name = "CEP", length = 11)
     private String cep;
     
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "FKCLIENTE")
     private Cliente cliente;
     
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "FKEDITORA")
     private Editora editora;
     

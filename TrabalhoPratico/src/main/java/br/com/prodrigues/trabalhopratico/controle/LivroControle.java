@@ -15,6 +15,7 @@ import br.com.prodrigues.trabalhopratico.view.gui.grid.LivroGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LivroTela;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,9 +29,10 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     private final LivroTableModel model;
     private final AutorControle autorControle;
     private final EditoraControle editoraControle;
-    private List<Livro> listTemp = new ArrayList<>();
+    private final List<Livro> listTemp;
 
     LivroControle(AutorControle autorControle, EditoraControle editoraControle) {
+        this.listTemp = new ArrayList<>();
         this.dao = new LivroDao();
         this.model = new LivroTableModel(this.dao.findAll());
         this.editoraControle = editoraControle;
@@ -153,9 +155,5 @@ public class LivroControle extends AbstractControleSimples<Livro> {
             
         }
         return listTemp;
-    }
-    
-    public void livroSelecionado(Livro objetoLinha){
-        listTemp.add(objetoLinha);
     }
 }

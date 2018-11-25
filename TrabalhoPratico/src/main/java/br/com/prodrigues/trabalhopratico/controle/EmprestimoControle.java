@@ -36,7 +36,7 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
         this.model = new EmprestimoTableModel(this.dao.findAll());    
         this.grid = EmprestimoGrid.getInstance(null, true, this, model);
         this.livrosModel = new LivroTableModel(new ArrayList<>());
-        this.tela = EmprestimoTela.getInstance(null, true, this.livrosModel, this);
+        this.tela = EmprestimoTela.getInstance(null, true, this.livrosModel);
     }
     
     @Override

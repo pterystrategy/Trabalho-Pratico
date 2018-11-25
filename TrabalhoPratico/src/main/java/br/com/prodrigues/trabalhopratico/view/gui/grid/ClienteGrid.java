@@ -9,6 +9,9 @@ import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -374,12 +377,15 @@ public class ClienteGrid extends javax.swing.JDialog {
     private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables
     private void showErrorMessage(String selecione_um_autor) {
-        showMessageDialog(this, selecione_um_autor, "Erro", JOptionPane.ERROR_MESSAGE);
+        showMessageDialog(this, selecione_um_autor, "Erro", ERROR_MESSAGE);
     }
 
     public void showMessage(String msg) {
-        showMessageDialog(this, msg);
+        showMessageDialog(this, msg, "",INFORMATION_MESSAGE);
     }
     
-    
+    public void show(String msg) {
+        showMessageDialog(this, msg, "TÍTULO", PLAIN_MESSAGE);
+    }
+     
 }
