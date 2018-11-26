@@ -150,6 +150,14 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         }
     }
     
+    
+    public Livro buscagfdhgfjh() {
+            this.grid.preparaTelaEmprestimo(); 
+            return this.livroControle.getLivroselecionado();
+    
+    }
+    
+    
     public Livro getLivroselecionado(){
        
         if (grid.isConfirmado()) {

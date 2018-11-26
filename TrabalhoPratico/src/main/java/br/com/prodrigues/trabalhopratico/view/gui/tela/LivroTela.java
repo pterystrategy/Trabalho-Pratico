@@ -185,6 +185,12 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
         btnSearchClassificacao.setText("Procurar");
 
+        edtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtDataActionPerformed(evt);
+            }
+        });
+
         edtSinopse.setColumns(20);
         edtSinopse.setRows(5);
         panSinopse.setViewportView(edtSinopse);
@@ -325,6 +331,10 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     private void btnOkMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseReleased
         this.btnOk.setForeground(UIManager.getDefaults().getColor(this.btnOk.getForeground()));
     }//GEN-LAST:event_btnOkMouseReleased
+
+    private void edtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtDataActionPerformed
 
     /**
      * @param args the command line arguments

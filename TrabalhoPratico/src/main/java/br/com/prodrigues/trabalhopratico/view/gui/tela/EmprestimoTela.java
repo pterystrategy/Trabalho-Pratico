@@ -522,12 +522,18 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     public Emprestimo getScreenObject() {
         Emprestimo object = new Emprestimo();
         object.setDataDevolucao(edtDataDevolução.getDate());
-             object.setDataEmprestimo(edtDataEmprestimo.getDate());
-             object.setMulta((double) edtMulta.getValue());
-             object.setObervacoes(edtObervacoes.getText());
-             object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
-             object.setCliente((Cliente)cmbClientes.getSelectedItem());
-            object.setLivros(model.getLista());
+        object.setDataEmprestimo(edtDataEmprestimo.getDate());
+        object.setMulta((double) edtMulta.getValue());
+        object.setObervacoes(edtObervacoes.getText());
+        object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
+        object.setCliente((Cliente)cmbClientes.getSelectedItem());
+        object.setLivros(model.getLista());
+//        object.setLivros(model.getLista());
+//        for (Livro livro :model.getLista()) {
+//            
+//            livro.getEmprestimos().add(object);
+//            
+//        }
             
         
         return object;
