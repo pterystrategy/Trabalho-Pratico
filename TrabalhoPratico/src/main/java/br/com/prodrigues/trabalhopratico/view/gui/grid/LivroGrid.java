@@ -5,12 +5,10 @@
  */
 package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
-import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.controle.LivroControle;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import java.awt.Frame;
-import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -55,6 +53,7 @@ public class LivroGrid extends javax.swing.JDialog {
 
     private LivroGrid(java.awt.Frame parent, boolean modal, LivroControle controle, LivroTableModel model) {
         super(parent, modal);
+        this.linha = 0;
         this.controle = controle;
         this.model = model;
         initComponents();
@@ -279,7 +278,7 @@ public class LivroGrid extends javax.swing.JDialog {
             Livro objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.update(objetoLinha);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+            this.showErrorMessage("selecione um livro");
         }
 
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -290,7 +289,7 @@ public class LivroGrid extends javax.swing.JDialog {
             Livro objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.delete(objetoLinha);
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+           this.showErrorMessage("selecione um livro");
         }
 
     }//GEN-LAST:event_btnRemoverActionPerformed
@@ -342,6 +341,12 @@ public class LivroGrid extends javax.swing.JDialog {
     private final LivroControle controle;
     private static LivroGrid tela;
     private final LivroTableModel model;
+    
+    private int linha;
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
     private boolean confirmado = false;
 
     public void preparaTela() {
@@ -361,16 +366,22 @@ public class LivroGrid extends javax.swing.JDialog {
     private void checandoBtnOk() {
         try {
             confirmado = true;
+            linha = this.tblGrid.getSelectedRow();
+//            Livro objetoLinha = model.getObjetoLinha(selectedRow);
             this.dispose();
         } catch (ArrayIndexOutOfBoundsException e) {
             this.showErrorMessage("selecione um livro");
         }
-        this.dispose();
+       
     }
 
     private void checandoBtnCancel() {
         this.confirmado = false;
         this.dispose();
+    }
+    
+    public int selectedRow(){
+        return linha;
     }
     
     

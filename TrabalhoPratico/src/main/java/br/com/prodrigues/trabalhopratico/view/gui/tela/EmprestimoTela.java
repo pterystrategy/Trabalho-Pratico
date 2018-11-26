@@ -5,6 +5,8 @@
  */
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
+import br.com.prodrigues.trabalhopratico.controle.EmprestimoControle;
+import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
 import br.com.prodrigues.trabalhopratico.model.Livro;
@@ -33,6 +35,15 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         this.cmbClientes.setRenderer(new ClientesCellRenderer());
         this.cmbLivros.setRenderer(new LivrosCellRenderer());       
     }
+    
+     public EmprestimoTela(Frame parent, boolean modal, LivroTableModel model, EmprestimoControle controle) {
+       super(parent, modal);
+        this.model = model;
+        this.controle = controle;
+        initComponents();
+        this.cmbClientes.setRenderer(new ClientesCellRenderer());
+        this.cmbLivros.setRenderer(new LivrosCellRenderer());       
+    }
     public static EmprestimoTela getInstance(Frame parent, boolean modal , LivroTableModel model) {
         if (tela == null) {
             /* Set the Nimbus look and feel */
@@ -57,6 +68,31 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
             return tela;
    }
     }
+    
+       public static EmprestimoTela getInstance(Frame parent, boolean modal , LivroTableModel model , EmprestimoControle controle) {
+        if (tela == null) {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(EmprestimoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            //</editor-fold>
+            //</editor-fold>
+            return new EmprestimoTela(parent, modal, model, controle);
+        } else {
+            return tela;
+        }
+       }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,7 +165,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
         labMulta.setText("Multa:");
 
-        edtMulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        edtMulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         edtMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtMultaActionPerformed(evt);
@@ -241,7 +277,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(edtDataDevolução, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                                        .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, Short.MAX_VALUE)
                                         .addComponent(cmbLivros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cmbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -350,6 +386,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }//GEN-LAST:event_btnOkActionPerformed
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         this.checandoBtnAdd();
+        this.controle.tabelaLivros();  
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void edtMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtMultaActionPerformed
@@ -408,6 +445,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private final LivroTableModel model;
     private final LivrosComboModel modelLivros = new LivrosComboModel();
     private List<Livro> listaLivros;
+    public EmprestimoControle controle;
     public List<Livro> getListaLivros() {
         return listaLivros;
     }
@@ -429,8 +467,11 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     public Emprestimo create(Emprestimo object) {
         this.preparaCreate();
         this.setVisible(true);
+        if (confirmado) {
+             return this.getScreenObject();
+         } 
 
-        return this.getScreenObject();
+        return null;
     }
 
     @Override
@@ -486,9 +527,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
              object.setObervacoes(edtObervacoes.getText());
              object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
              object.setCliente((Cliente)cmbClientes.getSelectedItem());
-             model.getLista().forEach((livro) -> {
-                 livro.addEmprestimo(object);
-        });
             object.setLivros(model.getLista());
             
         

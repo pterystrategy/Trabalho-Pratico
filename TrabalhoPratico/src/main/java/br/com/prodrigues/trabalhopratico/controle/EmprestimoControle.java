@@ -36,7 +36,7 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
         this.model = new EmprestimoTableModel(this.dao.findAll());    
         this.grid = EmprestimoGrid.getInstance(null, true, this, model);
         this.livrosModel = new LivroTableModel(new ArrayList<>());
-        this.tela = EmprestimoTela.getInstance(null, true, this.livrosModel);
+        this.tela = EmprestimoTela.getInstance(null, true, this.livrosModel, this);
     }
     
     @Override
@@ -50,7 +50,7 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
         this.preencherCmbs();
         Emprestimo create = tela.create(null);
         boolean concluido = false;
-
+           
         do {
             if (tela.isConfirmado()) {
 
@@ -123,8 +123,8 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
     
      public void tabelaLivros(){
          if(this.tela.isConfirmado()){
-             List<Livro> showInicialScreen = livroControle.showInicialScreen(this);
-             livrosModel.setListaA(showInicialScreen);
+            livroControle.showInicialScreen(this);
+            livrosModel.add(this.livroControle.getLivroselecionado());
          }
      }
 }
