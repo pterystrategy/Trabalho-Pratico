@@ -51,7 +51,7 @@ public class LivroGrid extends javax.swing.JDialog {
         tela = aTela;
     }
 
-    private LivroGrid(java.awt.Frame parent, boolean modal, LivroControle controle, LivroTableModel model) {
+    public LivroGrid(java.awt.Frame parent, boolean modal, LivroControle controle, LivroTableModel model) {
         super(parent, modal);
         this.linha = 0;
         this.controle = controle;

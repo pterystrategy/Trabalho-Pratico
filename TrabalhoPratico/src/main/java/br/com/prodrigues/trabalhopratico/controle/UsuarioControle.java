@@ -71,14 +71,7 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
 
     @Override
     public void read(Usuario objeto) {
-        List<Usuario> usuarios = dao.findAll();
-        String lista = "";
-        for (Usuario usuario : usuarios) {
-            lista += "Id: " + usuario.getId() + ", Nome: "
-                    + usuario.getName() + ", Login: " + usuario.getLogin() + "\n";
-
-        }
-        tela.showMessage(lista);
+        tela.read(objeto);
     }
 
     @Override

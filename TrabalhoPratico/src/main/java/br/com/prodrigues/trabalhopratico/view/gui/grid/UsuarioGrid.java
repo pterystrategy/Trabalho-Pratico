@@ -254,7 +254,14 @@ public class UsuarioGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        controle.read(null);
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Usuario objetoLinha = model.getObjetoLinha(selectedRow);
+            controle.read(objetoLinha);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(e);
+            this.showErrorMessage("Selecione um usuario do sistema");
+        }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -271,7 +278,7 @@ public class UsuarioGrid extends javax.swing.JDialog {
         Usuario objetoLinha = model.getObjetoLinha(selectedRow);
         this.controle.delete(objetoLinha);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+            this.showAttentionMessage();
         }
         
     }//GEN-LAST:event_btnRemoverActionPerformed
@@ -333,4 +340,17 @@ public class UsuarioGrid extends javax.swing.JDialog {
     private IControleSimples controle;
     private UsuarioTableModel model;
     private static UsuarioGrid grid;
+    
+    private void showMessage(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+    
+    private void showErrorMessage(String selecione_um_usuario) {
+       JOptionPane.showMessageDialog(this, selecione_um_usuario, "Erro", JOptionPane.ERROR_MESSAGE);
+     }
+    
+    private void showAttentionMessage() {
+        String selecione_um_usuario = "selecione um usuario";
+       JOptionPane.showMessageDialog(this, selecione_um_usuario, "Erro", JOptionPane.NO_OPTION);
+     }
 }

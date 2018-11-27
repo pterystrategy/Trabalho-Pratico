@@ -230,7 +230,8 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
     @Override
     public void read(Autor object) {
        this.preparaMostrar(object);
-        this.setVisible(true);}
+        this.setVisible(true);
+    }
 
     @Override
     public Autor update(Autor object) {

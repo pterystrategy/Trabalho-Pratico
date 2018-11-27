@@ -122,9 +122,6 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
     }
     
      public void tabelaLivros(){
-         if(this.tela.isConfirmado()){
-            livroControle.showInicialScreen(this);
-            livrosModel.add(this.livroControle.getLivroselecionado());
-         }
+         livrosModel.add(this.livroControle.buscaLivro());
      }
 }

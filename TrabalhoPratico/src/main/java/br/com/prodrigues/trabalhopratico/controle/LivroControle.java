@@ -33,8 +33,9 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         this.model = new LivroTableModel(this.dao.findAll());
         this.editoraControle = editoraControle;
         this.autorControle = autorControle;
-        this.grid = LivroGrid.getInstance(null, true, this, model);
         this.tela = LivroTela.getInstance(null, true);
+        //this.grid = LivroGrid.getInstance(null, true, this, model);
+        this.grid = new LivroGrid(null, true, this, model);
     }
 
     @Override
@@ -142,23 +143,13 @@ public class LivroControle extends AbstractControleSimples<Livro> {
         tela.setListaClassificacoes(classificacoes);
     }
     
-    public void showInicialScreen(Object aThis) {
-        if (aThis instanceof PrincipalControle) {
-            this.grid.preparaTela();
-        }else{
+    public Livro buscaLivro() {
             this.grid.preparaTelaEmprestimo(); 
-        }
-    }
-    
-    
-    public Livro buscagfdhgfjh() {
-            this.grid.preparaTelaEmprestimo(); 
-            return this.livroControle.getLivroselecionado();
+            return this.getLivroselecionado();
     
     }
     
-    
-    public Livro getLivroselecionado(){
+    private Livro getLivroselecionado(){
        
         if (grid.isConfirmado()) {
             return model.getObjetoLinha(grid.selectedRow());

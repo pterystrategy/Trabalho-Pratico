@@ -264,7 +264,7 @@ public class AutorGrid extends javax.swing.JDialog {
             this.controle.update(objetoLinha);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println(e);
-            showErrorMessage("Selecione um autor");
+            this.showErrorMessage("Selecione um autor");
         }
 
     }//GEN-LAST:event_btnAlterarActionPerformed
