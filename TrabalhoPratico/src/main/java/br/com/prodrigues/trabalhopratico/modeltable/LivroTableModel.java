@@ -30,7 +30,7 @@ public class LivroTableModel extends UtilTableModel<Livro> {
             case 1:
                 return livro.getTitulo();
             case 2:
-                return livro.getTitulo();
+                return livro.getAutor().getName();
             default:
                 return null;
         }
