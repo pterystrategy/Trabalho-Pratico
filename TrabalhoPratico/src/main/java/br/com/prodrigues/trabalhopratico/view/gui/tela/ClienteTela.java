@@ -6,6 +6,9 @@
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
 import br.com.prodrigues.trabalhopratico.model.Cliente;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetras;
+import br.com.prodrigues.trabalhopratico.model.validações.ValidaCPF;
+import br.com.prodrigues.trabalhopratico.model.validações.ValidaEmail;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
@@ -34,6 +37,9 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
     public ClienteTela(Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        edtNome.setDocument(new LimiteDigitosLetras(20));
+        
+        
 
     }
 
@@ -135,7 +141,7 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
         labEmail.setText("Email:");
 
         try {
-            edtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            edtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -154,7 +160,7 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
                 .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panPrincipalLayout.createSequentialGroup()
                         .addComponent(labNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panPrincipalLayout.createSequentialGroup()
                         .addGroup(panPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,9 +349,21 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
     }
 
     private void checandoBtnOk() {
-        if (edtNome.getText().trim().isEmpty()) {
-            this.showErrorMessage("Falta o Nome");
-        } else {
+        if (edtNome.getText().trim().isEmpty() || 
+            edtEmail.getText().trim().isEmpty() ||
+            edtCPF.getText().trim().isEmpty()){
+            this.showErrorMessage("Campo vazio");
+        }
+        else if (edtNome.getText().length() < 3) {
+            this.showErrorMessage("O Nome deve conter no mínimo 3 caracteres!");
+        }
+        else if (ValidaCPF.isCPF(String.valueOf(edtCPF.getText())) == false) {
+            this.showErrorMessage("CPF é invalido!");
+        } 
+        else if (ValidaEmail.validaEmail(edtEmail.getText()) == false) {
+            this.showErrorMessage("O Email informado é invalido!");
+        }
+        else {
             this.setConfirmado(true);
             this.dispose();
         }

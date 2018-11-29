@@ -241,11 +241,11 @@ public class UsuarioGrid extends javax.swing.JDialog {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         try {
             int selectedRow = this.tblGrid.getSelectedRow();
-        Usuario objetoLinha = model.getObjetoLinha(selectedRow);
-        this.controle.update(objetoLinha);
+            Usuario objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.update(objetoLinha);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
-        }
+                JOptionPane.showMessageDialog(null, "Objeto não selecionado");
+            }
         
     }//GEN-LAST:event_btnAlterarActionPerformed
 

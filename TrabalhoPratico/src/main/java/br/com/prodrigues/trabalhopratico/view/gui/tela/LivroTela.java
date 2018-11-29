@@ -11,6 +11,8 @@ import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Classificacao;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Livro;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetras;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetrasNumeros;
 import br.com.prodrigues.trabalhopratico.modelcombo.AutoresCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClassificacoesCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.EditorasCellRenderer;
@@ -50,6 +52,8 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         this.cmbAutores.setRenderer(new AutoresCellRenderer());
         this.cmbClassificacoes.setRenderer(new ClassificacoesCellRenderer());
         this.cmbEditoras.setRenderer(new EditorasCellRenderer());
+        edtTitulo.setDocument(new LimiteDigitosLetras(20));
+        edtSinopse.setDocument(new LimiteDigitosLetrasNumeros(200));
     }
 
     public static LivroTela getInstance(Frame parent, boolean modal) {
@@ -570,8 +574,9 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     }
 
     private void checandoBtnOk() {
-        if (edtTitulo.getText().trim().isEmpty()) {
-            this.showErrorMessage("Falta o Nome");
+        if (edtTitulo.getText().trim().isEmpty() ||
+            edtSinopse.getText().trim().isEmpty()) {
+            this.showErrorMessage("Campo Vazio");
         } else {
             confirmado = true;
             this.dispose();

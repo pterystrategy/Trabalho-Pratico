@@ -1,6 +1,8 @@
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
 import br.com.prodrigues.trabalhopratico.model.Usuario;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetras;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetrasNumeros;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
@@ -55,6 +57,9 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
     public UsuarioTela(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        edtNome.setDocument(new LimiteDigitosLetras(20));
+        edtLogin.setDocument(new LimiteDigitosLetrasNumeros(15));
+        edtSenha.setDocument(new LimiteDigitosLetrasNumeros(15));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -229,9 +234,28 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if (edtNome.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta o Nome");
-        } else {
+        
+        String senha = edtSenha.getText();
+        String confSenha = edtSenhaConfirmacao.getText();
+        
+        if (edtNome.getText().trim().isEmpty() ||
+            edtLogin.getText().trim().isEmpty() ||    
+            edtSenha.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campo vazio");
+        }
+        else if (edtNome.getText().length() < 3) {
+            this.showErrorMessage("O Nome deve conter no mínimo 3 caracteres!");
+        }
+        else if (edtLogin.getText().length() < 4) {
+            this.showErrorMessage("Login deve conter no mínimo 4 caracteres!");
+        }
+        else if (edtSenha.getText().length() < 6) {
+            this.showErrorMessage("A Senha deve conter no mínimo 6 caracteres!");
+        }
+        else if (senha.equals(confSenha) == false) {
+            this.showMessage("Senha errada");
+        }
+        else {
             this.setConfirmado(true);
             this.dispose();
         }
@@ -357,11 +381,15 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         edtLogin.setEnabled(true);
         
         edtSenha.setText(object.getSenha());
-        edtSenha.setEditable(false);
-        edtSenha.setEnabled(false);
+        edtSenha.setEditable(true);
+        edtSenha.setEnabled(true);
+        
+        
         edtSenhaConfirmacao.setText(object.getSenha());
-        edtSenhaConfirmacao.setEditable(false);
-        edtSenhaConfirmacao.setEnabled(false);
+        labSenhaConfirmacao.setVisible(true);
+        edtSenhaConfirmacao.setVisible(true);
+        edtSenhaConfirmacao.setEditable(true);
+        edtSenhaConfirmacao.setEnabled(true);
         btnOk.setText("Update");
         btnOk.setVisible(true);
         btnCancel.setVisible(true);
@@ -377,9 +405,12 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         edtLogin.setText(object.getLogin());
         edtLogin.setEditable(false);
         edtLogin.setEnabled(false);
+        
         edtSenha.setText(object.getSenha());
         edtSenha.setEditable(false);
         edtSenha.setEnabled(false);
+        
+        edtSenhaConfirmacao.setText(object.getSenha());
         labSenhaConfirmacao.setVisible(false);
         edtSenhaConfirmacao.setVisible(false);
         
@@ -406,6 +437,8 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         
 
         edtSenhaConfirmacao.setText("");
+        labSenhaConfirmacao.setVisible(true);
+        edtSenhaConfirmacao.setVisible(true);
         edtSenhaConfirmacao.setEditable(true);
         edtSenhaConfirmacao.setEnabled(true);
         btnOk.setText("Salvar");
@@ -424,16 +457,19 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
         edtLogin.setEditable(false);
         edtLogin.setEnabled(false);
 
-        edtSenha.setText("");
+        edtSenha.setText(object.getSenha());
         edtSenha.setEditable(false);
         edtSenha.setEnabled(false);
 
-        edtSenha.setEditable(false);
-        edtSenha.setEnabled(false);
+        edtSenhaConfirmacao.setText(object.getSenha());
+        labSenhaConfirmacao.setVisible(true);
+        edtSenhaConfirmacao.setVisible(true);
+        edtSenhaConfirmacao.setEditable(false);
+        edtSenhaConfirmacao.setEnabled(false);
         
-        edtNome.setText(object.getName());
-        edtNome.setEditable(false);
-        edtNome.setEnabled(false);
+//        edtNome.setText(object.getName());
+//        edtNome.setEditable(false);
+//        edtNome.setEnabled(false);
         
         btnOk.setText("Deletar");
         btnOk.setVisible(true);

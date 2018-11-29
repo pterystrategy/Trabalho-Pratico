@@ -8,6 +8,9 @@ package br.com.prodrigues.trabalhopratico.view.gui.tela;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Endereco;
 import br.com.prodrigues.trabalhopratico.model.Telefone;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetras;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosNumeros;
+import br.com.prodrigues.trabalhopratico.model.validações.ValidaEmail;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
@@ -62,6 +65,9 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     public EditoraTela(Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        edtName.setDocument(new LimiteDigitosLetras(20));
+        edtCEP.setDocument(new LimiteDigitosNumeros(8));
+        
     }
 
     /**
@@ -638,8 +644,20 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     }
 
     private void checandoBtnOk() {
-         if(edtName.getText().trim().isEmpty()){
-            this.showErrorMessage("Falta o Nome");
+         if(edtName.getText().trim().isEmpty() || edtEmail.getText().trim().isEmpty() ||
+            edtTelefone.getText().trim().isEmpty() || edtLogradouroNome.getText().trim().isEmpty() ||
+            edtBairroDistrito.getText().trim().isEmpty() || edtLocalidadeUF.getText().trim().isEmpty() || 
+            edtCEP.getText().trim().isEmpty()){
+            this.showErrorMessage("Campo vazio");
+        }
+        else if (edtName.getText().length() < 3) {
+            this.showErrorMessage("O Nome deve conter no mínimo 3 caracteres!");
+        } 
+        else if (ValidaEmail.validaEmail(edtEmail.getText()) == false) {
+            this.showErrorMessage("O Email informado é invalido!");
+        }
+        else if (edtCEP.getText().length() < 8){
+            this.showErrorMessage("CEP Inválido");
         }
         else{
             this.setConfirmado(true);

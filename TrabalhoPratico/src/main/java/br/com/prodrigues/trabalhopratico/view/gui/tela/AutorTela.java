@@ -1,6 +1,7 @@
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
 import br.com.prodrigues.trabalhopratico.model.Autor;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetras;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
@@ -50,6 +51,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
     public AutorTela(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        edtNome.setDocument(new LimiteDigitosLetras(20));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -208,7 +210,11 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
     private void checandoBtnOk() {
          if (edtNome.getText().trim().isEmpty()) {
             this.showErrorMessage("Falta o Nome");
-        } else {
+        } 
+        else if (edtNome.getText().length() < 3) {
+            this.showErrorMessage("O Nome deve conter no mínimo 3 caracteres!");
+        } 
+         else {
             this.confirmado = true;
             this.dispose();
         }}

@@ -10,6 +10,8 @@ import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
 import br.com.prodrigues.trabalhopratico.model.Livro;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetrasNumeros;
+import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosNumeros;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClientesCellRenderer;
 import br.com.prodrigues.trabalhopratico.modelcombo.ClientesComboModel;
 import br.com.prodrigues.trabalhopratico.modelcombo.LivrosCellRenderer;
@@ -43,6 +45,9 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         initComponents();
         this.cmbClientes.setRenderer(new ClientesCellRenderer());
         this.cmbLivros.setRenderer(new LivrosCellRenderer());       
+        edtMulta.setDocument(new LimiteDigitosNumeros(10));
+        edtObervacoesDevolucao.setDocument(new LimiteDigitosLetrasNumeros(100));
+        edtObervacoes.setDocument(new LimiteDigitosLetrasNumeros(100));
     }
     public static EmprestimoTela getInstance(Frame parent, boolean modal , LivroTableModel model) {
         if (tela == null) {
@@ -676,8 +681,9 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }
 
     private void checandoBtnOk() {
-        if (edtObervacoes.getText().trim().isEmpty()) {
-            this.showMessage("Falta o Nome");
+        if (edtMulta.getText().trim().isEmpty() ||
+            edtObervacoesDevolucao.getText().trim().isEmpty()) {
+            this.showMessage("Campo Vazio");
         } else {
             this.setConfirmado(true);
             this.dispose();

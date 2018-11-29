@@ -138,7 +138,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblTelefoneFixo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="edtTelefoneFixo" pref="205" max="32767" attributes="0"/>
+                          <Component id="edtTelefoneFixo" pref="211" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
