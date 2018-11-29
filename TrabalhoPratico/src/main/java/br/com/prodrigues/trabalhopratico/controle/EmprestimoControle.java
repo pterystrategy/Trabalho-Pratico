@@ -47,8 +47,12 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
 
     @Override
     public Emprestimo create() {
-        this.preencherCmbs();
-        Emprestimo create = tela.create(null);
+        Emprestimo create;
+        if(preencherCmbs()){
+          create = tela.create(null);
+        }else{
+            create = null;
+        }
         boolean concluido = false;
            
         do {
@@ -112,13 +116,23 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-     private void preencherCmbs(){
+     private boolean preencherCmbs(){
         List<Cliente> clientes = new ArrayList<>();
-        clientes.addAll(this.clienteControle.getAll());
         List<Livro> livros = new ArrayList<>();
-        livros.addAll(this.livroControle.getAll());
-        tela.setListaClientes(clientes);
-        tela.setListaLivros(livros);
+        clientes.addAll(this.clienteControle.getAll());
+        if (clientes.addAll(this.clienteControle.getAll())) {
+            tela.setListaClientes(clientes);
+            if (!livros.addAll(this.livroControle.getAll())) {
+                tela.showMessage("Deveria cadastrar livros");
+                return false;
+            } else {
+                tela.setListaLivros(livros);
+                return true;
+            }
+        }else {
+             tela.showMessage("Deveria cadastrar clientes");
+             return false;
+        }
     }
     
      public void tabelaLivros(){

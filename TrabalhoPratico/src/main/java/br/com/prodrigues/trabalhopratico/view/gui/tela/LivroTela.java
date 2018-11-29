@@ -316,12 +316,7 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if (edtTitulo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Falta o Nome");
-        } else {
-            confirmado = true;
-            this.dispose();
-        }
+        this.checandoBtnOk();
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnOkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMousePressed
@@ -518,7 +513,9 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     public Livro getScreenObject() {
         Livro nova = new Livro();
         nova.setTitulo(edtTitulo.getText());
-        nova.setAutor((Autor) cmbAutores.getSelectedItem());
+        Autor autor =(Autor) cmbAutores.getSelectedItem();
+        autor.getLivros().add(nova);
+        nova.setAutor(autor);
         nova.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
         nova.setEditora((Editora) cmbEditoras.getSelectedItem());
         nova.setClassificacao((Classificacao) cmbClassificacoes.getSelectedItem());
@@ -570,5 +567,14 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     public void setListaClassificacoes(List<Classificacao> classificacoes) {
         modelClassificacoes.clear();
         modelClassificacoes.addListClassificacao(classificacoes);
+    }
+
+    private void checandoBtnOk() {
+        if (edtTitulo.getText().trim().isEmpty()) {
+            this.showErrorMessage("Falta o Nome");
+        } else {
+            confirmado = true;
+            this.dispose();
+        }
     }
 }

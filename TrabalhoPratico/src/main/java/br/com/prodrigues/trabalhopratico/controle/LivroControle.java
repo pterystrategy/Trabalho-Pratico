@@ -28,6 +28,7 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     private final LivroTableModel model;
     private final AutorControle autorControle;
     private final EditoraControle editoraControle;
+
     LivroControle(AutorControle autorControle, EditoraControle editoraControle) {
         this.dao = new LivroDao();
         this.model = new LivroTableModel(this.dao.findAll());
@@ -46,8 +47,13 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     @Override
     public Livro create() {
         boolean concluido = false;
-        preencherCmbs();
-        Livro livro = tela.create(null);
+         Livro livro;
+        if(preencherCmbs()){
+           livro = tela.create(null);
+        }else{
+            livro = null;
+        }
+        
         do {
             if (tela.isConfirmado() == true) {
                 if (!livro.getTitulo().isEmpty()) {
@@ -131,26 +137,39 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     private List<Classificacao> getClassificacaoAll() {
         return Arrays.asList(Classificacao.values());
     }
-    
-    private void preencherCmbs(){
+
+    private boolean preencherCmbs() {
         List<Autor> autores = new ArrayList<>();
-        autores.addAll(this.autorControle.getAll());
+        
         List<Editora> editoras = new ArrayList<>();
-        editoras.addAll(this.editoraControle.getAll());
+        
         List<Classificacao> classificacoes = this.getClassificacaoAll();
-        tela.setListaEditoras(editoras);
-        tela.setListaAutores(autores);
+        
         tela.setListaClassificacoes(classificacoes);
+        
+        if (autores.addAll(this.autorControle.getAll())) {
+            tela.setListaAutores(autores);
+            if (!editoras.addAll(this.editoraControle.getAll())) {
+                tela.showMessage("Deveria cadastrar editoras");
+                return false;
+            } else {
+                tela.setListaEditoras(editoras);
+                return true;
+            }
+        }else {
+             tela.showMessage("Deveria cadastrar autores");
+             return false;
+        }
     }
-    
+
     public Livro buscaLivro() {
-            this.grid.preparaTelaEmprestimo(); 
-            return this.getLivroselecionado();
-    
+        this.grid.preparaTelaEmprestimo();
+        return this.getLivroselecionado();
+
     }
-    
-    private Livro getLivroselecionado(){
-       
+
+    private Livro getLivroselecionado() {
+
         if (grid.isConfirmado()) {
             return model.getObjetoLinha(grid.selectedRow());
         }

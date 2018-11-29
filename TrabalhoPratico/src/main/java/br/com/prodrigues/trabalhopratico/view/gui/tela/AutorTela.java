@@ -261,7 +261,8 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
             showMessage("NÃO ENCONTRADO!");
             return false;
         }
-        return true;}
+        return true;
+    }
 
     @Override
     public Autor getScreenObject() {

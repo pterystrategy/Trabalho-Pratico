@@ -6,6 +6,7 @@
 package br.com.prodrigues.trabalhopratico.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class Autor extends Pessoa implements Serializable {
     
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinColumn(name = "FKAUTOR")
-    private List<Livro> livros;
+    private List<Livro> livros = new ArrayList<>();
     
     @Column(name = "DTNASC", nullable = true)
     @Temporal(TemporalType.DATE)

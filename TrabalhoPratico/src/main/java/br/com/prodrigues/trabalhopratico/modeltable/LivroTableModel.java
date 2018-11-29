@@ -5,7 +5,6 @@
  */
 package br.com.prodrigues.trabalhopratico.modeltable;
 
-import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class LivroTableModel extends UtilTableModel<Livro> {
     public LivroTableModel(List<Livro> l) {
         super(l);
         this.columnNames = new String[]{"ID", "Nome", "Autor"};
-        this.classes = new Class[]{Long.class, String.class, Autor.class};
+        this.classes = new Class[]{Long.class, String.class, String.class};
     }
 
     @Override
@@ -30,7 +29,10 @@ public class LivroTableModel extends UtilTableModel<Livro> {
             case 1:
                 return livro.getTitulo();
             case 2:
-                return livro.getAutor().getName();
+                if (livro.getAutor().getName() == null) {
+                     return "";
+                }else
+                    return livro.getAutor().getName();
             default:
                 return null;
         }

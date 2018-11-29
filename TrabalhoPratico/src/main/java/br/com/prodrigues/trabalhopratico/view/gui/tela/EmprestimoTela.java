@@ -523,7 +523,10 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         Emprestimo object = new Emprestimo();
         object.setDataDevolucao(edtDataDevolução.getDate());
         object.setDataEmprestimo(edtDataEmprestimo.getDate());
-        object.setMulta((double) edtMulta.getValue());
+        
+        String x = edtMulta.getText();
+        x = x.replace(',', '.');
+        object.setMulta(Double.parseDouble(x));
         object.setObervacoes(edtObervacoes.getText());
         object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
         object.setCliente((Cliente)cmbClientes.getSelectedItem());

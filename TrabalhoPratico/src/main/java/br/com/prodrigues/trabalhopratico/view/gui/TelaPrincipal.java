@@ -1,6 +1,7 @@
 package br.com.prodrigues.trabalhopratico.view.gui;
 
 import br.com.prodrigues.trabalhopratico.controle.PrincipalControle;
+import br.com.prodrigues.trabalhopratico.view.html.ClienteHtml;
 
 
 /**
@@ -107,6 +108,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mnuPrincipal.add(imnCadastro);
 
         imnRelatorio.setText("Relatorios");
+        imnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnRelatorioActionPerformed(evt);
+            }
+        });
         mnuPrincipal.add(imnRelatorio);
 
         setJMenuBar(mnuPrincipal);
@@ -150,6 +156,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void imnEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnEmprestimoActionPerformed
        controle.iniciaEmprestimoControle();
     }//GEN-LAST:event_imnEmprestimoActionPerformed
+
+    private void imnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnRelatorioActionPerformed
+       ClienteHtml.gerarRelatorio(null, "dddd");
+    }//GEN-LAST:event_imnRelatorioActionPerformed
 
 
 

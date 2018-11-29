@@ -1,6 +1,5 @@
 package br.com.prodrigues.trabalhopratico.controle;
 
-import br.com.prodrigues.trabalhopratico.model.Livro;
 import java.util.List;
 
 public interface IControleSimples<T> {

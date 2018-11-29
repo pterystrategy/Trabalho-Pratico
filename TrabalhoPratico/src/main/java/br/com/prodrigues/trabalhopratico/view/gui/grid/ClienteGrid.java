@@ -8,7 +8,6 @@ package br.com.prodrigues.trabalhopratico.view.gui.grid;
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.modeltable.ClienteTableModel;
-import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.PLAIN_MESSAGE;

@@ -87,9 +87,9 @@ public class ClienteHtml {
         "        <table id=\"tabela\">\n" +
         "            <thead>\n" +
         "                <tr>\n" +
-        "                    <th class=\"celula_head\">Cod</th>\n" +
+        "                    <th class=\"celula_head\">Codigo</th>\n" +
         "                    <th class=\"celula_head\">Nome</th>\n" +
-        "                    <th class=\"celula_head\">UF</th>\n" +
+        "                    <th class=\"celula_head\">Cpf</th>\n" +
         "                    <th class=\"celula_head\">Capital</th>\n" +
         "                </tr>\n" +
         "            </thead>\n" +
