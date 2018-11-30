@@ -22,7 +22,7 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     protected UsuarioGrid grid;
     private final UsuarioTela tela;
     private final LoginTela telaL;
-    private UsuarioTableModel model;
+    private final UsuarioTableModel model;
 
     public UsuarioControle() {
         dao = new UsuarioDao();
@@ -46,25 +46,11 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     @Override
     public Usuario create() {
         Usuario usuario = tela.create(null);
-        boolean concluido = false;
-
-        do {
-            if (tela.isConfirmado()) {
-                if (!usuario.getName().isEmpty()) {
-                    concluido = true;
-
-                } else {
-                    tela.showErrorMessage("Falta nome");
-                    tela.setVisible(true);
-                    usuario = tela.getScreenObject();
-                }
-            }
-            else{
-                return null;
-            }
-
-        } while ((concluido == false) && (tela.isConfirmado() == true));
-        usuario = dao.create(usuario);
+        
+        if (tela.isConfirmado()) {
+            usuario = tela.getScreenObject();        
+        }
+        
         model.add(usuario);
         return usuario;
     }
@@ -76,14 +62,12 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
 
     @Override
     public Usuario update(Usuario objeto) {
-//        this.read(null);
-//        long id = tela.askForLong("Digite o código do funcionário a editar");
-
+        
         this.tela.preparaUpdate(objeto);
         Usuario update = tela.update(objeto);
-        Usuario update1 = dao.update(update);
-        this.model.update(objeto, update1);
-        return update1;
+        Usuario updateDao = dao.update(update);
+        this.model.update(objeto, updateDao);
+        return updateDao;
     }
 
     @Override

@@ -8,14 +8,24 @@ package br.com.prodrigues.trabalhopratico.controle;
 import br.com.prodrigues.trabalhopratico.dao.LivroDao;
 import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Classificacao;
+import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.LivroGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LivroTela;
+import br.com.prodrigues.trabalhopratico.view.html.ClienteHtml;
+import br.com.prodrigues.trabalhopratico.view.html.LivroHtml;
+import java.awt.Desktop;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -121,7 +131,29 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     @Override
     public void print() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       List<Livro> lista = dao.findAll();
+
+        String relatorioHtml = LivroHtml.gerarRelatorio(lista, "Relatório de livros");
+
+        //Salvar em Disco
+        FileWriter arquivo;
+        try {
+            arquivo = new FileWriter("/home/pedro/rlivros.html");
+            arquivo.append(relatorioHtml);
+            arquivo.close();
+        } catch (IOException ex) {
+            Logger.getLogger(LivroControle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(new URI("file:///home/pedro/rlivros.html"));
+            } catch (IOException | URISyntaxException ex) {
+                Logger.getLogger(LivroControle.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //Abrir em Browser
+        //Converter em HTML
     }
 
     @Override

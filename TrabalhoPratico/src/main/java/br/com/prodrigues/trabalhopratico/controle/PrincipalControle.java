@@ -68,4 +68,12 @@ public class PrincipalControle {
      public void iniciaEmprestimoControle() {
         this.emprestimoControle.showInicialScreen();
     }
+     
+     public void iniciaRelatorioCliente() {
+        this.cliControle.print();
+    }
+    
+    public void iniciaRelatoriolivro() {
+        this.livroControle.print();
+    }
 }

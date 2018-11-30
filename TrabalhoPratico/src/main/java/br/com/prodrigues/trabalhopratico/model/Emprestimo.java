@@ -5,7 +5,6 @@
  */
 package br.com.prodrigues.trabalhopratico.model;
 
-import br.com.prodrigues.trabalhopratico.model.antigo.Exemplar;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

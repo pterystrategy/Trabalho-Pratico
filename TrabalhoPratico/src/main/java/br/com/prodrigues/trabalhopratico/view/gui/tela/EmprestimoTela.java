@@ -8,6 +8,7 @@ package br.com.prodrigues.trabalhopratico.view.gui.tela;
 import br.com.prodrigues.trabalhopratico.controle.EmprestimoControle;
 import br.com.prodrigues.trabalhopratico.controle.IControleSimples;
 import br.com.prodrigues.trabalhopratico.model.Cliente;
+import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetrasNumeros;
@@ -23,6 +24,7 @@ import java.awt.Frame;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -201,6 +203,11 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         jScrollPane2.setViewportView(tblGrid);
 
         btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/button-Delete-icon16.png"))); // NOI18N
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/pencil-icon16px.png"))); // NOI18N
         btnEdit.setMaximumSize(new java.awt.Dimension(65, 22));
@@ -282,7 +289,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(edtDataDevolução, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, Short.MAX_VALUE)
+                                        .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                                         .addComponent(cmbLivros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cmbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -383,7 +390,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        
         this.checandoBtnCancel();
     }//GEN-LAST:event_btnCancelActionPerformed
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
@@ -397,6 +403,10 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private void edtMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtMultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtMultaActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+      removerObjeto();
+    }//GEN-LAST:event_btnRemoveActionPerformed
     private static EmprestimoTela tela;
     public static EmprestimoTela getTela() {
         return tela;
@@ -474,9 +484,8 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         this.setVisible(true);
         if (confirmado) {
              return this.getScreenObject();
-         } 
-
-        return null;
+         }else
+            return null;
     }
 
     @Override
@@ -490,7 +499,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         if (confirmado) {
             object.setDataDevolucao(edtDataDevolução.getDate());
              object.setDataEmprestimo(edtDataEmprestimo.getDate());
-             object.setMulta(Double.parseDouble(edtMulta.getText()));
+             object.setMulta(0.00);
              object.setObervacoes(edtObervacoes.getText());
              object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
          } else if (!confirmado) {
@@ -507,20 +516,14 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     public boolean delete(Emprestimo object) {
         preparaDelete(object);
         this.setVisible(true);
-        if (confirmado) {
-             object.setDataDevolucao(edtDataDevolução.getDate());
-             object.setDataEmprestimo(edtDataEmprestimo.getDate());
-             object.setMulta(Double.parseDouble(edtMulta.getText()));
-             object.setObervacoes(edtObervacoes.getText());
-             object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
-         } else if (!confirmado) {
+        if (!confirmado) {
             showMessage("CANCELADO PELO USUÁRIO!");
             return false;
         } else if (object == null) {
-            showMessage("NÃO ENCONTRADO!");
-            return false;
-        }
-        return false;
+                showMessage("NÃO ENCONTRADO!");
+                return false;
+            }
+        return true;
     }
 
     @Override
@@ -529,19 +532,18 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         object.setDataDevolucao(edtDataDevolução.getDate());
         object.setDataEmprestimo(edtDataEmprestimo.getDate());
         
-        String x = edtMulta.getText();
-        x = x.replace(',', '.');
-        object.setMulta(Double.parseDouble(x));
+////        String x = edtMulta.getText();
+////        x = x.replace(',', '.');
+//        object.setMulta(Double.parseDouble(x));
+        object.setMulta(0.00);
         object.setObervacoes(edtObervacoes.getText());
         object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
         object.setCliente((Cliente)cmbClientes.getSelectedItem());
         object.setLivros(model.getLista());
-//        object.setLivros(model.getLista());
-//        for (Livro livro :model.getLista()) {
-//            
-//            livro.getEmprestimos().add(object);
-//            
-//        }
+        object.setLivros(model.getLista());
+        model.getLista().forEach((livro) -> {
+            livro.getEmprestimos().add(object);
+        });
             
         
         return object;
@@ -563,7 +565,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtDataEmprestimo.setEditable(false);
         edtDataEmprestimo.setEnabled(false);
         
-        edtMulta.setText(Double.toString(object.getMulta()));
+        edtMulta.setValue(0.00);
         edtMulta.setEditable(false);
         edtMulta.setEnabled(false);
         
@@ -616,12 +618,12 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         
         labTitulo.setText("Emprestimo");
         
-        
-        
-        
         edtDataDevolução.setDate(object.getDataDevolucao());
         edtDataDevolução.setEditable(false);
         edtDataDevolução.setEnabled(false);
+        cmbClientes.setSelectedItem(object.getCliente());
+        
+        cmbLivros.setVisible(false);
         
         edtDataEmprestimo.setDate(object.getDataEmprestimo());
         edtDataEmprestimo.setEditable(false);
@@ -635,7 +637,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtObervacoes.setText(object.getObervacoes());
         edtObervacoes.setEditable(false);
         edtObervacoes.setEnabled(false);
-        
+        model.setListaA(object.getLivros());
         btnOk.setText("Deletar");
         btnOk.setVisible(true);
         
@@ -689,7 +691,17 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
             this.dispose();
         }
     }
+    
+    private void removerObjeto(){
+         try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+           Livro objetoLinha = model.getObjetoLinha(selectedRow);
+           model.remove(objetoLinha);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Objeto não selecionado");
 
+        }
+    }
     private void checandoBtnAdd() {
             confirmado = true;
     }

@@ -53,25 +53,13 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
         }else{
             create = null;
         }
-        boolean concluido = false;
-           
-        do {
-            if (tela.isConfirmado()) {
-
-                if (!create.getCliente().getName().isEmpty()) {
-                    concluido = true;
-                } else {
-                    tela.setVisible(true);
-                    create = tela.create(create);
-                }
-            } else {
-                return null;
-            }
-
-        } while ((concluido == false) && (tela.isConfirmado()));
-        Emprestimo createD = dao.create(create);
-        model.add(createD);
-        return createD;
+        if (create == null) {
+            return null;
+        }else{
+            Emprestimo createDao = dao.create(create);
+            model.add(createDao);
+            return createDao;
+        }
     }
 
     @Override

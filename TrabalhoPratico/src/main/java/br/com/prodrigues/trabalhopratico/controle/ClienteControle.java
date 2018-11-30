@@ -100,12 +100,12 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
     public void print() {
         List<Cliente> lista = dao.findAll();
 
-        String relatorioHtml = ClienteHtml.gerarRelatorio(lista, "Meu Relatório");
+        String relatorioHtml = ClienteHtml.gerarRelatorio(lista, "Relatório de cliente");
 
         //Salvar em Disco
         FileWriter arquivo;
         try {
-            arquivo = new FileWriter("/home/alessiojr/file.html");
+            arquivo = new FileWriter("/home/pedro/file.html");
             arquivo.append(relatorioHtml);
             arquivo.close();
         } catch (IOException ex) {
@@ -114,7 +114,7 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
 
         if (Desktop.isDesktopSupported()) {
             try {
-                Desktop.getDesktop().browse(new URI("file:///home/alessiojr/file.html"));
+                Desktop.getDesktop().browse(new URI("file:///home/pedro/file.html"));
             } catch (IOException | URISyntaxException ex) {
                 Logger.getLogger(ClienteControle.class.getName()).log(Level.SEVERE, null, ex);
             }

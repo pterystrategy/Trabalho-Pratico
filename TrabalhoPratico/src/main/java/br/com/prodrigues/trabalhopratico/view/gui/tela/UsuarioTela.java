@@ -312,7 +312,7 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
 
     @Override
     public Usuario update(Usuario object) {
-        preparaUpdate(object);
+        this.preparaUpdate(object);
         this.setVisible(true);
         if (confirmado) {
             object.setName(edtNome.getText());

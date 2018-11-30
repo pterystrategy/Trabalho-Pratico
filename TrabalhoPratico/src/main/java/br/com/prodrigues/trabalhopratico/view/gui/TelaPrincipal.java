@@ -51,6 +51,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         imnEditora = new javax.swing.JMenuItem();
         imnEmprestimo = new javax.swing.JMenuItem();
         imnRelatorio = new javax.swing.JMenu();
+        relatorioCliente = new javax.swing.JMenuItem();
+        relatorioLivro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
@@ -113,6 +115,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 imnRelatorioActionPerformed(evt);
             }
         });
+
+        relatorioCliente.setText("Relatorio Cliente");
+        relatorioCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioClienteActionPerformed(evt);
+            }
+        });
+        imnRelatorio.add(relatorioCliente);
+
+        relatorioLivro.setText("Relatorio Livro");
+        relatorioLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioLivroActionPerformed(evt);
+            }
+        });
+        imnRelatorio.add(relatorioLivro);
+
         mnuPrincipal.add(imnRelatorio);
 
         setJMenuBar(mnuPrincipal);
@@ -158,8 +177,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_imnEmprestimoActionPerformed
 
     private void imnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnRelatorioActionPerformed
-       ClienteHtml.gerarRelatorio(null, "dddd");
+         // TODO add your handling code here:
     }//GEN-LAST:event_imnRelatorioActionPerformed
+
+    private void relatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioClienteActionPerformed
+        controle.iniciaRelatorioCliente();
+    }//GEN-LAST:event_relatorioClienteActionPerformed
+
+    private void relatorioLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioLivroActionPerformed
+        controle.iniciaRelatoriolivro();
+    }//GEN-LAST:event_relatorioLivroActionPerformed
 
 
 
@@ -173,5 +200,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu imnRelatorio;
     private javax.swing.JMenuItem imnUsuario;
     private javax.swing.JMenuBar mnuPrincipal;
+    private javax.swing.JMenuItem relatorioCliente;
+    private javax.swing.JMenuItem relatorioLivro;
     // End of variables declaration//GEN-END:variables
 }

@@ -55,8 +55,7 @@ public class Livro implements Serializable {
     private int quantidade;
     
     @ManyToMany(cascade = {
-        CascadeType.PERSIST,CascadeType.PERSIST,
-        CascadeType.REMOVE})
+        CascadeType.PERSIST})
     @JoinTable(name = "TB_LIVRO_EMPRESTIMO",
         joinColumns = @JoinColumn(name = "FKLIVRO"),
         inverseJoinColumns = @JoinColumn(name = "FKEMPRESTIMO")

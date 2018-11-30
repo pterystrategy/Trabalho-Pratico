@@ -1,13 +1,14 @@
 package br.com.prodrigues.trabalhopratico.view.html;
 
 import br.com.prodrigues.trabalhopratico.model.Cliente;
+import br.com.prodrigues.trabalhopratico.model.Livro;
 import java.util.List;
 
 /**
  *
  * @author alessiojr
  */
-public class ClienteHtml {
+public class LivroHtml {
     
     private static String cabecalho = 
         "<!DOCTYPE html>\n" +
@@ -89,7 +90,7 @@ public class ClienteHtml {
         "                <tr>\n" +
         "                    <th class=\"celula_head\">Codigo</th>\n" +
         "                    <th class=\"celula_head\">Nome</th>\n" +
-        "                    <th class=\"celula_head\">Cpf</th>\n" +
+        "                    <th class=\"celula_head\">Autor</th>\n" +
         "                </tr>\n" +
         "            </thead>\n" +
         "            <tbody>\n" +
@@ -105,18 +106,18 @@ public class ClienteHtml {
         "                </tr>\n";
             
     
-    public static String gerarRelatorio(List<Cliente> lista, String titulo){
+    public static String gerarRelatorio(List<Livro> lista, String titulo){
         String retorno;
         retorno = cabecalho.replace("{{Titulodorelatorio}}", titulo);
         
-        retorno += inicio.replace("{{NOME_DA_EMPRESA}}", "Clientes");
+        retorno += inicio.replace("{{NOME_DA_EMPRESA}}", "Livros");
         
         String conteudo = "";
-        for (Cliente cliente : lista) {
+        for (Livro livro : lista) {
             conteudo += conteudotabela;
-            conteudo = conteudo.replace("{{COD}}", cliente.getId().toString());
-            conteudo = conteudo.replace("{{NOME}}", cliente.getName());
-            conteudo = conteudo.replace("{{CPF}}", cliente.getCpf());
+            conteudo = conteudo.replace("{{COD}}", livro.getId().toString());
+            conteudo = conteudo.replace("{{NOME}}", livro.getTitulo());
+            conteudo = conteudo.replace("{{CPF}}", livro.getAutor().getName());
             //conteudo = conteudo.replace("{{CAPITAL}}", "sss");            
         }
         
