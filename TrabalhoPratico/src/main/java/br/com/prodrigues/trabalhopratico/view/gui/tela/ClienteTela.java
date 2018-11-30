@@ -258,16 +258,18 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
 
     @Override
     public Cliente create(Cliente cliente) {
-        
+        cliente = null;
         this.preparaCreate();
+        this.limpaTela();
         this.setVisible(true);
+        
         if(confirmado){
-            return this.getScreenObject();
+            cliente = this.getScreenObject();
         }
         else{
-            showMessage("CANCELADO PELO USUÁRIO!");
-            return null;
+            showMessage("CANCELADO PELO USUÁRIO!");    
         }
+        return cliente;
     }
 
     @Override
@@ -287,7 +289,9 @@ public class ClienteTela extends ViewGuiSimples implements IViewCrud<Cliente> {
 
     @Override
     public void limpaTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        edtNome.setText("");
+        edtEmail.setText("");
+        edtCPF.setText("");
     }
 
     @Override

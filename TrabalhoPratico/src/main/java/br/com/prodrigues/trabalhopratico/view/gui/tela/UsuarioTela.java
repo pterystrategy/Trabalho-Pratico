@@ -253,7 +253,7 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
             this.showErrorMessage("A Senha deve conter no mínimo 6 caracteres!");
         }
         else if (senha.equals(confSenha) == false) {
-            this.showMessage("Senha errada");
+            this.showMessage("Senha não confere!");
         }
         else {
             this.setConfirmado(true);
@@ -296,11 +296,20 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public Usuario create(Usuario object) {
+    public Usuario create(Usuario user) {
+        user = null;
+        this.limpaTela();
         this.preparaCreate();
         this.setVisible(true);
 
-        return this.getScreenObject();
+        if (confirmado) {
+            user = this.getScreenObject();
+        }
+        else{
+            showMessage("CANCELADO PELO USUÁRIO!");    
+        }
+        
+        return user;
 
     }
 
@@ -312,12 +321,13 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
 
     @Override
     public Usuario update(Usuario object) {
+        this.limpaTela();
         this.preparaUpdate(object);
         this.setVisible(true);
         if (confirmado) {
             object.setName(edtNome.getText());
             object.setLogin(edtLogin.getText());
-            object.setSenha(Arrays.toString(edtSenha.getPassword()));
+            object.setSenha(edtSenha.getText());
         } else if (confirmado == false) {
             showMessage("CANCELADO PELO USUÁRIO!");
         } else if (object == null) {
@@ -365,7 +375,10 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
 
     @Override
     public void limpaTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        edtNome.setText("");
+        edtLogin.setText("");
+        edtSenha.setText("");
+        edtSenhaConfirmacao.setText("");
     }
 
     @Override

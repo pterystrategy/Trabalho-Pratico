@@ -190,8 +190,6 @@ public class UsuarioGrid extends javax.swing.JDialog {
 
         jButton1.setText("jButton1");
 
-        jTextField2.setText("jTextField2");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(

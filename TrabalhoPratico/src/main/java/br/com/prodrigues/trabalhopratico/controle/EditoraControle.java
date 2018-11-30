@@ -45,23 +45,33 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
     @Override
     public Editora create() {
         Editora editora = tela.create(null);
-        boolean concluido = false;
-
-        do {
-            if (tela.isConfirmado()) {
-                if (!editora.getNamepublisher().isEmpty()) {
-                   concluido = true;
-                } else {
-                    tela.showErrorMessage("Falta Nome");
-                    editora = tela.create(null);
-                }
-            } else {
-                concluido = false;
-            }
-        } while ((concluido == false) && (tela.isConfirmado() == true)); 
-        editora = dao.create(editora);
-        model.add(editora);
+        
+        if (editora == null) {
+            return null;
+        }
+        else{
+            dao.create(editora);
+            model.add(editora);
+        }
         return editora;
+        
+//        boolean concluido = false;
+//
+//        do {
+//            if (tela.isConfirmado()) {
+//                if (!editora.getNamepublisher().isEmpty()) {
+//                   concluido = true;
+//                } else {
+//                    tela.showErrorMessage("Falta Nome");
+//                    editora = tela.create(null);
+//                }
+//            } else {
+//                concluido = false;
+//            }
+//        } while ((concluido == false) && (tela.isConfirmado() == true)); 
+//        editora = dao.create(editora);
+//        model.add(editora);
+//        return editora;
     }
 
     @Override

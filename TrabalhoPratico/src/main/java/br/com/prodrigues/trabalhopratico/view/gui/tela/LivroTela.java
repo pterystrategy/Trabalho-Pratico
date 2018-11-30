@@ -431,7 +431,8 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
     }
 
     @Override
-    public Livro create(Livro object) {
+    public Livro create(Livro livro) {
+        livro = null;
         labTitulo.setText("Cadastro de Livro");
 
         edtTitulo.setText("");
@@ -450,13 +451,35 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
         edtSinopse.setEnabled(true);
 
         this.setVisible(true);
-
-        return this.getScreenObject();
+        
+        if (confirmado) {
+            livro = this.getScreenObject();
+        }
+        else{
+            showMessage("CANCELADO PELO USUÁRIO!");    
+        }
+        return livro;
+               
     }
 
     @Override
     public void read(Livro object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        labTitulo.setText("Dados do Livro");
+        edtTitulo.setText(object.getTitulo());
+        edtTitulo.setEditable(false);
+        edtTitulo.setEnabled(false);
+        
+        edtData.setDate(object.getDataDeLancamento());
+        edtData.setEditable(false);
+        edtData.setEnabled(false);
+        
+        edtSinopse.setText(object.getSinopse());
+        edtSinopse.setEditable(false);
+        edtSinopse.setEnabled(false);
+        
+        this.btnOk.setText("Ok");
+        this.btnOk.setVisible(true);
+        this.btnCancel.setVisible(false);
     }
 
     @Override
@@ -531,7 +554,8 @@ public class LivroTela extends ViewGuiSimples implements IViewCrud<Livro> {
 
     @Override
     public void limpaTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        edtTitulo.setText("");
+        edtSinopse.setText("");
     }
 
     @Override

@@ -66,7 +66,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         super(parent, modal);
         initComponents();
         edtName.setDocument(new LimiteDigitosLetras(20));
-        edtCEP.setDocument(new LimiteDigitosNumeros(8));
+        //edtCEP.setDocument(new LimiteDigitosNumeros(8));
         
     }
 
@@ -403,6 +403,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     }
     
     public Editora create(Editora object, Endereco endereco) {
+        
         this.preparaCreate();
         if(confirmado){
             endereco = this.getScreenObject(object);
@@ -557,7 +558,14 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
 
     @Override
     public void limpaTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        edtBairroDistrito.setText("");
+        edtCEP.setText("");
+        edtEmail.setText("");
+        edtLocalidadeUF.setText("");
+        edtLogradouroNome.setText("");
+        edtName.setText("");
+        edtTelefone.setText("");
+        edtTelefoneFixo.setText("");
     }
 
     @Override
@@ -613,7 +621,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         edtTelefone.setEditable(true);
         edtTelefone.setEnabled(true);
         
-        edtTelefoneFixo.setText("322323");
+        edtTelefoneFixo.setText("");
         edtTelefoneFixo.setEditable(true);
         edtTelefoneFixo.setEnabled(true);
         //ENDEREÇO
@@ -644,10 +652,10 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     }
 
     private void checandoBtnOk() {
-         if(edtName.getText().trim().isEmpty() || edtEmail.getText().trim().isEmpty() ||
+         if(edtName.getText().trim().isEmpty() || edtEmail.getText().trim().isEmpty()/* ||
             edtTelefone.getText().trim().isEmpty() || edtLogradouroNome.getText().trim().isEmpty() ||
             edtBairroDistrito.getText().trim().isEmpty() || edtLocalidadeUF.getText().trim().isEmpty() || 
-            edtCEP.getText().trim().isEmpty()){
+            edtCEP.getText().trim().isEmpty()*/){
             this.showErrorMessage("Campo vazio");
         }
         else if (edtName.getText().length() < 3) {
@@ -656,9 +664,9 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         else if (ValidaEmail.validaEmail(edtEmail.getText()) == false) {
             this.showErrorMessage("O Email informado é invalido!");
         }
-        else if (edtCEP.getText().length() < 8){
-            this.showErrorMessage("CEP Inválido");
-        }
+//        else if (edtCEP.getText().length() < 8){
+//            this.showErrorMessage("CEP Inválido");
+//        }
         else{
             this.setConfirmado(true);
             this.dispose();

@@ -29,24 +29,36 @@ public class AutorControle extends AbstractControleSimples<Autor> {
     }
     @Override
     public Autor create() {
+        
         Autor autor = tela.create(null);
-        boolean concluido = false;
-        do {
-            if (tela.isConfirmado()) {
-                if (!autor.getName().isEmpty()) {
-                    concluido = true;
-                } else {
-                    tela.showErrorMessage("Falta Nome");
-                    autor = tela.create(autor);
-                }
-            } else {
-                return null;
-            }
-
-        } while ((concluido != true) && (tela.isConfirmado()));
-        autor = dao.create(autor);
-        model.add(autor);
+        
+        if(autor == null){
+            return null;
+        }
+        else{
+            dao.create(autor);
+            model.add(autor);
+        }
         return autor;
+        
+//        Autor autor = tela.create(null);
+//        boolean concluido = false;
+//        do {
+//            if (tela.isConfirmado()) {
+//                if (!autor.getName().isEmpty()) {
+//                    concluido = true;
+//                } else {
+//                    tela.showErrorMessage("Falta Nome");
+//                    autor = tela.create(autor);
+//                }
+//            } else {
+//                return null;
+//            }
+//
+//        } while ((concluido != true) && (tela.isConfirmado()));
+//        autor = dao.create(autor);
+//        model.add(autor);
+//        return autor;
     }
 
     @Override

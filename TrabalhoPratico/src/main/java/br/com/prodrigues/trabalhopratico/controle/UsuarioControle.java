@@ -47,11 +47,13 @@ public class UsuarioControle extends AbstractControleSimples<Usuario> {
     public Usuario create() {
         Usuario usuario = tela.create(null);
         
-        if (tela.isConfirmado()) {
-            usuario = tela.getScreenObject();        
+        if (tela.isConfirmado() == false) {
+            return null;
         }
-        
-        model.add(usuario);
+        else{
+            dao.create(usuario);
+            model.add(usuario);
+        }
         return usuario;
     }
 

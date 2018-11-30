@@ -220,17 +220,19 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
         }}
 
     @Override
-    public Autor create(Autor object) {
-        
+    public Autor create(Autor autor) {
+        autor = null;
+        this.limpaTela();
         this.preparaCreate();
          this.setVisible(true);
         if(confirmado){
-            return this.getScreenObject();
+            autor = this.getScreenObject();
         }
         else{
             showMessage("CANCELADO PELO USUÁRIO!");
-            return null;
+            
         }
+        return autor;
     }
 
     @Override
@@ -280,7 +282,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
 
     @Override
     public void limpaTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        edtNome.setText("");
     }
 
     @Override
@@ -299,7 +301,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
         btnCancel.setVisible(true);}
 
     private void preparaCreate() {
-         labTitulo.setText("Cadastro de Cliente");
+         labTitulo.setText("Cadastro de Ator");
         edtDataNascimento.setDate(Date.from(Instant.now()));
         edtDataNascimento.setEditable(true);
         edtDataNascimento.setEnabled(true);
@@ -313,7 +315,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
         btnCancel.setVisible(true);}
 
     private void preparaMostrar(Autor object) {
-        labTitulo.setText("Dados do Cliente");
+        labTitulo.setText("Dados do Autor");
         
         edtDataNascimento.setDate(object.getNascimento());
         edtDataNascimento.setEditable(true);
@@ -335,7 +337,7 @@ public class AutorTela extends ViewGuiSimples implements IViewCrud<Autor>{
         return object;}
 
     private void preparaDelete(Autor object) {
-       labTitulo.setText("Dados do Cliente");
+       labTitulo.setText("Dados do Autor");
         edtDataNascimento.setDate(object.getNascimento());
         edtDataNascimento.setEditable(false);
         edtDataNascimento.setEnabled(false);

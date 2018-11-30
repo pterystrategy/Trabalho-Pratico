@@ -31,25 +31,42 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
 
     @Override
     public Cliente create() {
-        Cliente cli = tela.create(null);
-        boolean concluido = false;
-
-        do {
-            if (tela.isConfirmado()) {
-                if (!cli.getCpf().isEmpty()) {
-                    concluido = true;
-                } else {
-                    tela.mostrarErro("Falta CPF");
-                    cli = tela.create(null);
-                }
-            } else {
-                return null;
-            }
-
-        } while ((concluido != true) && (tela.isConfirmado()));
-        cli = dao.create(cli);
-        model.add(cli);
-        return cli;
+        
+        Cliente cliente = tela.create(null);
+        
+        if (cliente == null) {
+            return null;
+        }
+        else{
+            dao.create(cliente);
+            model.add(cliente);
+        }
+        
+        return cliente;
+        
+        
+        
+        
+        
+//        Cliente cli = tela.create(null);
+//        boolean concluido = false;
+//
+//        do {
+//            if (tela.isConfirmado()) {
+//                if (!cli.getCpf().isEmpty()) {
+//                    concluido = true;
+//                } else {
+//                    tela.mostrarErro("Falta CPF");
+//                    cli = tela.create(null);
+//                }
+//            } else {
+//                return null;
+//            }
+//
+//        } while ((concluido != true) && (tela.isConfirmado()));
+//        cli = dao.create(cli);
+//        model.add(cli);
+//        return cli;
     }
 
     @Override

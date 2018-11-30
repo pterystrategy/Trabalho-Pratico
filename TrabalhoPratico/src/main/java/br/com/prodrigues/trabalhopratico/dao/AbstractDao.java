@@ -10,7 +10,7 @@ public abstract class AbstractDao<T> implements IDAO<T> {
     protected EntityManager em;
 
     public AbstractDao() {
-        factory = Persistence.createEntityManagerFactory("trabalhoPraticoPU");
+        factory = Persistence.createEntityManagerFactory("TrabalhoPraticoPU");
         em = this.createEntityManager();
     }
 
@@ -44,7 +44,7 @@ public abstract class AbstractDao<T> implements IDAO<T> {
         em.getTransaction().begin();
         T merge = this.getEntityManager().merge(entity);
         em.getTransaction().commit();
-        
+        em.refresh(entity);
         return merge;
     }
     

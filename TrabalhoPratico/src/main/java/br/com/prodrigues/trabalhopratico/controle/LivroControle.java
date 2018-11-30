@@ -56,30 +56,41 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     @Override
     public Livro create() {
-        boolean concluido = false;
-         Livro livro;
-        if(preencherCmbs()){
-           livro = tela.create(null);
-        }else{
-            livro = null;
+        Livro livro = tela.create(null);
+        
+        if (livro == null) {
+            return null;
+        }
+        else{
+            dao.create(livro);
+            model.add(livro);
         }
         
-        do {
-            if (tela.isConfirmado() == true) {
-                if (!livro.getTitulo().isEmpty()) {
-                    concluido = true;
-                } else {
-                    tela.showErrorMessage("Falta Nome");
-                    tela.setVisible(true);
-                    livro = tela.create(livro);
-                }
-            } else {
-                return null;
-            }
-        } while ((concluido == false) && (tela.isConfirmado() == true));
-        livro = dao.create(livro);
-        model.add(livro);
         return livro;
+//        boolean concluido = false;
+//         Livro livro;
+//        if(preencherCmbs()){
+//           livro = tela.create(null);
+//        }else{
+//            livro = null;
+//        }
+//        
+//        do {
+//            if (tela.isConfirmado() == true) {
+//                if (!livro.getTitulo().isEmpty()) {
+//                    concluido = true;
+//                } else {
+//                    tela.showErrorMessage("Falta Nome");
+//                    tela.setVisible(true);
+//                    livro = tela.create(livro);
+//                }
+//            } else {
+//                return null;
+//            }
+//        } while ((concluido == false) && (tela.isConfirmado() == true));
+//        livro = dao.create(livro);
+//        model.add(livro);
+        
     }
 
     public LivroTableModel getModel() {
@@ -87,17 +98,20 @@ public class LivroControle extends AbstractControleSimples<Livro> {
     }
 
     @Override
-    public void read(Livro objeto) {
-        List<Livro> livros = dao.findAll();
-        String lista = "";
-        lista = livros.stream().map((livro) -> {
-            return "Id: "
-                    + livro.getId() + ", Nome: "
-                    + livro.getTitulo() + ", Data: "
-                    + livro.getDataDeLancamento()
-                    + "\n";
-        }).reduce(lista, String::concat);
-        this.tela.showMessage(lista);
+    public void read(Livro livro) {
+        
+        this.tela.read(livro);
+        
+//        List<Livro> livros = dao.findAll();
+//        String lista = "";
+//        lista = livros.stream().map((livro) -> {
+//            return "Id: "
+//                    + livro.getId() + ", Nome: "
+//                    + livro.getTitulo() + ", Data: "
+//                    + livro.getDataDeLancamento()
+//                    + "\n";
+//        }).reduce(lista, String::concat);
+//        this.tela.showMessage(lista);
     }
 
     @Override
