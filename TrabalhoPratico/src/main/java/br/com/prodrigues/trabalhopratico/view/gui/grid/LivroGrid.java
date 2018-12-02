@@ -7,6 +7,7 @@ package br.com.prodrigues.trabalhopratico.view.gui.grid;
 
 import br.com.prodrigues.trabalhopratico.controle.LivroControle;
 import br.com.prodrigues.trabalhopratico.model.Livro;
+import static br.com.prodrigues.trabalhopratico.model.Reserva_.livro;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import java.awt.Frame;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -162,7 +163,11 @@ public class LivroGrid extends javax.swing.JDialog {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -299,8 +304,18 @@ public class LivroGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        controle.read(null);
+//        controle.read(null);
         //model.setLista(controle.getAll());
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Livro objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.read(objetoLinha);
+        }
+        catch(Exception e){
+            this.showErrorMessage("selecione um livro");
+        }
+        
+        
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -318,6 +333,10 @@ public class LivroGrid extends javax.swing.JDialog {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.checandoBtnCancel();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

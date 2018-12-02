@@ -47,6 +47,7 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
 
     @Override
     public Emprestimo create() {
+        livrosModel.limpar();
         Emprestimo create;
         if(preencherCmbs()){
           create = tela.create(null);
@@ -64,26 +65,23 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
 
     @Override
     public void read(Emprestimo objeto) {
-        List<Emprestimo> findAll = dao.findAll();
-        String lista = "";
-        for (Emprestimo emprestimo : findAll) {
-            lista +="ID: "+ emprestimo.getId() + "Nome do Cliente: " 
-                  + emprestimo.getCliente().getName();
-        }
-        this.tela.showMessage(lista);
+        preencherCmbs();
+        tela.read(objeto);
+        
     }
 
     @Override
     public Emprestimo update(Emprestimo objeto) {
-        this.tela.preparaUpdate(objeto);
+        preencherCmbs();
         Emprestimo update = tela.update(objeto);
         Emprestimo update1 = dao.update(update);
-        this.model.update(objeto, update1);
+        this.model.update(update, update1);
         return update1;
     }
 
     @Override
     public boolean delete(Emprestimo objeto) {
+        preencherCmbs();
         Emprestimo findById = dao.findById(objeto.getId());
         this.tela.setConfirmado(true);
         boolean delete = this.tela.delete(findById);
@@ -105,11 +103,9 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
     }
     
      private boolean preencherCmbs(){
-        List<Cliente> clientes = new ArrayList<>();
         List<Livro> livros = new ArrayList<>();
-        clientes.addAll(this.clienteControle.getAll());
-        if (clientes.addAll(this.clienteControle.getAll())) {
-            tela.setListaClientes(clientes);
+        if (this.clienteControle.getAll() != null) {
+            tela.setListaClientes(this.clienteControle.getAll());
             if (!livros.addAll(this.livroControle.getAll())) {
                 tela.showMessage("Deveria cadastrar livros");
                 return false;
@@ -124,6 +120,8 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
     }
     
      public void tabelaLivros(){
-         livrosModel.add(this.livroControle.buscaLivro());
+        Livro buscaLivro = this.livroControle.buscaLivro();
+        if(!livrosModel.getLista().contains(buscaLivro))
+            livrosModel.add(buscaLivro);
      }
 }

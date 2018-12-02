@@ -8,13 +8,11 @@ package br.com.prodrigues.trabalhopratico.controle;
 import br.com.prodrigues.trabalhopratico.dao.LivroDao;
 import br.com.prodrigues.trabalhopratico.model.Autor;
 import br.com.prodrigues.trabalhopratico.model.Classificacao;
-import br.com.prodrigues.trabalhopratico.model.Cliente;
 import br.com.prodrigues.trabalhopratico.model.Editora;
 import br.com.prodrigues.trabalhopratico.model.Livro;
 import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import br.com.prodrigues.trabalhopratico.view.gui.grid.LivroGrid;
 import br.com.prodrigues.trabalhopratico.view.gui.tela.LivroTela;
-import br.com.prodrigues.trabalhopratico.view.html.ClienteHtml;
 import br.com.prodrigues.trabalhopratico.view.html.LivroHtml;
 import java.awt.Desktop;
 import java.io.FileWriter;
@@ -56,14 +54,20 @@ public class LivroControle extends AbstractControleSimples<Livro> {
 
     @Override
     public Livro create() {
-        Livro livro = tela.create(null);
+        Livro livro;
+         if(preencherCmbs()){
+           livro = tela.create(null);
+        }else{
+            livro = null;
+        }
+        
         
         if (livro == null) {
             return null;
         }
         else{
-            dao.create(livro);
-            model.add(livro);
+            Livro create = dao.create(livro);
+            model.add(create);
         }
         
         return livro;

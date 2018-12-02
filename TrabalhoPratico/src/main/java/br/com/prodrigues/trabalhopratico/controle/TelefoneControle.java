@@ -7,6 +7,7 @@ package br.com.prodrigues.trabalhopratico.controle;
 
 import br.com.prodrigues.trabalhopratico.dao.TelefoneDao;
 import br.com.prodrigues.trabalhopratico.model.Telefone;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +23,12 @@ public class TelefoneControle {
         this.dao = new TelefoneDao();
     }
     
-    public void add(List<Telefone> telefones){
+    public List<Telefone> add(List<Telefone> telefones){
+        List<Telefone> l = new ArrayList<>();
         telefones.forEach((telefone) -> {
-            dao.create(telefone);
+            l.add(dao.create(telefone));
         });
-        
+        return l;
     }
     
     public void rm(List<Telefone> telefones){

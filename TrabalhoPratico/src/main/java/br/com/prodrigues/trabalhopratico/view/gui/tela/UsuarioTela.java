@@ -358,6 +358,7 @@ public class UsuarioTela extends ViewGuiSimples implements IViewCrud<Usuario> {
 
     @Override
     public Usuario getScreenObject() {
+        
         Usuario retorno = new Usuario();
         retorno.setName(edtNome.getText());
         retorno.setLogin(edtLogin.getText());

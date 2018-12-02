@@ -20,11 +20,12 @@ public class EnderecoControle {
         this.dao = new EnderecoDao();
     }
     
-    public void add(Endereco endereco){
-        dao.create(endereco);
+    public Endereco add(Endereco endereco){
+        return dao.create(endereco);
     }
     
-    public void rm(Endereco endereco){
+    public boolean rm(Endereco endereco){
         dao.delete(endereco);
+        return true;
     }
 }

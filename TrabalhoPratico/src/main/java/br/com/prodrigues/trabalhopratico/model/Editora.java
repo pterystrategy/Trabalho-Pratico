@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,23 +38,25 @@ public class Editora implements Serializable {
 
     @Column(name = "EMAIL", length = 20)
     private String email;
-
     //Endereço
-    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.REMOVE, CascadeType.MERGE})
-    private List<Endereco> enderecos = new ArrayList<>();
-
+    @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.REMOVE, CascadeType.MERGE},fetch = FetchType.EAGER)
+    private List<Endereco> enderecos;
     //Telefone
     @OneToMany(mappedBy = "editora", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    private List<Telefone> telefones = new ArrayList<>();
+    private List<Telefone> telefones;
 
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "FKEDITORA")
     private List<Livro> livros;
 
     public Editora() {
+        this.telefones = new ArrayList<>();
+        this.enderecos = new ArrayList<>();
     }
 
     public Editora(String namepublisher, String email) {
+        this.telefones = new ArrayList<>();
+        this.enderecos = new ArrayList<>();
         this.namepublisher = namepublisher;
         this.email = email;
     }
@@ -109,7 +112,7 @@ public class Editora implements Serializable {
     }
 
     public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
+        this.enderecos.addAll(enderecos);
     }
 
     public List<Telefone> getTelefones() {
@@ -117,7 +120,7 @@ public class Editora implements Serializable {
     }
 
     public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
+        this.telefones.addAll(telefones);
     }
 
     public List<Livro> getLivros() {

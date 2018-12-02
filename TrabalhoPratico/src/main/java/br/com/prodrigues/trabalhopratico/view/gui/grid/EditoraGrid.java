@@ -302,8 +302,16 @@ public class EditoraGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        controle.read(null);
+//        controle.read(null);
         //model.setLista(controle.getAll());
+        try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Editora objetoLinha = model.getObjetoLinha(selectedRow);
+            controle.read(objetoLinha);
+        } catch (Exception e) {
+//            System.err.println(e);
+//            showErrorMessage("Selecione um autor");
+        }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed

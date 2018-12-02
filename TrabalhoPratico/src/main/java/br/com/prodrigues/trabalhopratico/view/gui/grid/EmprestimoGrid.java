@@ -117,7 +117,7 @@ public class EmprestimoGrid extends javax.swing.JDialog {
         jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cliente Grid");
+        setTitle("Empréstimo Grid");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         panPrincipal.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Resultado"));
@@ -303,8 +303,16 @@ public class EmprestimoGrid extends javax.swing.JDialog {
     }//GEN-LAST:event_tblGridMouseClicked
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        controle.read(null);
-        System.err.println(controle.getAll());
+//        controle.read(null);
+//        System.err.println(controle.getAll());
+    try {
+            int selectedRow = this.tblGrid.getSelectedRow();
+            Emprestimo objetoLinha = model.getObjetoLinha(selectedRow);
+            this.controle.read(objetoLinha);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Emprestimo não selecionado");
+        }
+
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -316,7 +324,7 @@ public class EmprestimoGrid extends javax.swing.JDialog {
             int selectedRow = this.tblGrid.getSelectedRow();
             Emprestimo objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.update(objetoLinha);
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Objeto não selecionado");
         }
 
@@ -331,7 +339,7 @@ public class EmprestimoGrid extends javax.swing.JDialog {
             int selectedRow = this.tblGrid.getSelectedRow();
             Emprestimo objetoLinha = model.getObjetoLinha(selectedRow);
             this.controle.delete(objetoLinha);
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Objeto não selecionado");
         }
 

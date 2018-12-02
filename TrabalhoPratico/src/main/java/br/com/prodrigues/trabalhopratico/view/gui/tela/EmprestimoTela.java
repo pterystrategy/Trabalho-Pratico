@@ -490,23 +490,34 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     @Override
     public void read(Emprestimo object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.preparaMostrar(object);
+        this.setVisible(true);
     }
 
     @Override
     public Emprestimo update(Emprestimo object) {
+        
         preparaUpdate(object);
+        this.setVisible(true);
         if (confirmado) {
             object.setDataDevolucao(edtDataDevolução.getDate());
-             object.setDataEmprestimo(edtDataEmprestimo.getDate());
-             object.setMulta(0.00);
-             object.setObervacoes(edtObervacoes.getText());
-             object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
+            object.setDataEmprestimo(edtDataEmprestimo.getDate());
+            object.setMulta(0.00);
+            object.setObervacoes(edtObervacoes.getText());
+            object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
+            object.setCliente((Cliente)cmbClientes.getSelectedItem());
+            object.setLivros(model.getLista());
+//            model.getLista().forEach((livro) -> {
+//                livro.getEmprestimos().add(object);
+//            });
          } else if (!confirmado) {
             showMessage("CANCELADO PELO USUÁRIO!");
+            this.setVisible(false);
             return null;
+
         } else if (object == null) {
             showMessage("NÃO ENCONTRADO!");
+            this.setVisible(false);
             return null;
         }
         return object;
@@ -558,21 +569,21 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     public void preparaUpdate(Emprestimo object) {
         labTitulo.setText("Cadastro de Editora");
         edtDataDevolução.setDate(object.getDataDevolucao());
-        edtDataDevolução.setEditable(false);
+        edtDataDevolução.setEditable(true);
         edtDataDevolução.setEnabled(false);
         
         edtDataEmprestimo.setDate(object.getDataEmprestimo());
-        edtDataEmprestimo.setEditable(false);
+        edtDataEmprestimo.setEditable(true);
         edtDataEmprestimo.setEnabled(false);
         
         edtMulta.setValue(0.00);
-        edtMulta.setEditable(false);
+        edtMulta.setEditable(true);
         edtMulta.setEnabled(false);
         
         model.setListaA(object.getLivros());
         
        edtObervacoes.setText(object.getObervacoes());
-        edtObervacoes.setEditable(false);
+        edtObervacoes.setEditable(true);
         edtObervacoes.setEnabled(false);
         btnCancel.setVisible(true);
     }
@@ -619,23 +630,27 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         labTitulo.setText("Emprestimo");
         
         edtDataDevolução.setDate(object.getDataDevolucao());
-        edtDataDevolução.setEditable(false);
+        edtDataDevolução.setEditable(true);
         edtDataDevolução.setEnabled(false);
         cmbClientes.setSelectedItem(object.getCliente());
         
         cmbLivros.setVisible(false);
+        labLivro.setVisible(false);
         
         edtDataEmprestimo.setDate(object.getDataEmprestimo());
-        edtDataEmprestimo.setEditable(false);
+        edtDataEmprestimo.setEditable(true);
         edtDataEmprestimo.setEnabled(false);
         
         edtMulta.setText(Double.toString(object.getMulta()));
-        edtMulta.setEditable(false);
+        edtMulta.setEditable(true);
         edtMulta.setEnabled(false);
         
-       
+        edtObervacoesDevolucao.setText(object.getObervacoesDevolucao());
+        edtObervacoesDevolucao.setEditable(true);
+        edtObervacoesDevolucao.setEnabled(false);
+        
         edtObervacoes.setText(object.getObervacoes());
-        edtObervacoes.setEditable(false);
+        edtObervacoes.setEditable(true);
         edtObervacoes.setEnabled(false);
         model.setListaA(object.getLivros());
         btnOk.setText("Deletar");
@@ -645,12 +660,14 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }
     
     private void preparaMostrar(Emprestimo object){
-        
          
         labTitulo.setText("Emprestimo");
+            
+        cmbClientes.setEditable(false);
+        cmbClientes.setEnabled(true);
         
-        
-        
+        cmbLivros.setEditable(false);
+        cmbLivros.setEnabled(true);
         
         edtDataDevolução.setDate(object.getDataDevolucao());
         edtDataDevolução.setEditable(false);
@@ -664,12 +681,12 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtMulta.setEditable(false);
         edtMulta.setEnabled(false);
         
-       
+        model.setListaA(object.getLivros());
+        
         edtObervacoes.setText(object.getObervacoes());
         edtObervacoes.setEditable(false);
         edtObervacoes.setEnabled(false);
         btnCancel.setVisible(true);
-        
         
         btnOk.setText("Ok");
         btnOk.setVisible(true);

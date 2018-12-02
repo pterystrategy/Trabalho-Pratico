@@ -6,16 +6,12 @@
 package br.com.prodrigues.trabalhopratico.view.gui.tela;
 
 import br.com.prodrigues.trabalhopratico.model.Editora;
-import br.com.prodrigues.trabalhopratico.model.Endereco;
 import br.com.prodrigues.trabalhopratico.model.Telefone;
 import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosLetras;
-import br.com.prodrigues.trabalhopratico.model.validações.LimiteDigitosNumeros;
 import br.com.prodrigues.trabalhopratico.model.validações.ValidaEmail;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
-import java.util.ArrayList;
-import java.util.List;
 /**
  *
  * @author prorodrigues
@@ -92,7 +88,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         lblTelefone = new javax.swing.JLabel();
         lblTelefoneFixo = new javax.swing.JLabel();
         edtTelefoneFixo = new javax.swing.JFormattedTextField();
-        jPanel2 = new javax.swing.JPanel();
+        panEndereco = new javax.swing.JPanel();
         lblLogradouroNome = new javax.swing.JLabel();
         lblLocalidadeUF = new javax.swing.JLabel();
         lblBairroDistrito = new javax.swing.JLabel();
@@ -205,7 +201,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblTelefoneFixo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtTelefoneFixo, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
+                        .addComponent(edtTelefoneFixo, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -230,7 +226,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
+        panEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
 
         lblLogradouroNome.setText("Logradouro / Nome:");
 
@@ -258,41 +254,41 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panEnderecoLayout = new javax.swing.GroupLayout(panEndereco);
+        panEndereco.setLayout(panEnderecoLayout);
+        panEnderecoLayout.setHorizontalGroup(
+            panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblLogradouroNome)
                     .addComponent(lblBairroDistrito)
                     .addComponent(lblLocalidadeUF)
                     .addComponent(lblCEP))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(edtLogradouroNome)
                     .addComponent(edtBairroDistrito)
                     .addComponent(edtLocalidadeUF)
                     .addComponent(edtCEP))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        panEnderecoLayout.setVerticalGroup(
+            panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panEnderecoLayout.createSequentialGroup()
+                .addGroup(panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLogradouroNome)
                     .addComponent(edtLogradouroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBairroDistrito)
                     .addComponent(edtBairroDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLocalidadeUF)
                     .addComponent(edtLocalidadeUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCEP)
                     .addComponent(edtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -304,7 +300,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
             .addComponent(labTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panRodape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +309,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panRodape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -366,7 +362,6 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     private javax.swing.JFormattedTextField edtTelefone;
     private javax.swing.JFormattedTextField edtTelefoneFixo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labTitulo;
     private javax.swing.JLabel lblBairroDistrito;
     private javax.swing.JLabel lblCEP;
@@ -376,6 +371,7 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblTelefoneFixo;
+    private javax.swing.JPanel panEndereco;
     private javax.swing.JPanel panRodape;
     // End of variables declaration//GEN-END:variables
     private static EditoraTela tela;
@@ -401,54 +397,44 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         }
         return null;
     }
-    
-    public Editora create(Editora object, Endereco endereco) {
-        
-        this.preparaCreate();
-        if(confirmado){
-            endereco = this.getScreenObject(object);
-            object.addEndereco(endereco);
-            List<Telefone> telefones = this.getScreenObject(object, endereco);
-            object.setTelefones(telefones);
-            return object;
-        }
-        else{
-            showMessage("CANCELADO PELO USUÁRIO!");
-        }
-        return null;
-    }
-
     @Override
     public void read(Editora object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        edtName.setText(object.getNamepublisher());
+        edtName.setEditable(true);
+        edtName.setEnabled(false);
+        
+         
+        edtEmail.setText(object.getEmail());
+        edtEmail.setEditable(true);
+        edtEmail.setEnabled(false);
+        
+        lblTelefone.setVisible(false);
+         edtTelefone.setVisible(false);
+         edtTelefone.setEnabled(false);
+         edtTelefone.setEditable(false);
+         edtTelefone.setText("");
+         
+         lblTelefoneFixo.setVisible(false);
+         edtTelefoneFixo.setVisible(false);
+         
+         
+         panEndereco.setVisible(false);        
+        
+        
+        btnOk.setText("Ok");
+        btnOk.setVisible(true);
+        btnCancel.setVisible(false);
+        
+        this.setVisible(true);
     }
 
     @Override
     public Editora update(Editora object) {
+        preparaUpdate(object);
+        this.setVisible(true);
          if(confirmado){
-            object.setNamepublisher(edtName.getText());
-            object.setEmail(edtEmail.getText());
-            Endereco get = object.getEnderecos().get(0);
-            get.setLogradouro(edtLogradouroNome.getText());
-            get.setLocalidade(edtLocalidadeUF.getText());
-            get.setBairro(edtBairroDistrito.getText());
-            get.setCep(edtCEP.getText());
-            Endereco set = object.getEnderecos().set(0, get);
-            set.setEditora(object);
-             
-            Telefone get1 = object.getTelefones().get(0);
-            Telefone get2 = object.getTelefones().get(1);
-            
-            get1.setNumero(edtTelefone.getText());
-            get2.setNumero(edtTelefoneFixo.getText());
-            
-            Telefone set1 = object.getTelefones().set(0, get1);
-            Telefone set2 = object.getTelefones().set(1, get2);
-            
-            set1.setEditora(object);
-            set2.setEditora(object);
-             
-                
+                object.setNamepublisher(edtName.getText());
+                object.setEmail(edtEmail.getText());
         } else if(!confirmado){
             showMessage("CANCELADO PELO USUÁRIO!");
         }else if (object == null) {
@@ -460,190 +446,57 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
 
     @Override
     public boolean delete(Editora object) {
-         labTitulo.setText("Cadastro de Editora");
-        edtName.setText(object.getNamepublisher());
-        edtName.setEditable(false);
-        edtName.setEnabled(false);
-        
-        edtEmail.setText(object.getEmail());
-        edtEmail.setEditable(false);
-        edtEmail.setEnabled(false);
-        
-        edtTelefone.setText(object.getTelefones().get(0).getNumero());
-        edtTelefone.setEditable(false);
-        edtTelefone.setEnabled(false);
-        
-        edtTelefoneFixo.setText(object.getTelefones().get(0).getNumero());
-        edtTelefoneFixo.setEditable(false);
-        edtTelefoneFixo.setEnabled(false);
-        //ENDEREÇO
-        edtLogradouroNome.setText(object.getEnderecos().get(0).getLogradouro());
-        edtLogradouroNome.setEditable(false);
-        edtLogradouroNome.setEnabled(false);
-        
-        edtBairroDistrito.setText(object.getEnderecos().get(0).getBairro());
-        edtBairroDistrito.setEditable(false);
-        edtBairroDistrito.setEnabled(false);
-        
-        edtLocalidadeUF.setText(object.getEnderecos().get(0).getLocalidade());
-        edtLocalidadeUF.setEditable(false);
-        edtLocalidadeUF.setEnabled(false);
-        
-        edtCEP.setText(object.getEnderecos().get(0).getCep());
-        edtCEP.setEditable(false);
-        edtCEP.setEnabled(false);
-        
-        btnCancel.setVisible(true);
-        this.setVisible(true);
-        if (confirmado) {
-            edtName.setText(object.getNamepublisher());
-            
-        edtEmail.setText(object.getEmail());
-      
-        edtTelefone.setText(object.getTelefones().get(0).getNumero());
-        
-        edtTelefoneFixo.setText(object.getTelefones().get(0).getNumero());
-        //ENDEREÇO
-        edtLogradouroNome.setText(object.getEnderecos().get(0).getLogradouro());
-        
-        edtBairroDistrito.setText(object.getEnderecos().get(0).getBairro());
-   
-        edtLocalidadeUF.setText(object.getEnderecos().get(0).getLocalidade());
-        
-        edtCEP.setText(object.getEnderecos().get(0).getCep());
-         } else if (!confirmado) {
-            showMessage("CANCELADO PELO USUÁRIO!");
-            return false;
-        } else if (object == null) {
-            showMessage("NÃO ENCONTRADO!");
-            return false;
-        }
         return true;
     }
 
     @Override
-    public Editora getScreenObject() {
-        Editora editora = new Editora(edtName.getText(), edtEmail.getText());
-        Endereco screenObject = this.getScreenObject(editora);
-        screenObject.setEditora(editora);
-        List<Telefone> screenObject1 = this.getScreenObject(editora, screenObject);
-        screenObject1.get(0).setEditora(editora);
-        screenObject1.get(1).setEditora(editora);
-        editora.setTelefones(screenObject1);
-        return editora;
-    }
-    
-    public Endereco getScreenObject(Editora editora){
-        
-        Endereco endereco = new Endereco();
-        endereco.setLogradouro(edtLogradouroNome.getText());
-        endereco.setBairro(edtBairroDistrito.getText());
-        endereco.setLocalidade(edtLocalidadeUF.getText());
-        endereco.setCep(edtCEP.getText());
-        
-        return endereco;
-    }
-    
-    public List<Telefone> getScreenObject(Editora editora, Endereco endereco){
-        Telefone teleC = new Telefone();
-        Telefone teleF = new Telefone();
-        System.out.println(edtTelefone.getText());
-        teleC.setNumero(edtTelefone.getText());
-        teleF.setNumero(edtTelefoneFixo.getText());
-        List<Telefone> telefones = new ArrayList<>();
-        telefones.add(teleC);
-        telefones.add(teleF);
-        return telefones;
-    }
-
-    @Override
-    public void limpaTela() {
-        edtBairroDistrito.setText("");
-        edtCEP.setText("");
-        edtEmail.setText("");
-        edtLocalidadeUF.setText("");
-        edtLogradouroNome.setText("");
-        edtName.setText("");
-        edtTelefone.setText("");
-        edtTelefoneFixo.setText("");
-    }
-
-    @Override
     public void preparaUpdate(Editora object) {
-        labTitulo.setText("Cadastro de Editora");
         edtName.setText(object.getNamepublisher());
-        edtName.setEditable(true);
-        edtName.setEnabled(true);
-        
-        edtEmail.setText(object.getEmail());
-        edtEmail.setEditable(true);
-        edtEmail.setEnabled(true);
-        
-        edtTelefone.setText(object.getTelefones().get(0).getNumero());
-        edtTelefone.setEditable(true);
-        edtTelefone.setEnabled(true);
-        
-        edtTelefoneFixo.setText(object.getTelefones().get(0).getNumero());
-        edtTelefoneFixo.setEditable(true);
-        edtTelefoneFixo.setEnabled(true);
-        //ENDEREÇO
-        edtLogradouroNome.setText(object.getEnderecos().get(0).getLogradouro());
-        edtLogradouroNome.setEditable(true);
-        edtLogradouroNome.setEnabled(true);
-        
-        edtBairroDistrito.setText(object.getEnderecos().get(0).getBairro());
-        edtBairroDistrito.setEditable(true);
-        edtBairroDistrito.setEnabled(true);
-        
-        edtLocalidadeUF.setText(object.getEnderecos().get(0).getLocalidade());
-        edtLocalidadeUF.setEditable(true);
-        edtLocalidadeUF.setEnabled(true);
-        
-        edtCEP.setText(object.getEnderecos().get(0).getCep());
-        edtCEP.setEditable(true);
-        edtCEP.setEnabled(true);
-        
-        btnCancel.setVisible(true);
-        this.setVisible(true);
+         edtName.setEnabled(true);
+         edtName.setEditable(true);
+         edtEmail.setText(object.getEmail());
+         edtEmail.setEnabled(true);
+         edtEmail.setEditable(true);
+//         edtEmail.setText("");
+         lblTelefone.setVisible(false);
+         edtTelefone.setVisible(false);
+         edtTelefone.setText("");
+         edtTelefone.setEnabled(false);
+         edtTelefone.setEditable(false);
+         
+         lblTelefoneFixo.setVisible(false);
+         edtTelefoneFixo.setVisible(false);
+         
+         
+         panEndereco.setVisible(false);
+         btnOk.setText("Alterar");
+         btnOk.setVisible(true);
+         btnCancel.setVisible(true);
     }
     
      public void preparaCreate(){
-         labTitulo.setText("Cadastro de Autor");
-        edtName.setText("");
-        edtName.setEditable(true);
-        edtName.setEnabled(true);
-        
-        edtEmail.setText("");
-        edtEmail.setEditable(true);
-        edtEmail.setEnabled(true);
-        
-        edtTelefone.setText("");
-        edtTelefone.setEditable(true);
-        edtTelefone.setEnabled(true);
-        
-        edtTelefoneFixo.setText("");
-        edtTelefoneFixo.setEditable(true);
-        edtTelefoneFixo.setEnabled(true);
-        //ENDEREÇO
-        edtLogradouroNome.setText("");
-        edtLogradouroNome.setEditable(true);
-        edtLogradouroNome.setEnabled(true);
-        
-        edtBairroDistrito.setText("");
-        edtBairroDistrito.setEditable(true);
-        edtBairroDistrito.setEnabled(true);
-        
-        edtLocalidadeUF.setText("");
-        edtLocalidadeUF.setEditable(true);
-        edtLocalidadeUF.setEnabled(true);
-        
-        edtCEP.setText("");
-        edtCEP.setEditable(true);
-        edtCEP.setEnabled(true);
-        
-        btnOk.setText("Salvar");
-        btnOk.setVisible(true);
-        btnCancel.setVisible(true);
+         
+         edtName.setText("");
+         edtName.setEnabled(true);
+         edtName.setEditable(true);
+         edtEmail.setText("");
+         edtEmail.setEnabled(true);
+         edtEmail.setEditable(true);
+         edtEmail.setText("");
+         lblTelefone.setVisible(false);
+         edtTelefone.setVisible(false);
+         edtTelefone.setEnabled(false);
+         edtTelefone.setEditable(false);
+         edtTelefone.setText("");
+         
+         lblTelefoneFixo.setVisible(false);
+         edtTelefoneFixo.setVisible(false);
+         
+         
+         panEndereco.setVisible(false);
+         btnOk.setText("Salvar");
+         btnOk.setVisible(true);
+         btnCancel.setVisible(true);
      }
 
     private void checandoBtnCancel(){
@@ -664,20 +517,24 @@ public class EditoraTela extends ViewGuiSimples implements IViewCrud<Editora> {
         else if (ValidaEmail.validaEmail(edtEmail.getText()) == false) {
             this.showErrorMessage("O Email informado é invalido!");
         }
-//        else if (edtCEP.getText().length() < 8){
-//            this.showErrorMessage("CEP Inválido");
-//        }
+
         else{
             this.setConfirmado(true);
             this.dispose();
         }
     } 
-    
-    public Endereco getEndereco(Editora editora){
-        return this.getScreenObject(editora);
+
+    @Override
+    public Editora getScreenObject() {
+        Editora editora = new Editora();
+        editora.setNamepublisher(edtName.getText());
+        editora.setEmail(edtEmail.getText());
+        editora.getTelefones().add(new Telefone(edtTelefone.getText()));
+        return editora;
     }
-    
-    public List<Telefone> getTelefones(Editora editora){
-        return this.getScreenObject(editora, null);
+    @Override
+    public void limpaTela() {
+        edtName.setText("");
+        edtEmail.setText("");
     }
 }

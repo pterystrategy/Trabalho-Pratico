@@ -54,51 +54,30 @@ public class EditoraControle extends AbstractControleSimples<Editora> {
             model.add(editora);
         }
         return editora;
-        
-//        boolean concluido = false;
-//
-//        do {
-//            if (tela.isConfirmado()) {
-//                if (!editora.getNamepublisher().isEmpty()) {
-//                   concluido = true;
-//                } else {
-//                    tela.showErrorMessage("Falta Nome");
-//                    editora = tela.create(null);
-//                }
-//            } else {
-//                concluido = false;
-//            }
-//        } while ((concluido == false) && (tela.isConfirmado() == true)); 
-//        editora = dao.create(editora);
-//        model.add(editora);
-//        return editora;
+    
     }
 
     @Override
     public void read(Editora objeto) {
-        List<Editora> findAll = this.dao.findAll();
-        String lista = "";
-        lista = findAll.stream().map((editora) -> editora.getId() + "\n" + editora.getNamepublisher() + "\n_________-").reduce(lista, String::concat);
-        this.tela.showMessage(lista);
+        tela.read(objeto);
+        
+        
+//        List<Editora> findAll = this.dao.findAll();
+//        String lista = "";
+//        lista = findAll.stream().map((editora) -> editora.getId() + "\n" + editora.getNamepublisher() + "\n_________-").reduce(lista, String::concat);
+//        this.tela.showMessage(lista);
     }
 
     @Override
     public Editora update(Editora objeto) {
-//////        this.read(null);
-//        long id = tela.askForLong("Digite o código do cliente a editar");
-//        Editora findById;
-        this.tela.preparaUpdate(objeto);
-        Editora update = tela.update(objeto);
-        Editora update1 = dao.update(update);
-        this.model.update(objeto, update1);
-        return update1;
+        Editora ed = tela.update(objeto);
+        Editora edi = dao.update(ed);
+        model.update(ed, edi);
+        return edi;
     }
 
     @Override
     public boolean delete(Editora objeto) {
-//        this.read(null);
-//        long askForLong = this.tela.askForLong("Informe o ID: ");
-//        Editora findById = this.dao.findById(askForLong);
         Editora findById = dao.findById(objeto.getId());
         this.tela.setConfirmado(true);
         boolean delete = this.tela.delete(findById);

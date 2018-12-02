@@ -36,8 +36,8 @@ public class AutorControle extends AbstractControleSimples<Autor> {
             return null;
         }
         else{
-            dao.create(autor);
-            model.add(autor);
+            Autor create = dao.create(autor);
+            model.add(create);
         }
         return autor;
         

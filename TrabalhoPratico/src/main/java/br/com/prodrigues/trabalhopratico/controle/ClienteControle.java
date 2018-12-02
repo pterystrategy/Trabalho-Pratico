@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,30 +45,13 @@ public class ClienteControle extends AbstractControleSimples<Cliente> {
         }
         
         return cliente;
-        
-        
-        
-        
-        
-//        Cliente cli = tela.create(null);
-//        boolean concluido = false;
-//
-//        do {
-//            if (tela.isConfirmado()) {
-//                if (!cli.getCpf().isEmpty()) {
-//                    concluido = true;
-//                } else {
-//                    tela.mostrarErro("Falta CPF");
-//                    cli = tela.create(null);
-//                }
-//            } else {
-//                return null;
-//            }
-//
-//        } while ((concluido != true) && (tela.isConfirmado()));
-//        cli = dao.create(cli);
-//        model.add(cli);
-//        return cli;
+    }
+
+    @Override
+    public List<Cliente> getAll() {
+        List<Cliente> clientes = new ArrayList<>();
+        clientes.addAll(dao.findAll());
+        return clientes;
     }
 
     @Override
