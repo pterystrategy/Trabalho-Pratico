@@ -53,11 +53,8 @@ public class Emprestimo implements Serializable {
     
     @Column(name = "OBS", length = 500)
     private String obervacoes;
-    
-//    @ManyToMany(mappedBy = "emprestimos")
-//    private List<Exemplar> exemplares;
-//    
-    @ManyToMany(mappedBy = "emprestimos", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+       
+    @ManyToMany(mappedBy = "emprestimos", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Livro> livros;
     
     @Column(name = "OBSDEVOLUCAO", length = 225)
@@ -70,14 +67,7 @@ public class Emprestimo implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FKCLIENTE")
     private Cliente cliente;
-    
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "FKLIVRO")
-//    private Livro livro;
-    
-    @Column(name = "MULTA", precision = 3 , scale = 2)
-    private Double multa;
-    
+
     public Long getId() {
         return id;
     }
@@ -171,31 +161,7 @@ public class Emprestimo implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    public double getMulta() {
-        return multa;
-    }
-
-    public void setMulta(double multa) {
-        this.multa = multa;
-    }
-////
-////    public Livro getLivro() {
-////        return livro;
-////    }
-////
-////    public void setLivro(Livro livro) {
-////        this.livro = livro;
-////    }
-
-//    public List<Exemplar> getExemplares() {
-//        return exemplares;
-//    }
-//
-//    public void setExemplares(List<Exemplar> exemplares) {
-//        this.exemplares = exemplares;
-//    }
-
+    
     public List<Livro> getLivros() {
         return livros;
     }

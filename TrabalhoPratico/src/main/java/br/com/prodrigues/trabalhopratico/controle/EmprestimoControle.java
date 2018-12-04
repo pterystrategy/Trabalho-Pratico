@@ -72,22 +72,31 @@ public class EmprestimoControle extends AbstractControleSimples<Emprestimo> {
 
     @Override
     public Emprestimo update(Emprestimo objeto) {
-        preencherCmbs();
-        Emprestimo update = tela.update(objeto);
-        Emprestimo update1 = dao.update(update);
-        this.model.update(update, update1);
-        return update1;
+        Emprestimo update, updateD = null;
+        if(preencherCmbs()){
+          update = tela.update(objeto);
+        }else{
+            update = updateD;
+        }
+        if (update == null) {
+            return updateD;
+        }else{
+            updateD = dao.update(update);
+            this.model.update(update, updateD);
+        }
+        return updateD;
     }
 
     @Override
     public boolean delete(Emprestimo objeto) {
-        preencherCmbs();
-        Emprestimo findById = dao.findById(objeto.getId());
-        this.tela.setConfirmado(true);
-        boolean delete = this.tela.delete(findById);
-        if (delete) {
-            this.model.remove(findById);
-            return this.dao.delete(findById);
+        if(preencherCmbs()){
+        }else{
+            return false;
+        }
+        if (this.tela.delete(objeto)) {
+            this.model.remove(objeto);
+            boolean delete = this.dao.delete(objeto);
+            return delete;
         }
         return false;
     }

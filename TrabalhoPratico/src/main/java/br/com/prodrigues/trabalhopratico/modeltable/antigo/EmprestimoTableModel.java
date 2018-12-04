@@ -6,31 +6,27 @@
 package br.com.prodrigues.trabalhopratico.modeltable.antigo;
 
 import br.com.prodrigues.trabalhopratico.model.Emprestimo;
+import br.com.prodrigues.trabalhopratico.modeltable.UtilTableModel;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author prorodrigues
  */
-public class EmprestimoTableModel extends AbstractTableModel {
+public class EmprestimoTableModel extends UtilTableModel<Emprestimo> {
 
-    List<Emprestimo> lista = new ArrayList<>();
-
-    protected List<Emprestimo> listaoriginal;
-
-    protected String[] columnNames;
-    protected Class[] classes;
+  
 
     public EmprestimoTableModel(List<Emprestimo> listanova) {
         columnNames = new String[]{"ID", "Cliente", "Multa"};
-        classes = new Class[]{Long.class, String.class, String.class, Double.class};
-        lista = listanova;
+        classes = new Class[]{Long.class, String.class, String.class, Date.class};
+        lista = (ArrayList<Emprestimo>) listanova;
     }
 
     public void setLista(List<Emprestimo> lista) {
-        this.lista = lista;
+        this.lista = (ArrayList<Emprestimo>) lista;
 
     }
 
@@ -53,7 +49,7 @@ public class EmprestimoTableModel extends AbstractTableModel {
             case 1:
                 return get.getCliente().getName();
             case 2:
-                return get.getMulta();
+                return get.getDataEmprestimo();
             default:
                 return null;
         }
@@ -61,7 +57,7 @@ public class EmprestimoTableModel extends AbstractTableModel {
     }
 
     @Override
-    public String getColumnName(int column) {
-        return columnNames[column];
+    public void filter(String filtro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
