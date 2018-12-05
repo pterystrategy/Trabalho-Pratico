@@ -19,6 +19,8 @@ import br.com.prodrigues.trabalhopratico.modeltable.LivroTableModel;
 import br.com.prodrigues.trabalhopratico.view.IViewCrud;
 import br.com.prodrigues.trabalhopratico.view.gui.ViewGuiSimples;
 import java.awt.Frame;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +37,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         this.model = model;
         initComponents();
         this.cmbClientes.setRenderer(new ClientesCellRenderer());
-        this.cmbLivros.setRenderer(new LivrosCellRenderer());
     }
 
     public EmprestimoTela(Frame parent, boolean modal, LivroTableModel model, EmprestimoControle controle) {
@@ -44,7 +45,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         this.controle = controle;
         initComponents();
         this.cmbClientes.setRenderer(new ClientesCellRenderer());
-        this.cmbLivros.setRenderer(new LivrosCellRenderer());
         edtMulta.setDocument(new LimiteDigitosNumeros(10));
         edtObervacoesDevolucao.setDocument(new LimiteDigitosLetrasNumeros(100));
         edtObervacoes.setDocument(new LimiteDigitosLetrasNumeros(100));
@@ -114,11 +114,8 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         buttonGroup1 = new javax.swing.ButtonGroup();
         labTitulo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        edtDataEmprestimo = new org.jdesktop.swingx.JXDatePicker();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         labSituacao = new javax.swing.JLabel();
-        edtDataDevolução = new org.jdesktop.swingx.JXDatePicker();
         btnRdPendencia = new javax.swing.JRadioButton();
         btnRdDevolucao = new javax.swing.JRadioButton();
         labMulta = new javax.swing.JLabel();
@@ -129,10 +126,8 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         panSinopse1 = new javax.swing.JScrollPane();
         edtObervacoesDevolucao = new javax.swing.JTextArea();
         labObervacoesDevolucao = new javax.swing.JLabel();
-        cmbLivros = new javax.swing.JComboBox<>();
         cmbClientes = new javax.swing.JComboBox<>();
         labCliente = new javax.swing.JLabel();
-        labLivro = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblGrid = new javax.swing.JTable();
         btnRemove = new javax.swing.JButton();
@@ -141,6 +136,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         panRodape = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
+        edtDateDevo = new javax.swing.JFormattedTextField();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -158,8 +154,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         labTitulo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setText("Data de Devolução");
-
-        jLabel3.setText("Data de Emprestimo");
 
         labSituacao.setText("Situacao:");
 
@@ -190,13 +184,9 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
         labObervacoesDevolucao.setText("Obervações Devolução:");
 
-        cmbLivros.setModel(this.modelLivros);
-
         cmbClientes.setModel(this.modelClientes);
 
-        labCliente.setText("Cliente");
-
-        labLivro.setText("Livro");
+        labCliente.setText("Cliente:");
 
         tblGrid.setModel(this.model);
         jScrollPane2.setViewportView(tblGrid);
@@ -261,111 +251,102 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        edtDateDevo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        edtDateDevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtDateDevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panRodape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labMulta)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(edtMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labSituacao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRdPendencia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRdDevolucao))
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnRemove, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(9, 9, 9)
-                                        .addComponent(labLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(labCliente))
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(edtDateDevo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbClientes, 0, 157, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(labObervacoesDevolucao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(edtDataDevolução, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                                        .addComponent(cmbLivros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cmbClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(labObervacoes)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(labObervacoesDevolucao)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(panSinopse1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnRemove, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-            .addComponent(panRodape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(panSinopse1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(panSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labSituacao)
+                                    .addComponent(labMulta))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(edtMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnRdPendencia)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnRdDevolucao))))
+                            .addComponent(labObervacoes))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labCliente, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(labLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtDataEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtDataDevolução, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtDateDevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labSituacao)
+                    .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRdDevolucao)
                     .addComponent(btnRdPendencia)
-                    .addComponent(btnRdDevolucao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(labSituacao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labMulta))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panSinopse1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(22, 22, 22)
                         .addComponent(labObervacoesDevolucao)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(labObervacoes)))
+                    .addComponent(labObervacoes)
+                    .addComponent(panSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemove)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panRodape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -414,6 +395,10 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         this.checandoBtnEdit();
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void edtDateDevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDateDevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtDateDevoActionPerformed
     private static EmprestimoTela tela;
 
     public static EmprestimoTela getTela() {
@@ -442,20 +427,16 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private javax.swing.JButton btnRemove;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<Cliente> cmbClientes;
-    private javax.swing.JComboBox<Livro> cmbLivros;
-    private org.jdesktop.swingx.JXDatePicker edtDataDevolução;
-    private org.jdesktop.swingx.JXDatePicker edtDataEmprestimo;
+    private javax.swing.JFormattedTextField edtDateDevo;
     private javax.swing.JFormattedTextField edtMulta;
     private javax.swing.JTextArea edtObervacoes;
     private javax.swing.JTextArea edtObervacoesDevolucao;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labCliente;
-    private javax.swing.JLabel labLivro;
     private javax.swing.JLabel labMulta;
     private javax.swing.JLabel labObervacoes;
     private javax.swing.JLabel labObervacoesDevolucao;
@@ -467,25 +448,9 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private javax.swing.JTable tblGrid;
     // End of variables declaration//GEN-END:variables
     private final ClientesComboModel modelClientes = new ClientesComboModel();
-    private List<Cliente> listaClientes;
     private final LivroTableModel model;
-    private final LivrosComboModel modelLivros = new LivrosComboModel();
-    private List<Livro> listaLivros;
     public EmprestimoControle controle;
-
-    public List<Livro> getListaLivros() {
-        return listaLivros;
-    }
-
-    public List<Cliente> getListaClientes() {
-        return listaClientes;
-    }
-
-    public void setListaLivros(List<Livro> listaLivros) {
-        modelLivros.clear();
-        modelLivros.addListLivro(listaLivros);
-    }
-
+   
     public void setListaClientes(List<Cliente> listaClientes) {
         modelClientes.clear();
         modelClientes.addListCliente(listaClientes);
@@ -514,8 +479,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         preparaUpdate(object);
         this.setVisible(true);
         if (confirmado) {
-            object.setDataDevolucao(edtDataDevolução.getDate());
-            object.setDataEmprestimo(edtDataEmprestimo.getDate());
             object.setObervacoes(edtObervacoes.getText());
             object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
             object.setCliente((Cliente) cmbClientes.getSelectedItem());
@@ -553,9 +516,10 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     @Override
     public Emprestimo getScreenObject() {
         Emprestimo object = new Emprestimo();
-        object.setDataDevolucao(edtDataDevolução.getDate());
-        object.setDataEmprestimo(edtDataEmprestimo.getDate());
+        
         object.setObervacoes(edtObervacoes.getText());
+        object.setDataDevolucao(this.controle.gerarData());
+        object.setDataEmprestimo(Date.from(Instant.now()));
         object.setObervacoesDevolucao(edtObervacoesDevolucao.getText());
         object.setCliente((Cliente) cmbClientes.getSelectedItem());
         object.setLivros(model.getLista());
@@ -574,9 +538,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     @Override
     public void preparaUpdate(Emprestimo object) {
         labTitulo.setText("Cadastro de Editora");
-        edtDataDevolução.setDate(object.getDataDevolucao());
-        edtDataDevolução.setEditable(true);
-        edtDataDevolução.setEnabled(true);
 
         edtObervacoesDevolucao.setText(object.getObervacoesDevolucao());
         edtObervacoesDevolucao.setEditable(true);
@@ -590,48 +551,38 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         
         jLabel1.setVisible(true);
         jLabel1.setText("Data de Devolução: ");
-        jLabel3.setVisible(false);
-
-        labLivro.setVisible(false);
-        cmbLivros.setVisible(false);
-
-        edtDataEmprestimo.setVisible(false);
-
+        
         labMulta.setVisible(false);
         edtMulta.setVisible(false);
         model.limpar();
-        for (Livro livro : object.getLivros()) {
+        object.getLivros().forEach((livro) -> {
             model.add(livro);
-        }
+        });
 
+        btnOk.setText("Alterar");
         btnCancel.setVisible(true);
     }
 
     private void preparaCreate() {
-
-        edtDataDevolução.setDate(Date.from(Instant.now()));
-        edtDataDevolução.setEditable(true);
-        edtDataDevolução.setEnabled(true);
-        labLivro.setVisible(false);
-        cmbLivros.setVisible(false);
-
-        jLabel3.setVisible(false);
-        edtDataEmprestimo.setVisible(false);
-
-        labMulta.setVisible(false);
-        edtMulta.setVisible(false);
-
+        tblGrid.setEnabled(true);
+        
         labTitulo.setText("Emprestimo");
         edtMulta.setText("");
         edtMulta.setEditable(true);
         edtMulta.setEnabled(true);
         
-        tblGrid.setEnabled(true);
+        
 
         edtObervacoesDevolucao.setText("");
         edtObervacoesDevolucao.setEditable(true);
         edtObervacoesDevolucao.setEnabled(true);
 
+        labMulta.setVisible(false);
+        edtMulta.setVisible(false);
+        DateFormat dateFormat = new SimpleDateFormat();
+        String format = dateFormat.format(this.controle.gerarData());
+        edtDateDevo.setText(format);
+        
         edtObervacoes.setText("");
         edtObervacoes.setEditable(true);
         edtObervacoes.setEnabled(true);
@@ -646,19 +597,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     private void preparaDelete(Emprestimo object) {
 
         labTitulo.setText("Emprestimo");
-
-        edtDataDevolução.setDate(object.getDataDevolucao());
-        edtDataDevolução.setEditable(true);
-        edtDataDevolução.setEnabled(false);
-        cmbClientes.setSelectedItem(object.getCliente());
-
-        cmbLivros.setVisible(false);
-        labLivro.setVisible(false);
-
-        edtDataEmprestimo.setDate(object.getDataEmprestimo());
-        edtDataEmprestimo.setEditable(true);
-        edtDataEmprestimo.setEnabled(false);
-
+        
         tblGrid.setEnabled(false);
         edtMulta.setEditable(true);
         edtMulta.setEnabled(false);
@@ -684,16 +623,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         cmbClientes.setEditable(false);
         cmbClientes.setEnabled(true);
 
-        cmbLivros.setVisible(false);
-        labLivro.setVisible(false);
-
-        jLabel3.setVisible(false);
-        edtDataEmprestimo.setVisible(false);
-
-        edtDataDevolução.setDate(object.getDataDevolucao());
-        edtDataDevolução.setEditable(false);
-        edtDataDevolução.setEnabled(false);
-
         edtObervacoes.setText(object.getObervacoes());
         edtObervacoes.setEditable(false);
         edtObervacoes.setEnabled(false);
@@ -703,10 +632,6 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
         edtObervacoesDevolucao.setEnabled(false);
 
         tblGrid.setEnabled(false);
-
-        edtDataEmprestimo.setDate(object.getDataEmprestimo());
-        edtDataEmprestimo.setEditable(false);
-        edtDataEmprestimo.setEnabled(false);
 
         edtMulta.setEditable(false);
         edtMulta.setEnabled(false);
@@ -744,7 +669,7 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
 
     private void removerObjeto() {
         try {
-            if (!tblGrid.isEditing()) {
+            if (!tblGrid.isEnabled()) {
 
             } else {
                 int selectedRow = this.tblGrid.getSelectedRow();
@@ -758,17 +683,11 @@ public class EmprestimoTela extends ViewGuiSimples implements IViewCrud<Empresti
     }
 
     private boolean checandoBtnAdd() {
-        if (tblGrid.isEditing()) {
-            confirmado = true;
-            return true;
-        }
-        else{
-            return false;
-        }
+        return tblGrid.isEnabled();
     }
 
     private void checandoBtnEdit() {
-        if (!tblGrid.isEditing()) {
+        if (!tblGrid.isEnabled()) {
 
         } 
     }
